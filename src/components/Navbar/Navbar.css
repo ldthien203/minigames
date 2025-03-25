@@ -1,0 +1,84 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(51, 51, 51, 255);
+  color: #ffffff;
+}
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  margin-right: 20px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.user-dropdown {
+  position: relative;
+}
+
+.username {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #ffffff;
+  color: #000000;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.dropdown button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: rgba(51, 51, 51, 255);
+    padding: 10px;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+}

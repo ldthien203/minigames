@@ -1,0 +1,74 @@
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.board-section {
+  flex: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls-section {
+  color: #fdfaf6;
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+}
+
+.controls-container {
+  background: #bf3131;
+  margin-right: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.controls-container p {
+  font-size: 18px;
+}
+
+.control-section h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.board-size-input {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.message-status {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #fdfaf6;
+}
+
+.reset-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #4d55cc;
+  color: white;
+  width: 140px;
+  margin-top: 10px;
+}
+
+.reset-button:hover {
+  background-color: #211c84;
+}

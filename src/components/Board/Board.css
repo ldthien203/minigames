@@ -1,0 +1,24 @@
+.board {
+  border: 2px solid black;
+  display: grid;
+  height: 600px;
+  width: 600px;
+  gap: 1px;
+  grid-template-columns: repeat(var(--board-size), 1fr);
+  grid-template-rows: repeat(var(--board-size), 1fr);
+}
+
+.board .square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightblue;
+  color: #fe4f2d;
+  border: 1px solid gray;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.board .square:hover {
+  background-color: #d2691e;
+}

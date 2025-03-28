@@ -1,10 +1,11 @@
+import Fragment from 'react'
 import GameList from '../components/Games/GameList'
 
 const Games = () => {
   return (
-    <div>
+    <Fragment>
       <GameList />
-    </div>
+    </Fragment>
   )
 }
 

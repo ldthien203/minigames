@@ -1,11 +1,8 @@
-import {CustomButton} from '../hooks/useAuth'
+import '../App.css'
+import {Fragment} from 'react'
 
 const Home = () => {
-  return (
-    <div>
-      <CustomButton />
-    </div>
-  )
+  return <Fragment style={{height: '100vh'}}>HOME</Fragment>
 }
 
 export default Home

@@ -3,12 +3,12 @@ import {useNavigate} from 'react-router-dom'
 import './GameList.css'
 
 const games = [
-  {id: 'caro', name: 'Caro', image: require('../../assets/caro.png')},
-  {id: 'game 2', name: 'Game 2', image: require('../../assets/caro.png')},
-  {id: 'game 3', name: 'Game 3', image: require('../../assets/caro.png')},
-  {id: 'game 4', name: 'Game 4', image: require('../../assets/caro.png')},
-  {id: 'game 5', name: 'Game 5', image: require('../../assets/caro.png')},
-  {id: 'game 6', name: 'Game 6', image: require('../../assets/caro.png')},
+  {id: 'caro', name: 'Caro', image: require('../../assets/img/caro.png')},
+  {id: 'game 2', name: 'Game 2', image: require('../../assets/img/caro.png')},
+  {id: 'game 4', name: 'Game 4', image: require('../../assets/img/caro.png')},
+  {id: 'game 5', name: 'Game 5', image: require('../../assets/img/caro.png')},
+  {id: 'game 3', name: 'Game 3', image: require('../../assets/img/caro.png')},
+  {id: 'game 6', name: 'Game 6', image: require('../../assets/img/caro.png')},
 ]
 
 const GameList = () => {

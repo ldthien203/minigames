@@ -1,10 +1,23 @@
 import Navbar from '../Navbar/Navbar'
+import '../../App.css'
+import {Fragment} from 'react'
+import IconLink from '../IconLink/IconLink'
+import './Header.css'
 
 const Header = () => {
   return (
-    <div className="header">
-      <Navbar />
-    </div>
+    <Fragment>
+      <div id="preloder">
+        <div class="loader"></div>
+      </div>
+
+      <header className="header-section">
+        <div className="header-wrap">
+          <IconLink showTest={true} />
+          <Navbar />
+        </div>
+      </header>
+    </Fragment>
   )
 }
 

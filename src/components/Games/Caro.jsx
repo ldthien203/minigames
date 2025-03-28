@@ -10,7 +10,6 @@ const Caro = () => {
     resetGame,
     messageStatus,
     boardSize,
-    setBoardSize,
     updateBoardSize,
   } = useCaro()
 

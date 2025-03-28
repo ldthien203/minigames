@@ -1,0 +1,13 @@
+.header-section {
+  position: absolute;
+  left: 5%;
+  top: 0;
+  width: 90%;
+  z-index: 99;
+  padding: 15px 15px 0;
+}
+
+.header-wrap {
+  max-width: 1496px;
+  margin: 0 auto;
+}

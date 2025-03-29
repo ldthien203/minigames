@@ -1,0 +1,43 @@
+.intro-text-box {
+  padding: 0 10px;
+  max-width: 350px;
+}
+
+.intro-text-box .top-meta {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.intro-text-box .top-meta a {
+  color: #b01ba5;
+  text-decoration: none;
+}
+
+.intro-text-box h3 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 30px;
+  max-width: 370px;
+}
+
+.intro-text-box p {
+  font-size: 15px;
+  font-weight: 500;
+  color: #68647d;
+  margin-bottom: 25px;
+}
+
+.intro-text-box .read-more {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  color: #fff;
+  text-decoration: none;
+}
+
+.intro-text-box .read-more img {
+  margin-left: 13px;
+}

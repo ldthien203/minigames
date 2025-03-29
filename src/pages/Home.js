@@ -1,11 +1,13 @@
 import '../App.css'
 import {Fragment} from 'react'
 import HeroSection from '../components/HeroSection/HeroSection'
+import IntroList from '../components/IntroList/IntroList'
 
 const Home = () => {
   return (
-    <Fragment style={{height: '100vh'}}>
+    <Fragment>
       <HeroSection />
+      <IntroList />
     </Fragment>
   )
 }

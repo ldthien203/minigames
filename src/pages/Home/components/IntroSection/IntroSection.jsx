@@ -1,7 +1,7 @@
-import './IntroList.css'
-import IntroCard from '../IntroCard/IntroCard'
+import './IntroSection.css'
+import IntroCard from '../../../../components/IntroCard/IntroCard'
 
-const IntroList = () => {
+const IntroSection = () => {
   return (
     <section className="intro-section">
       <div className="container">
@@ -33,4 +33,4 @@ const IntroList = () => {
   )
 }
 
-export default IntroList
+export default IntroSection

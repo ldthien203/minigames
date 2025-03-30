@@ -15,7 +15,7 @@ const HeroSection = () => {
           <Link to="#" className="site-button">
             read more
             <img
-              src={require('../../assets/img/icons/double-arrow.png')}
+              src={require('../../../../assets/img/icons/double-arrow.png')}
               alt="read-more-button"
             />
           </Link>

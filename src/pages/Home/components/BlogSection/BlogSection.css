@@ -1,0 +1,94 @@
+.blog-section {
+  background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
+  padding: 100px 0;
+}
+
+.blog-section .container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1175px;
+}
+
+.blog-section .row {
+  display: flex;
+}
+
+.blog-section .col-1 {
+  flex: 0 0 75%;
+}
+
+.blog-section .col-1 .section-title h2 {
+  color: #fff;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.blog-section .col-1 .blog-filter {
+  display: block;
+  list-style: none;
+  margin-bottom: 75px;
+  padding: 0;
+}
+
+.blog-section .col-1 .blog-filter {
+  display: inline-block;
+}
+
+.blog-section .col-1 .blog-item {
+  margin-top: 50px;
+}
+
+.blog-section .col-1 li {
+  display: inline-block;
+}
+
+.blog-section .col-1 li a {
+  display: block;
+  color: #fff;
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  background: #6f2b95;
+  line-height: 1.1;
+  margin-right: 7px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.blog-section .col-1 li a:hover {
+  background: #b01ba5;
+}
+
+.blog-section .col-2 {
+  flex: 0 0 25%;
+}
+
+.blog-section .col-2 .widget-item {
+  margin-bottom: 85px;
+}
+
+.blog-section .col-2 .widget-item:last-child {
+  margin-bottom: 0;
+}
+
+.blog-section .col-2 .widget-item .widget-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  padding-left: 38px;
+  margin-bottom: 48px;
+  font-size: 24px;
+}
+
+.blog-section .col-2 .widget-item .add {
+  text-decoration: none;
+}
+
+.blog-section .col-2 .widget-item .add img {
+  width: 100%;
+}

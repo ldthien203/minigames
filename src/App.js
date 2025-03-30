@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from 'react-router'
 import './App.css'
 import Caro from './components/Games/Caro'
-import Home from './pages/Home'
+import Home from './pages/Home/Home'
 import Games from './pages/Games'
 import Login from './pages/Login/Login'
 import Profile from './pages/Profile/Profile'

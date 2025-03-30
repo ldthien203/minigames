@@ -1,0 +1,42 @@
+.categories-widget {
+  background: #34164b;
+  padding: 25px 0;
+}
+
+.categories-widget .widget-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  padding-left: 38px;
+  margin-bottom: 48px;
+}
+
+.categories-widget ul {
+  list-style: none;
+  padding: 0 38px;
+  margin: 0;
+}
+
+.categories-widget ul li {
+  display: block;
+}
+
+.categories-widget ul li a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 16px;
+  color: #68647d;
+  margin-bottom: 15px;
+  padding-right: 19px;
+  transition: all 0.2s;
+  background-image: url('../../assets/img/icons/double-arrow.png');
+  background-repeat: no-repeat;
+  background-position: right -120% center;
+  background-size: 11px;
+}
+
+.categories-widget ul li a:hover {
+  color: #b01ba5;
+  background-position: right center;
+}

@@ -1,31 +1,48 @@
+import {useState} from 'react'
 import {Link} from 'react-router'
 import './MainMenu.css'
 
-const MainMenu = ({showSubMenu = true}) => {
+const MainMenu = () => {
+  const [activeMenu, setActiveMenu] = useState(null)
+
+  const mainMenuList = [
+    {id: 'home', link: '/home', menu: 'Home'},
+    {
+      id: 'games',
+      link: '/games',
+      menu: 'Games',
+      subMenu: [
+        {id: 'caro', link: '/games/caro', menu: 'Caro'},
+        {id: 'chess', link: '#', menu: 'Chess'},
+      ],
+    },
+
+    {id: 'reviews', link: '/reviews', menu: 'Reviews'},
+    {id: 'news', link: '/news', menu: 'News'},
+    {id: 'contact', link: '/contact', menu: 'Contact'},
+  ]
+
   return (
     <ul className="main-menu">
-      <li className="show-arrow">
-        <Link to="/home">Home</Link>
-      </li>
-      <li className="has-submenu show-arrow">
-        <Link to="/games">Games</Link>
-        {showSubMenu && (
-          <ul className="sub-menu">
-            <li>
-              <Link to="/game-single">Game Single</Link>
-            </li>
-          </ul>
-        )}
-      </li>
-      <li className="show-arrow">
-        <Link to="/reviews">Reviews</Link>
-      </li>
-      <li className="show-arrow">
-        <Link to="/news">News</Link>
-      </li>
-      <li className="show-arrow">
-        <Link to="/contact">Contact</Link>
-      </li>
+      {mainMenuList.map(el => (
+        <li
+          key={el.id}
+          className="main-list show-arrow"
+          onMouseEnter={() => el.subMenu && setActiveMenu(el.id)}
+          onMouseLeave={() => setActiveMenu(false)}
+        >
+          <Link to={el.link}>{el.menu}</Link>
+          {el.subMenu && activeMenu === el.id && (
+            <ul className="sub-menu">
+              {el.subMenu.map(sub => (
+                <li key={sub.id} className="sub-list">
+                  <Link to={sub.link}>{sub.menu}</Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
     </ul>
   )
 }

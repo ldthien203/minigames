@@ -10,14 +10,14 @@
   padding: 0;
 }
 
-.main-menu li {
+.main-menu .main-list {
   flex: 1;
   text-align: center;
   position: relative;
   max-width: 100px;
 }
 
-.main-menu li a {
+.main-menu .main-list a {
   color: white;
   text-decoration: none;
   padding: 10px 15px;
@@ -42,7 +42,7 @@
   background-image: url('../../assets/img/icons/arrow-down-color.png');
 }
 
-.main-menu li:hover > a {
+.main-menu .main-list:hover > a {
   color: #b01ba5;
 }
 
@@ -51,27 +51,60 @@
   top: 100%;
   left: 0;
   background-color: #fff;
+  color: #000;
   list-style: none;
   padding: 0;
   margin: 0;
-  min-width: 150px;
-  display: none;
+  min-width: 170px;
+  border-radius: 5px;
 }
 
-.sub-menu li {
+.sub-menu .sub-list {
   border-bottom: 1px solid #444;
 }
 
-.sub-menu li:last-child {
+.sub-menu .sub-list:last-child {
   border-bottom: none;
 }
 
-.sub-menu a {
+.sub-menu .sub-list:hover > a {
+  color: #b01ba5;
+}
+
+.sub-menu .sub-list a {
   padding: 10px;
   display: block;
   color: #000;
 }
 
-.has-submenu:hover .sub-menu {
-  display: block;
+.sub-menu .sub-list a::before,
+.sub-menu .sub-list a::after {
+  content: none;
+}
+
+@media (max-width: 576px) {
+  .main-menu {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .main-menu {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .main-menu .main-list {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+
+@media (min-width: 1281px) {
 }

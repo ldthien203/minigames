@@ -23,7 +23,9 @@ const Navbar = () => {
       </Link>
 
       <nav className="top-nav-area">
-        <MainMenu />
+        <div className={`main-menu-container ${isMenuOpen ? 'show-menu' : ''}`}>
+          <MainMenu />
+        </div>
         <div className="user-panel">
           {user ? (
             <>
@@ -31,7 +33,7 @@ const Navbar = () => {
                 {user?.name || 'Guest'}
               </span>
               {isOpen && (
-                <div className="dropdown">
+                <div className="drop-down">
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
@@ -44,8 +46,17 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-      <div className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        ☰
+
+      <div className="menu-toggle-container">
+        <button
+          className="menu-toggle"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          ☰
+        </button>
+        <div className={`mobile-menu ${isMenuOpen ? 'show-menu' : ''}`}>
+          <MainMenu />
+        </div>
       </div>
     </div>
   )

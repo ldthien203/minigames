@@ -8,7 +8,7 @@ const Category = ({title, items = []}) => {
       <ul>
         {items.map(item => {
           return (
-            <li>
+            <li key={item}>
               <Link to="#">{item}</Link>
             </li>
           )

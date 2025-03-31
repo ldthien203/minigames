@@ -1,0 +1,107 @@
+.intro-video-section {
+  display: flex;
+  align-items: flex-end;
+  background-image: url('../../../../assets/img/promo-bg.jpg');
+  height: 757px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  position: relative;
+}
+
+.intro-video-section .video-play-btn {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  top: calc(50% - 60px);
+  left: calc(50% - 60px);
+  text-align: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  border-style: none;
+  cursor: pointer;
+}
+
+.intro-video-section .video-play-btn img {
+  padding-top: 10px;
+}
+
+.intro-video-section .overlay-part {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1999;
+  cursor: pointer;
+}
+
+.intro-video-section .video-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+}
+
+.intro-video-section .video-container .close-video {
+  background: transparent;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  font-size: 30px;
+  padding-bottom: 10px;
+  transform: translate(980px, 0);
+}
+
+.intro-video-section .video-container .video {
+  width: 1000px;
+  height: 550px;
+}
+
+.intro-video-section .text-container {
+  width: 100%;
+  max-width: 1175px;
+  padding: 0 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.intro-video-section .text-container .video-text {
+  margin-bottom: 80px;
+  padding: 27px 0 27px 25px;
+  position: relative;
+}
+
+.intro-video-section .text-container .video-text::after {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 100%;
+  left: -22px;
+  top: 0;
+  border-left: 3px solid #de46d6;
+  background: #fff;
+  box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.5);
+}
+
+.intro-video-section .text-container .video-text h2 {
+  font-size: 48px;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.intro-video-section .text-container .video-text p {
+  font-size: 18px;
+  color: #a3a1b3;
+  font-weight: 500;
+  margin-bottom: 0;
+}

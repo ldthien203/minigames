@@ -43,3 +43,10 @@
   color: #9190a5;
   opacity: 0.2;
 }
+
+@media (max-width: 1024px) {
+  .footer-section .footer-left-pic,
+  .footer-section .footer-right-pic {
+    display: none;
+  }
+}

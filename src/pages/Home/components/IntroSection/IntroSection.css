@@ -14,7 +14,20 @@
   display: flex;
 }
 
-.intro-section .col {
-  flex: 0 0 33.333333%;
-  max-width: 33.333333%;
+@media (max-width: 768px) {
+  .intro-section .row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .intro-section .col {
+    padding: 40px 50px;
+  }
+}
+
+@media (min-width: 768px) {
+  .intro-section .col {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
 }

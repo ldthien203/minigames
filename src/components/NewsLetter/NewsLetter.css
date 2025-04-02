@@ -81,3 +81,33 @@
 .newsletter-section .site-button img {
   margin-left: 13px;
 }
+
+@media (min-width: 577px) {
+  .newsletter-section .container {
+    max-width: 540px;
+  }
+  .newsletter-section .newsletter-form input {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .newsletter-section .container {
+    max-width: 720px;
+  }
+  .newsletter-section .newsletter-form input {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .newsletter-section .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .newsletter-section .container {
+    max-width: 1200px;
+  }
+}

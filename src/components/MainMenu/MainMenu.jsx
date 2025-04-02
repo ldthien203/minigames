@@ -27,7 +27,7 @@ const MainMenu = () => {
       {mainMenuList.map(el => (
         <li
           key={el.id}
-          className="main-list show-arrow"
+          className={`main-list ${el.subMenu ? 'show-arrow' : ''}`}
           onMouseEnter={() => el.subMenu && setActiveMenu(el.id)}
           onMouseLeave={() => setActiveMenu(false)}
         >

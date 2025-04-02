@@ -73,3 +73,13 @@
 .hero-section .site-button img {
   margin-left: 13px;
 }
+
+@media (max-width: 767px) {
+  .hero-section .hero-title {
+    font-size: 45px;
+  }
+
+  .hero-section .hero-text {
+    font-size: 18px;
+  }
+}

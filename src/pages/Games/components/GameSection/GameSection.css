@@ -1,0 +1,112 @@
+.games-section {
+  padding: 108px 0;
+  background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
+}
+
+.games-section .container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.games-section .container .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.games-section .container .col-1 {
+  position: relative;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.games-section .container .col-1 .site-pagination {
+  display: flex;
+}
+
+.games-section .col-1 .site-pagination a {
+  height: 44px;
+  width: 38px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  text-decoration: none;
+}
+
+.games-section .col-1 .site-pagination a:first-child {
+  margin-left: 0;
+  margin: 0 10px;
+  color: #b01ba5;
+  border: 2px solid #b01ba5;
+}
+
+.games-section .col-1 .site-pagination a.active {
+  width: 44px;
+}
+
+.games-section .container .row {
+  display: flex;
+}
+
+.games-section .container .col-2 .widget-item {
+  margin-bottom: 50px;
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .games-section .container {
+    max-width: 540px;
+  }
+
+  .games-section .row .col-1 {
+    position: relative;
+    width: 100%;
+  }
+
+  .games-section .row .col-1 .child-col {
+    position: relative;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .games-section .container {
+    max-width: 720px;
+  }
+
+  .games-section .row .col-1 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }
+
+  .games-section .row .col-1 .child-col {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .games-section .container {
+    max-width: 960px;
+  }
+
+  .games-section .row .col-1 {
+    flex: 2;
+    max-width: 66.666667%;
+  }
+
+  .games-section .row .col-1 .child-col {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+
+  .games-section .row .col-2 {
+    flex: 1;
+    max-width: 33.333333%;
+  }
+}

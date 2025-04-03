@@ -2,10 +2,9 @@
   display: flex;
   align-items: stretch;
   gap: 10px;
-  margin-right: 15px;
 }
 
-.card-image {
+.card-container .card-image {
   flex: 1;
   display: flex;
   align-items: center;
@@ -13,7 +12,7 @@
   height: 100%;
 }
 
-.card-image img {
+.card-container .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -21,40 +20,68 @@
   border-style: none;
 }
 
-.intro-text-box {
+.card-container .intro-text-box {
   flex: 2;
   padding: 0 10px;
-  max-width: 350px;
+  /* max-width: 350px; */
   height: auto;
+  position: relative;
 }
 
-.intro-text-box .top-meta {
+.card-container .intro-text-box .rating {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-container .intro-text-box .rating h5 {
+  text-align: right;
+  font-size: 36px;
+  color: #fff;
+  font-weight: 900;
+  margin: 0 15px 0 0;
+}
+
+.card-container .intro-text-box .rating h5 i {
+  font-weight: 500;
+  font-size: 16px;
+  font-style: italic;
+  color: #65607b;
+  text-transform: uppercase;
+  padding-right: 10px;
+}
+
+.card-container .intro-text-box .rating h5 span {
+  color: #c313b7;
+}
+
+.card-container .intro-text-box .top-meta {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 20px;
   color: #fff;
 }
 
-.intro-text-box .top-meta a {
+.card-container .intro-text-box .top-meta a {
   color: #b01ba5;
   text-decoration: none;
 }
 
-.intro-text-box h3 {
+.card-container .intro-text-box h3 {
   color: #fff;
   font-size: 22px;
   margin-bottom: 30px;
   max-width: 370px;
 }
 
-.intro-text-box p {
+.card-container .intro-text-box p {
   font-size: 15px;
   font-weight: 500;
   color: #68647d;
   margin-bottom: 25px;
 }
 
-.intro-text-box .read-more {
+.card-container .intro-text-box .read-more {
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 700;
@@ -63,7 +90,7 @@
   text-decoration: none;
 }
 
-.intro-text-box .read-more img {
+.card-container .intro-text-box .read-more img {
   margin-left: 13px;
 }
 
@@ -75,13 +102,26 @@
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  .card-image {
+  .card-container {
+    max-width: 720px;
+  }
+
+  .card-container .card-image {
     width: 250px;
   }
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-  .card-image {
+  .card-container {
+    max-width: 960px;
+  }
+  .card-container .card-image {
     width: 350px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .card-container {
+    max-width: 1200px;
   }
 }

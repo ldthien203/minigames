@@ -1,14 +1,14 @@
 import {BrowserRouter, Route, Routes} from 'react-router'
 import './App.css'
+import MainLayout from './components/MainLayout/MainLayout'
 import Caro from './components/Games/Caro'
 import Home from './pages/Home/Home'
-import Games from './pages/Games'
+import Games from './pages/Games/Games'
 import Login from './pages/Login/Login'
 import Profile from './pages/Profile/Profile'
-import Reviews from './pages/Reviews'
+import Reviews from './pages/Reviews/Reviews'
 import Contact from './pages/Contact'
-import News from './pages/News'
-import MainLayout from './components/MainLayout/MainLayout'
+import News from './pages/News/News'
 
 const MainRouter = [
   {path: '/home', component: <Home />},

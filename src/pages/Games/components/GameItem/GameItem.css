@@ -1,0 +1,31 @@
+.game-item {
+  margin-bottom: 80px;
+  padding: 0 15px;
+}
+
+.game-item img {
+  max-width: 100%;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.game-item h5 {
+  font-size: 20px;
+  color: #fff;
+  padding-top: 30px;
+  margin-bottom: 20px;
+}
+
+.game-item .read-more {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  color: #b01ba5;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.game-item .read-more img {
+  margin-left: 13px;
+}

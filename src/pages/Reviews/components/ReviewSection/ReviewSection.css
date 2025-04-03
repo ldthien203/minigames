@@ -1,0 +1,34 @@
+.review-section {
+  padding: 104px 0;
+  background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
+}
+
+.review-section .container {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review-section .container .review-item {
+  padding: 40px 0;
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .review-section .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .review-section .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .review-section .container {
+    max-width: 960px;
+  }
+}

@@ -1,0 +1,62 @@
+.page-top-section {
+  height: 160px;
+  padding-top: 210px;
+}
+
+.set-bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.set-bg.games {
+  background-image: url('../../assets/img/page-top-bg/1.jpg');
+}
+
+.set-bg.reviews {
+  background-image: url('../../assets/img/page-top-bg/2.jpg');
+}
+
+.set-bg.news {
+  background-image: url('../../assets/img/page-top-bg/3.jpg');
+}
+
+.set-bg.contact {
+  background-image: url('../../assets/img/page-top-bg/4.jpg');
+}
+
+.page-top-section .page-info {
+  max-width: 1300px;
+  margin: 0 auto;
+  font-size: 16px;
+  color: #fff;
+  padding-left: 60px;
+}
+
+.page-top-section .page-info h2 {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.page-top-section .page-info .site-breadcrumb a:first-child {
+  margin-left: 0;
+}
+
+.page-top-section .site-breadcrumb a,
+.page-top-section .site-breadcrumb span {
+  font-size: italic;
+  color: #fff;
+  margin: 0 10px;
+  font-weight: 700;
+}
+
+.page-top-section .site-breadcrumb a {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.page-top-section .site-breadcrumb span {
+  color: #c313b7;
+}

@@ -63,3 +63,12 @@
   font-weight: 700;
   font-style: italic;
 }
+
+@media (max-width: 768px) {
+  .featured-section .featured-bg {
+    display: none;
+  }
+  .featured-section .featured-box {
+    width: 100%;
+  }
+}

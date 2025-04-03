@@ -1,0 +1,4 @@
+.trending-widget {
+  display: flex;
+  flex-direction: column;
+}

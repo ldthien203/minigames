@@ -9,7 +9,9 @@
 }
 
 .tw-item .tw-thumb img {
-  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-style: none;
 }
 
 .tw-item .tw-text .tw-meta {
@@ -27,6 +29,8 @@
 
 .tw-item .tw-text h5 {
   font-size: 14px;
+  font-weight: 500;
   color: #fff;
   line-height: 1.5;
+  margin: 0;
 }

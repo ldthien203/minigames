@@ -6,7 +6,7 @@ const MainMenu = () => {
   const [activeMenu, setActiveMenu] = useState(null)
 
   const mainMenuList = [
-    {id: 'home', link: '/home', menu: 'Home'},
+    {id: 'home', link: '/', menu: 'Home'},
     {
       id: 'games',
       link: '/games',

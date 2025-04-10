@@ -7,7 +7,7 @@ const IntroCard = ({
   title,
   description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....',
   isShowDesc = true,
-  link = 'read more',
+  link = '/',
   isShowLink = true,
   img = 1,
   isShowImg = false,
@@ -35,13 +35,13 @@ const IntroCard = ({
         )}
         <div className="top-meta">
           {date} / in
-          <Link to="#"> {category}</Link>
+          <Link to={`/${category}`}> {category}</Link>
         </div>
         <h3>{title}</h3>
         {isShowDesc && <p>{description}</p>}
         {isShowLink && (
-          <Link to="#" className="read-more">
-            {link}
+          <Link to={link} className="read-more">
+            Read more
             <img
               src={require('../../assets/img/icons/double-arrow.png')}
               alt="double-arrow"

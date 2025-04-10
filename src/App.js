@@ -11,7 +11,7 @@ import Contact from './pages/Contact'
 import News from './pages/News/News'
 
 const MainRouter = [
-  {path: '/home', component: <Home />},
+  {path: '/', component: <Home />},
   {path: '/profile', component: <Profile />},
   {path: '/reviews', component: <Reviews />},
   {path: '/contact', component: <Contact />},

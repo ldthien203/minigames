@@ -1,0 +1,30 @@
+.blog-filter {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: 75px;
+  padding-left: 0;
+}
+
+.blog-filter li {
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+}
+
+.blog-filter li a {
+  display: block;
+  color: #fff;
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  background: #6f2b95;
+  line-height: 1.1;
+  margin-right: 7px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.blog-filter li a:hover {
+  background: #b01ba5;
+}

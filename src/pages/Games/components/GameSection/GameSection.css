@@ -22,38 +22,6 @@
   padding: 0 15px;
 }
 
-.games-section .container .col-1 .site-pagination {
-  display: flex;
-}
-
-.games-section .col-1 .site-pagination a {
-  height: 44px;
-  width: 38px;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s;
-  text-decoration: none;
-}
-
-.games-section .col-1 .site-pagination a:first-child {
-  margin-left: 0;
-  margin: 0 10px;
-  color: #b01ba5;
-  border: 2px solid #b01ba5;
-}
-
-.games-section .col-1 .site-pagination a.active {
-  width: 44px;
-}
-
-.games-section .container .row {
-  display: flex;
-}
-
 .games-section .container .col-2 .widget-item {
   margin-bottom: 50px;
 }

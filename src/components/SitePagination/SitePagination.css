@@ -1,0 +1,27 @@
+.site-pagination {
+  display: flex;
+}
+
+.site-pagination a {
+  height: 44px;
+  width: 38px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  text-decoration: none;
+}
+
+.site-pagination a:first-child {
+  margin-left: 0;
+  margin: 0 10px;
+  color: #b01ba5;
+  border: 2px solid #b01ba5;
+}
+
+.site-pagination a.active {
+  width: 44px;
+}

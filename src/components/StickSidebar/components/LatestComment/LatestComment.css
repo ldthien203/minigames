@@ -1,0 +1,39 @@
+.latest-comments {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.latest-comments .lc-item {
+  margin-bottom: 30px;
+}
+
+.latest-comments .lc-item .lc-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 12px;
+}
+
+.latest-comments img {
+  max-width: 100%;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.latest-comments .lc-item .tw-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.latest-comments .lc-item .tw-text a {
+  color: #b01ba5;
+  text-decoration: none;
+  background: transparent;
+}
+
+.latest-comments .lc-item .tw-text span {
+  color: #68647d;
+}

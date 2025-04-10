@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <Link to="/home" className="site-logo">
+      <Link to="/" className="site-logo">
         <img src={require('../../assets/img/logo.png')} alt="Site Logo" />
       </Link>
 

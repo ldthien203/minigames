@@ -1,7 +1,7 @@
 import {Fragment} from 'react'
-import {Link} from 'react-router'
 import './GameSection.css'
 import Category from '../../../../components/Category/Category'
+import SitePagination from '../../../../components/SitePagination/SitePagination'
 import GameItem from '../GameItem/GameItem'
 
 const GameSection = () => {
@@ -30,13 +30,7 @@ const GameSection = () => {
                   </div>
                 ))}
               </div>
-              <div className="site-pagination">
-                <Link to="#" className="active">
-                  01.
-                </Link>
-                <Link to="#">02.</Link>
-                <Link to="#">03.</Link>
-              </div>
+              <SitePagination />
             </div>
             <div className="col-2">
               <div id="stickySidebar">

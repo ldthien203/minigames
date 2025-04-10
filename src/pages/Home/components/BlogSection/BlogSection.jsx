@@ -1,19 +1,9 @@
-import Category from '../../../../components/Category/Category'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
-import {Link} from 'react-router'
+import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
 import './BlogSection.css'
-import TrendingWidget from './components/TrendingWidget/TrendingWidget'
+import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 
 const BlogSection = () => {
-  const itemInCategory = [
-    'Games',
-    'Gaming Tips & Tricks',
-    'Online Games',
-    'Team Games',
-    'Community',
-    'Uncategorized',
-  ]
-
   const listIntroCard = [
     {
       category: 'Games',
@@ -46,20 +36,7 @@ const BlogSection = () => {
             <div className="section-title">
               <h2>Lastest News</h2>
             </div>
-            <ul className="blog-filter">
-              <li>
-                <Link to="#">Racing</Link>
-              </li>
-              <li>
-                <Link to="#">Shooters</Link>
-              </li>
-              <li>
-                <Link to="#">Strategy</Link>
-              </li>
-              <li>
-                <Link to="#">Online</Link>
-              </li>
-            </ul>
+            <BlogFilter />
             {listIntroCard.map(card => (
               <div key={card.img} className="blog-item">
                 <IntroCard
@@ -73,25 +50,7 @@ const BlogSection = () => {
             ))}
           </div>
           <div className="col-2">
-            <div id="stickSidebar">
-              <div className="inner-wrapper-sticky">
-                <div className="widget-item">
-                  <h4 className="widget-title">Trending</h4>
-                  <TrendingWidget />
-                </div>
-                <div className="widget-item">
-                  <Category title="Categories" items={itemInCategory} />
-                </div>
-                <div className="widget-item">
-                  <Link to="#" className="add">
-                    <img
-                      src={require('../../../../assets/img/add.jpg')}
-                      alt="add"
-                    />
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <StickSidebar />
           </div>
         </div>
       </div>

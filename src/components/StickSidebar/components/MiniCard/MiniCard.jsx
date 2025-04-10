@@ -11,7 +11,7 @@ const MiniCard = ({
     <div className="tw-item">
       <div className="tw-thumb">
         <img
-          src={require(`../../../../../../assets/img/blog-widget/${img}.jpg`)}
+          src={require(`../../../../assets/img/blog-widget/${img}.jpg`)}
           alt="widget-thumb"
         />
       </div>

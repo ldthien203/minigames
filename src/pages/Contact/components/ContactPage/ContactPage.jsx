@@ -1,4 +1,8 @@
 import './ContactPage.css'
+import doubleArrow from '../../../../assets/img/icons/double-arrow.png'
+import iconLocation from '../../../../assets/img/icons/location.png'
+import iconPhone from '../../../../assets/img/icons/phone.png'
+import iconMail from '../../../../assets/img/icons/mail.png'
 
 const ContactPage = () => {
   return (
@@ -14,10 +18,7 @@ const ContactPage = () => {
               <textarea placeholder="Message"></textarea>
               <button className="site-btn">
                 Send message
-                <img
-                  src={require('../../../../assets/img/icons/double-arrow.png')}
-                  alt="Send message button"
-                />
+                <img src={doubleArrow} alt="Send message button" />
               </button>
             </form>
           </div>
@@ -32,28 +33,19 @@ const ContactPage = () => {
             </p>
             <div className="cont-info">
               <div className="ci-icon">
-                <img
-                  src={require('../../../../assets/img/icons/location.png')}
-                  alt="icon"
-                />
+                <img src={iconLocation} alt="icon location" />
               </div>
               <div className="ci-text">Main Str, no 23, New York</div>
             </div>
             <div className="cont-info">
               <div className="ci-icon">
-                <img
-                  src={require('../../../../assets/img/icons/phone.png')}
-                  alt="icon"
-                />
+                <img src={iconPhone} alt="icon phone" />
               </div>
               <div className="ci-text">+546 990221 123</div>
             </div>
             <div className="cont-info">
               <div className="ci-icon">
-                <img
-                  src={require('../../../../assets/img/icons/mail.png')}
-                  alt="icon"
-                />
+                <img src={iconMail} alt="icon mail" />
               </div>
               <div className="ci-text">hosting@contact.com</div>
             </div>

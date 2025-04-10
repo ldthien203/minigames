@@ -5,20 +5,17 @@ const MiniCard = ({
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
   category,
   title,
-  img = 1,
+  img = '../../../../assets/img/blog-widget/1.jpg',
 }) => {
   return (
     <div className="tw-item">
       <div className="tw-thumb">
-        <img
-          src={require(`../../../../assets/img/blog-widget/${img}.jpg`)}
-          alt="widget-thumb"
-        />
+        <img src={img} alt="widget-thumb" />
       </div>
       <div className="tw-text">
         <div className="tw-meta">
           {date} / in
-          <Link to="#">{' ' + category}</Link>
+          <Link to={`/${category.toLowerCase()}`}>{' ' + category}</Link>
         </div>
         <h5>{title}</h5>
       </div>

@@ -1,14 +1,15 @@
 import {Fragment} from 'react'
 import PageTop from '../../components/PageTopSection/PageTopSection'
 import BlogPage from './components/BlogPage/BlogPage'
-import NewsLetterSection from '../../components/NewsLetter/NewsLetter'
+import NewsLetter from '../../components/NewsLetter/NewsLetter'
+import pageTopBg from '../../assets/img/page-top-bg/3.jpg'
 
 const News = () => {
   return (
     <Fragment>
-      <PageTop title="News" background="news" />
+      <PageTop title="News" background={pageTopBg} />
       <BlogPage />
-      <NewsLetterSection />
+      <NewsLetter />
     </Fragment>
   )
 }

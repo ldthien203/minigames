@@ -3,31 +3,31 @@ import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
 import './BlogSection.css'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 
-const BlogSection = () => {
-  const listIntroCard = [
-    {
-      category: 'Games',
-      title: 'The best online game is out now!',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
-      img: 1,
-    },
-    {
-      category: 'Games',
-      title: 'The best online game is out now!',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
-      img: 2,
-    },
-    {
-      category: 'Games',
-      title: 'The best online game is out now!',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
-      img: 3,
-    },
-  ]
+const listIntroCard = [
+  {
+    category: 'Games',
+    title: 'The best online game is out now!',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
+    img: '../../assets/img/blog/1.jpg',
+  },
+  {
+    category: 'Games',
+    title: 'The best online game is out now!',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
+    img: '../../assets/img/blog/2.jpg',
+  },
+  {
+    category: 'Games',
+    title: 'The best online game is out now!',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
+    img: '../../assets/img/blog/3.jpg',
+  },
+]
 
+const BlogSection = () => {
   return (
     <section className="blog-section">
       <div className="container">

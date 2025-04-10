@@ -2,25 +2,25 @@ import {useState} from 'react'
 import {Link} from 'react-router'
 import './MainMenu.css'
 
+const mainMenuList = [
+  {id: 'home', link: '/', menu: 'Home'},
+  {
+    id: 'games',
+    link: '/games',
+    menu: 'Games',
+    subMenu: [
+      {id: 'caro', link: '/games/caro', menu: 'Caro'},
+      {id: 'chess', link: '#', menu: 'Chess'},
+    ],
+  },
+
+  {id: 'reviews', link: '/reviews', menu: 'Reviews'},
+  {id: 'news', link: '/news', menu: 'News'},
+  {id: 'contact', link: '/contact', menu: 'Contact'},
+]
+
 const MainMenu = () => {
   const [activeMenu, setActiveMenu] = useState(null)
-
-  const mainMenuList = [
-    {id: 'home', link: '/', menu: 'Home'},
-    {
-      id: 'games',
-      link: '/games',
-      menu: 'Games',
-      subMenu: [
-        {id: 'caro', link: '/games/caro', menu: 'Caro'},
-        {id: 'chess', link: '#', menu: 'Chess'},
-      ],
-    },
-
-    {id: 'reviews', link: '/reviews', menu: 'Reviews'},
-    {id: 'news', link: '/news', menu: 'News'},
-    {id: 'contact', link: '/contact', menu: 'Contact'},
-  ]
 
   return (
     <ul className="main-menu">

@@ -2,40 +2,40 @@ import {Fragment} from 'react'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import './ReviewSection.css'
 
-const ReviewSection = () => {
-  const reviewItem = [
-    {
-      category: 'Games',
-      title: 'Final Appocalipse',
-      img: 1,
-      rating: 4.5,
-    },
-    {
-      category: 'Games',
-      title: 'Hounted Mansion 3',
-      img: 4,
-      rating: 4.5,
-    },
-    {
-      category: 'Games',
-      title: 'Shooting Stuff',
-      img: 5,
-      rating: 3.5,
-    },
-    {
-      category: 'Games',
-      title: 'Zombie War Nation 1',
-      img: 2,
-      rating: 4.5,
-    },
-    {
-      category: 'Games',
-      title: "Jams'e Island 3",
-      img: 6,
-      rating: 2.5,
-    },
-  ]
+const reviewItem = [
+  {
+    category: 'Games',
+    title: 'Final Appocalipse',
+    img: '../../assets/img/review/1.jpg',
+    rating: 4.5,
+  },
+  {
+    category: 'Games',
+    title: 'Hounted Mansion 3',
+    img: '../../assets/img/review/2.jpg',
+    rating: 4.5,
+  },
+  {
+    category: 'Games',
+    title: 'Shooting Stuff',
+    img: '../../assets/img/review/3.jpg',
+    rating: 3.5,
+  },
+  {
+    category: 'Games',
+    title: 'Zombie War Nation 1',
+    img: '../../assets/img/review/4.jpg',
+    rating: 4.5,
+  },
+  {
+    category: 'Games',
+    title: "Jams'e Island 3",
+    img: '../../assets/img/review/5.jpg',
+    rating: 2.5,
+  },
+]
 
+const ReviewSection = () => {
   return (
     <Fragment>
       <section className="review-section">

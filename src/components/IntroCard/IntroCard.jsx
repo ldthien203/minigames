@@ -1,5 +1,6 @@
 import {Link} from 'react-router'
 import './IntroCard.css'
+import doubleArrow from '../../assets/img/icons/double-arrow.png'
 
 const IntroCard = ({
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
@@ -9,7 +10,7 @@ const IntroCard = ({
   isShowDesc = true,
   link = '/',
   isShowLink = true,
-  img = 1,
+  img = '../../assets/img/blog/1.jpg',
   isShowImg = false,
   rating = 4.5,
   isShowRating = false,
@@ -18,10 +19,7 @@ const IntroCard = ({
     <div className="card-container">
       {isShowImg && (
         <div className="card-image">
-          <img
-            src={require(`../../assets/img/blog/${img}.jpg`)}
-            alt="card-image"
-          />
+          <img src={img} alt="card-image" />
         </div>
       )}
       <div className="intro-text-box">
@@ -42,10 +40,7 @@ const IntroCard = ({
         {isShowLink && (
           <Link to={link} className="read-more">
             Read more
-            <img
-              src={require('../../assets/img/icons/double-arrow.png')}
-              alt="double-arrow"
-            />
+            <img src={doubleArrow} alt="double arrow" />
           </Link>
         )}
       </div>

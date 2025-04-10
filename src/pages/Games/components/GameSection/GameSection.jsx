@@ -5,15 +5,35 @@ import SitePagination from '../../../../components/SitePagination/SitePagination
 import GameItem from '../GameItem/GameItem'
 
 const gameItems = [
-  {title: 'Zombie Appocalipse 2', image: 1, link: '#'},
-  {title: 'Dooms Day', image: 2, link: '#'},
-  {title: 'The Huricane', image: 3, link: '#'},
-  {title: 'Star Wars', image: 4, link: '#'},
-  {title: 'Candyy Land', image: 5, link: '#'},
-  {title: 'E.T.', image: 6, link: '#'},
-  {title: 'Zombie Appocalipse 2', image: 7, link: '#'},
-  {title: 'Dooms Day', image: 8, link: '#'},
-  {title: 'The Huricane', image: 9, link: '#'},
+  {
+    title: 'Zombie Appocalipse 2',
+    image: '../../../../assets/img/games/1.jpg',
+    link: '#',
+  },
+  {title: 'Dooms Day', image: '../../../../assets/img/games/2.jpg', link: '#'},
+  {
+    title: 'The Huricane',
+    image: '../../../../assets/img/games/3.jpg',
+    link: '#',
+  },
+  {title: 'Star Wars', image: '../../../../assets/img/games/4.jpg', link: '#'},
+  {
+    title: 'Candyy Land',
+    image: '../../../../assets/img/games/5.jpg',
+    link: '#',
+  },
+  {title: 'E.T.', image: '../../../../assets/img/games/5.jpg', link: '#'},
+  {
+    title: 'Zombie Appocalipse 2',
+    image: '../../../../assets/img/games/6.jpg',
+    link: '#',
+  },
+  {title: 'Dooms Day', image: '../../../../assets/img/games/7.jpg', link: '#'},
+  {
+    title: 'The Huricane',
+    image: '../../../../assets/img/games/8.jpg',
+    link: '#',
+  },
 ]
 
 const GameSection = () => {

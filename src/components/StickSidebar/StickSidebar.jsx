@@ -3,17 +3,18 @@ import TrendingWidget from './components/TrendingWidget/TrendingWidget'
 import Category from '../Category/Category'
 import LatestComment from './components/LatestComment/LatestComment'
 import './StickSidebar.css'
+import add from '../../assets/img/add.jpg'
+
+const itemInCategory = [
+  'Games',
+  'Gaming Tips & Tricks',
+  'Online Games',
+  'Team Games',
+  'Community',
+  'Uncategorized',
+]
 
 const StickSidebar = ({isShowLatestCmt = false}) => {
-  const itemInCategory = [
-    'Games',
-    'Gaming Tips & Tricks',
-    'Online Games',
-    'Team Games',
-    'Community',
-    'Uncategorized',
-  ]
-
   return (
     <div id="stickSidebar">
       <div className="inner-wrapper-sticky">
@@ -32,7 +33,7 @@ const StickSidebar = ({isShowLatestCmt = false}) => {
         )}
         <div className="widget-item">
           <Link to="#" className="add">
-            <img src={require('../../assets/img/add.jpg')} alt="add" />
+            <img src={add} alt="add" />
           </Link>
         </div>
       </div>

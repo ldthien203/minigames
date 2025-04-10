@@ -9,22 +9,6 @@
   background-position: top center;
 }
 
-.set-bg.games {
-  background-image: url('../../assets/img/page-top-bg/1.jpg');
-}
-
-.set-bg.reviews {
-  background-image: url('../../assets/img/page-top-bg/2.jpg');
-}
-
-.set-bg.news {
-  background-image: url('../../assets/img/page-top-bg/3.jpg');
-}
-
-.set-bg.contact {
-  background-image: url('../../assets/img/page-top-bg/4.jpg');
-}
-
 .page-top-section .page-info {
   max-width: 1300px;
   margin: 0 auto;

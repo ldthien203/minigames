@@ -7,7 +7,7 @@ import Games from './pages/Games/Games'
 import Login from './pages/Login/Login'
 import Profile from './pages/Profile/Profile'
 import Reviews from './pages/Reviews/Reviews'
-import Contact from './pages/Contact'
+import Contact from './pages/Contact/Contact'
 import News from './pages/News/News'
 
 const MainRouter = [

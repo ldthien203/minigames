@@ -17,7 +17,7 @@ const HeroSection = () => {
             Discover the latest gaming news, stay updated with trends, and enjoy
             exciting mini-games right on our website!
           </p>
-          <Link to="#" className="site-button">
+          <Link to="/games" className="site-button">
             read more
             <img src={doubleArrow} alt="read-more-button" />
           </Link>

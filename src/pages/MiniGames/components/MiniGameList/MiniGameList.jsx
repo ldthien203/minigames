@@ -1,17 +1,18 @@
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import './GameList.css'
+import './MiniGameList.css'
+import caroImg from '../../../../assets/img/caro.png'
 
 const games = [
-  {id: 'caro', name: 'Caro', image: require('../../assets/img/caro.png')},
-  {id: 'game 2', name: 'Game 2', image: require('../../assets/img/caro.png')},
-  {id: 'game 4', name: 'Game 4', image: require('../../assets/img/caro.png')},
-  {id: 'game 5', name: 'Game 5', image: require('../../assets/img/caro.png')},
-  {id: 'game 3', name: 'Game 3', image: require('../../assets/img/caro.png')},
-  {id: 'game 6', name: 'Game 6', image: require('../../assets/img/caro.png')},
+  {id: 'caro', name: 'Caro', image: caroImg},
+  {id: 'caro-2', name: 'Game 2', image: caroImg},
+  {id: 'caro-4', name: 'Game 4', image: caroImg},
+  {id: 'caro-5', name: 'Game 5', image: caroImg},
+  {id: 'caro-3', name: 'Game 3', image: caroImg},
+  {id: 'caro-6', name: 'Game 6', image: caroImg},
 ]
 
-const GameList = () => {
+const MiniGameList = ({onShowPlaying}) => {
   const [isFinding, setIsFinding] = useState(false)
   const [selectedGame, setSelectedGame] = useState(null)
   const nagivate = useNavigate()
@@ -21,18 +22,15 @@ const GameList = () => {
     setSelectedGame(gameId)
 
     setTimeout(() => {
+      onShowPlaying()
       setIsFinding(false)
-      if (gameId === 1) {
-        nagivate(`/games/caro`)
-      } else {
-        nagivate(`/games/${gameId}`)
-      }
+      nagivate(`/games/minigames/${gameId}`)
     }, 3000)
   }
 
   return (
-    <div>
-      <div className="games-container">
+    <section className="minigame-list-section">
+      <div className="container">
         {games.map(game => (
           <div key={game.id} className="game-card">
             <img src={game.image} alt={game.name} className="game-image" />
@@ -59,8 +57,8 @@ const GameList = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   )
 }
 
-export default GameList
+export default MiniGameList

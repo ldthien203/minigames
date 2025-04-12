@@ -1,4 +1,9 @@
-.games-container {
+.minigame-list-section {
+  background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
+  padding: 108px 0;
+}
+
+.minigame-list-section .container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   max-width: 100%;
@@ -6,7 +11,7 @@
   margin: 20px 50px;
 }
 
-.game-card {
+.minigame-list-section .game-card {
   background: #fff;
   padding: 15px;
   border-radius: 10px;
@@ -17,12 +22,12 @@
   cursor: pointer;
 }
 
-.game-card:hover {
+.minigame-list-section .game-card:hover {
   transform: translateY(-5px);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.game-image {
+.minigame-list-section .game-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
@@ -30,14 +35,14 @@
   border-radius: 8px;
 }
 
-.game-info {
+.minigame-list-section .game-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
 }
 
-.play-button {
+.minigame-list-section .play-button {
   font-size: 18px;
   font-weight: bold;
   background: #ff5733;
@@ -49,24 +54,24 @@
   transition: background-color 0.2s;
 }
 
-.play-button:hover {
+.minigame-list-section .play-button:hover {
   background: #e04e2a;
 }
 
 @media (max-width: 900px) {
-  .games-container {
+  .minigame-list-section .container {
     grid-template-columns: repeat(2, 1fr);
   }
-  .game-image {
+  .minigame-list-section .game-image {
     object-fit: none;
   }
 }
 
 @media (max-width: 600px) {
-  .games-container {
+  .minigame-list-section .container {
     grid-template-columns: repeat(1, 1fr);
   }
-  .game-image {
+  .minigame-list-section .game-image {
     object-fit: none;
   }
 }

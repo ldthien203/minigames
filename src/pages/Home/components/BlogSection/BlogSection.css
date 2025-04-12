@@ -27,6 +27,14 @@
   margin-top: 50px;
 }
 
+.blog-section .col-2 .add {
+  text-decoration: none;
+}
+
+.blog-section .col-2 .add img {
+  width: 100%;
+}
+
 @media (max-width: 767px) {
   .blog-section .container {
     max-width: 720px;

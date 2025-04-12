@@ -1,10 +1,10 @@
 import {Link} from 'react-router'
 import './IconLink.css'
 
-const IconLink = ({showTest = true, align = 'right'}) => {
+const IconLink = ({showText = true, text = 'Follow us:', align = 'right'}) => {
   return (
     <div className={`social-icon ${align}`}>
-      {showTest && <p>Follow us:</p>}
+      {showText && <p>{text}</p>}
       <Link className="icon" to="#">
         <i className="fa fa-pinterest"></i>
       </Link>

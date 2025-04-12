@@ -28,7 +28,7 @@ const LatestComment = () => {
   return (
     <div className="latest-comments">
       {latestCmts.map(cmt => (
-        <div className="lc-item">
+        <div key={cmt.username} className="lc-item">
           <img src={cmt.avatarImg} alt="lc-avatar" className="lc-avatar" />
           <div className="tw-text">
             <Link to="#">{cmt.username}</Link>

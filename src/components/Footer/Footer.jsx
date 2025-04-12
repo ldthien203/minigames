@@ -21,7 +21,7 @@ const Footer = () => {
           <img src={logo} alt="logo" />
         </Link>
         <MainMenu showSubMenu={false} />
-        <IconLink showTest={false} align="center" />
+        <IconLink showText={false} align="center" />
         <div className="copyright">
           <p> Ldthien203 {new Date().getFullYear()} @ All rights reserved </p>
         </div>

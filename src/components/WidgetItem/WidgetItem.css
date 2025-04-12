@@ -1,0 +1,17 @@
+.widget-item {
+  margin-bottom: 85px;
+}
+
+.widget-item:last-child {
+  margin-bottom: 0;
+}
+
+.widget-item .widget-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  padding-left: 38px;
+  margin-bottom: 48px;
+  font-size: 24px;
+}

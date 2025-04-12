@@ -1,7 +1,7 @@
 import {Link} from 'react-router'
 import './Category.css'
 
-const Category = ({title, items = []}) => {
+const Category = ({title = 'Categories', items = []}) => {
   return (
     <div className="categories-widget">
       <h4 className="widget-title">{title}</h4>

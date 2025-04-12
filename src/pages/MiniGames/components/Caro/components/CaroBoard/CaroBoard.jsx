@@ -1,4 +1,4 @@
-import './Board.css'
+import './CaroBoard.css'
 
 const Board = ({board, boardSize, onClick}) => {
   return (

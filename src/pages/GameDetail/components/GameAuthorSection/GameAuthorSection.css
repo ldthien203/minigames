@@ -1,0 +1,72 @@
+.game-author-section {
+  background: #3a1854;
+  padding: 51px 0;
+  overflow: hidden;
+  display: block;
+}
+
+.game-author-section .container {
+  width: 100%;
+  padding: 0 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-author-section .game-author-pic {
+  float: left;
+  margin-right: 55px;
+}
+
+.game-author-section .game-author-pic img {
+  width: 117px;
+  height: 117px;
+  border-radius: 50%;
+}
+
+.game-author-section .game-author-info {
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+.game-author-section .game-author-info h4 {
+  color: #fff;
+  margin: 0 0 20px 0;
+}
+
+.game-author-section .game-author-info p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #68647d;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+@media (max-width: 576px) {
+  .game-author-section .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .game-author-section .container {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .game-author-section .container {
+    max-width: 780px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .game-author-section .container {
+    max-width: 1050px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .game-author-section .container {
+    max-width: 1175px;
+  }
+}

@@ -9,8 +9,8 @@ const mainMenuList = [
     link: '/games',
     menu: 'Games',
     subMenu: [
-      {id: 'caro', link: '/games/caro', menu: 'Caro'},
-      {id: 'chess', link: '#', menu: 'Chess'},
+      {id: 'games', link: '/games', menu: 'Games'},
+      {id: 'minigames', link: '/games/minigames', menu: 'Minigames'},
     ],
   },
 

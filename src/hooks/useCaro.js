@@ -88,4 +88,5 @@ const useCaro = () => {
     updateBoardSize,
   }
 }
+
 export default useCaro

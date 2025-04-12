@@ -1,7 +1,12 @@
+import {Link} from 'react-router-dom'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
-import './BlogSection.css'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
+import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
+import Category from '../../../../components/Category/Category'
+import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import './BlogSection.css'
+import add from '../../../../assets/img/add.jpg'
 
 const listIntroCard = [
   {
@@ -27,6 +32,22 @@ const listIntroCard = [
   },
 ]
 
+const itemInCategory = [
+  'Games',
+  'Gaming Tips & Tricks',
+  'Online Games',
+  'Team Games',
+  'Community',
+  'Uncategorized',
+]
+
+const blogFilter = [
+  {id: 1, link: '#', name: 'Racing'},
+  {id: 2, link: '#', name: 'Shooters'},
+  {id: 3, link: '#', name: 'Strategy'},
+  {id: 4, link: '#', name: 'Online'},
+]
+
 const BlogSection = () => {
   return (
     <section className="blog-section">
@@ -36,7 +57,7 @@ const BlogSection = () => {
             <div className="section-title">
               <h2>Lastest News</h2>
             </div>
-            <BlogFilter />
+            <BlogFilter blogFilter={blogFilter} />
             {listIntroCard.map(card => (
               <div key={card.img} className="blog-item">
                 <IntroCard
@@ -50,7 +71,19 @@ const BlogSection = () => {
             ))}
           </div>
           <div className="col-2">
-            <StickSidebar />
+            <StickSidebar>
+              <WidgetItem isShowTitle={true} title="Trending">
+                <TrendingWidget />
+              </WidgetItem>
+              <WidgetItem>
+                <Category title="Categories" items={itemInCategory} />
+              </WidgetItem>
+              <WidgetItem>
+                <Link to="#" className="add">
+                  <img src={add} alt="add" />
+                </Link>
+              </WidgetItem>
+            </StickSidebar>
           </div>
         </div>
       </div>

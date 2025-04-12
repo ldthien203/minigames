@@ -1,4 +1,9 @@
-.game-container {
+.caro-section {
+  background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
+  padding: 108px 0;
+}
+
+.caro-section .container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -6,14 +11,14 @@
   margin-top: 20px;
 }
 
-.board-section {
+.caro-section .board-section {
   flex: 6;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.controls-section {
+.caro-section .controls-section {
   color: #fdfaf6;
   flex: 4;
   display: flex;
@@ -22,7 +27,7 @@
   height: 50vh;
 }
 
-.controls-container {
+.caro-section .controls-container {
   background: #bf3131;
   margin-right: 20px;
   padding: 20px;
@@ -30,16 +35,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.controls-container p {
+.caro-section .controls-container p {
   font-size: 18px;
 }
 
-.control-section h2 {
+.caro-section .control-section h2 {
   margin-bottom: 15px;
   font-size: 20px;
 }
 
-.board-size-input {
+.caro-section .board-size-input {
   width: 90%;
   padding: 8px;
   margin-bottom: 15px;
@@ -48,14 +53,14 @@
   border-radius: 5px;
 }
 
-.message-status {
+.caro-section .message-status {
   font-size: 18px;
   font-weight: bold;
   margin-top: 10px;
   color: #fdfaf6;
 }
 
-.reset-button {
+.caro-section .reset-button {
   padding: 10px 15px;
   font-size: 16px;
   font-weight: bold;
@@ -69,6 +74,6 @@
   margin-top: 10px;
 }
 
-.reset-button:hover {
+.caro-section .reset-button:hover {
   background-color: #211c84;
 }

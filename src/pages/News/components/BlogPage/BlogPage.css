@@ -20,6 +20,14 @@
   width: 100%;
 }
 
+.blog-page .col-2 .add {
+  text-decoration: none;
+}
+
+.blog-page .col-2 .add img {
+  width: 100%;
+}
+
 @media (max-width: 767px) {
   .blog-page .container {
     max-width: 540px;

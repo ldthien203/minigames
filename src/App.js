@@ -10,6 +10,8 @@ import Contact from './pages/Contact/Contact'
 import News from './pages/News/News'
 import GameDetail from './pages/GameDetail/GameDetail'
 import MiniGames from './pages/MiniGames/MiniGames'
+import Caro from './pages/MiniGames/components/Caro/Caro'
+import Chess from './pages/MiniGames/components/Chess/Chess'
 
 const MainRouter = [
   {path: '/', component: <Home />},
@@ -20,7 +22,8 @@ const MainRouter = [
   {path: '/games', component: <Games />},
   {path: '/games/:detail', component: <GameDetail />},
   {path: '/games/minigames', component: <MiniGames />},
-  {path: '/games/minigames/:caro', component: <MiniGames />},
+  {path: '/games/minigames/caro', component: <Caro />},
+  {path: '/games/minigames/chess', component: <Chess />},
 ]
 
 function App() {
@@ -32,7 +35,7 @@ function App() {
           <Route
             key={el.path}
             path={el.path}
-            element={<MainLayout>{el.component}</MainLayout>}
+            element={<MainLayout path={el.path}>{el.component}</MainLayout>}
           />
         ))}
       </Routes>

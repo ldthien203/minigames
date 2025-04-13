@@ -22,7 +22,7 @@ const Caro = () => {
 
         <div className="controls-section">
           <div className="controls-container">
-            <h2>Game Settings</h2>
+            <h2>Game Caro</h2>
             <label>
               Board Size:
               <input

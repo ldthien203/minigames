@@ -1,10 +1,11 @@
 import {Link} from 'react-router'
 import './GameItem.css'
+import doubleArrow from '../../../../assets/img/icons/double-arrow.png'
 
 const GameItem = ({
   title,
   image = '../../../../assets/img/games/1.jpg',
-  link = '#',
+  link = '/games/detail',
 }) => {
   return (
     <div className="game-item">
@@ -12,10 +13,7 @@ const GameItem = ({
       <h5>{title}</h5>
       <Link to={link} className="read-more">
         Read more
-        <img
-          src={require('../../../../assets/img/icons/double-arrow.png')}
-          alt="double arrow icon"
-        />
+        <img src={doubleArrow} alt="double arrow icon" />
       </Link>
     </div>
   )

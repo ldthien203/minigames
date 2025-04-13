@@ -1,0 +1,30 @@
+.chess-section {
+  padding: 104px 0;
+  background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
+}
+
+.chess-section .container {
+  width: 100%;
+  padding: 0 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 767px) {
+  .chess-section .container {
+    max-width: 720px;
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .chess-section .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .chess-section .container {
+    max-width: 960px;
+  }
+}

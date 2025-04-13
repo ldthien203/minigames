@@ -1,22 +1,32 @@
 import {Fragment, useState} from 'react'
-import PageTop from '../../components/PageTopSection/PageTopSection'
-import MiniGameList from './components/MiniGameList/MiniGameList'
-import NewsLetter from '../../components/NewsLetter/NewsLetter'
+import ListMiniGame from './components/ListMiniGame/ListMiniGame'
 import Caro from './components/Caro/Caro'
-import pageTopBg from '../../assets/img/page-top-bg/1.jpg'
+import Chess from './components/Chess/Chess'
+import caroImg from '../../assets/img/minigames/caro.png'
+import chessImg from '../../assets/img/minigames/chess.png'
+
+const games = [
+  {id: 'caro', name: 'Caro', image: caroImg, component: <Caro />},
+  {id: 'chess', name: 'Chess', image: chessImg, component: <Chess />},
+  {id: 'caro-1', name: 'Caro-1', image: caroImg, component: <Caro />},
+  {id: 'chess-1', name: 'Chess-1', image: chessImg, component: <Chess />},
+]
 
 const MiniGames = () => {
-  const [showPlay, setShowPlay] = useState(false)
+  const [selectedGameId, setSelectedGameId] = useState(false)
+  const selectedGame = games.find(game => game.id === selectedGameId)
 
-  const handleShowPlaying = () => {
-    setShowPlay(!showPlay)
+  const handleSelectedGame = gameId => {
+    setSelectedGameId(gameId)
   }
 
   return (
     <Fragment>
-      <PageTop title="Mini Games" background={pageTopBg} />
-      {showPlay ? <Caro /> : <MiniGameList onShowPlaying={handleShowPlaying} />}
-      <NewsLetter />
+      {selectedGame ? (
+        selectedGame.component
+      ) : (
+        <ListMiniGame onSelectGame={handleSelectedGame} games={games} />
+      )}
     </Fragment>
   )
 }

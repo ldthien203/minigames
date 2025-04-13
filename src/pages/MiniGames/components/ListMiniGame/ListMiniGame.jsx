@@ -1,18 +1,8 @@
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import './MiniGameList.css'
-import caroImg from '../../../../assets/img/caro.png'
+import './ListMiniGame.css'
 
-const games = [
-  {id: 'caro', name: 'Caro', image: caroImg},
-  {id: 'caro-2', name: 'Game 2', image: caroImg},
-  {id: 'caro-4', name: 'Game 4', image: caroImg},
-  {id: 'caro-5', name: 'Game 5', image: caroImg},
-  {id: 'caro-3', name: 'Game 3', image: caroImg},
-  {id: 'caro-6', name: 'Game 6', image: caroImg},
-]
-
-const MiniGameList = ({onShowPlaying}) => {
+const MiniGameList = ({onSelectGame, games}) => {
   const [isFinding, setIsFinding] = useState(false)
   const [selectedGame, setSelectedGame] = useState(null)
   const nagivate = useNavigate()
@@ -22,10 +12,10 @@ const MiniGameList = ({onShowPlaying}) => {
     setSelectedGame(gameId)
 
     setTimeout(() => {
-      onShowPlaying()
+      onSelectGame(gameId)
       setIsFinding(false)
       nagivate(`/games/minigames/${gameId}`)
-    }, 3000)
+    }, 2000)
   }
 
   return (

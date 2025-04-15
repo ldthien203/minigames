@@ -1,7 +1,14 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, createContext, useContext} from 'react'
+
+const AuthContext = createContext({})
 
 const useAuth = () => {
+  return useContext(AuthContext)
+}
+
+export const AuthContextProvider = ({children}) => {
   const [user, setUser] = useState({})
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user')) || {
       name: 'Guest',
@@ -27,11 +34,9 @@ const useAuth = () => {
     setUser(null)
   }
 
-  return {user, setUser, login, logout}
-}
-
-export const CustomButton = ({text, onClick, ...props}) => {
-  return 
+  return (
+    <AuthContext value={{user, setUser, login, logout}}>{children}</AuthContext>
+  )
 }
 
 export default useAuth

@@ -1,15 +1,15 @@
 import {useState} from 'react'
-import {getPieceImg} from '../../../../../../utils/chessUtils/boardUtils'
-import './ChessBoard.css'
+import {initialBoard} from '../utils/chessUtils/boardUtils'
 import {
   isPlayerTurn,
   isValidMove,
   getValidMoves,
   isKingInCheck,
-} from '../../../../../../utils/chessUtils/chessLogic'
+} from '../utils/chessUtils/chessLogic'
 
-const ChessBoard = ({gameState, setGameState}) => {
-  const {board, turn} = gameState
+const useChess = () => {
+  const [board, setBoard] = useState(initialBoard)
+  const [turn, setTurn] = useState('white')
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [validMoves, setValidMoves] = useState([])
 
@@ -50,45 +50,22 @@ const ChessBoard = ({gameState, setGameState}) => {
         console.log(`${opponentColor} king is in check`)
       }
 
-      setGameState({
-        ...gameState,
-        board: newBoard,
-        turn: opponentColor,
-      })
+      setBoard(newBoard)
+      setTurn(prev => (prev === 'white' ? 'black' : 'white'))
     }
 
     clearSelection()
   }
 
-  return (
-    <div className="chess-board">
-      {board.map((row, rowIndex) =>
-        row.map((cell, colIndex) => {
-          const isWhite = (rowIndex + colIndex) % 2 === 0
-          const isSelected =
-            selectedSquare &&
-            selectedSquare[0] === rowIndex &&
-            selectedSquare[1] === colIndex
-          return (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              className={`square ${isWhite ? 'white' : 'black'} ${
-                isSelected ? 'selected' : ''
-              }`}
-              onClick={() => handleSquareClick(rowIndex, colIndex)}
-            >
-              {cell && (
-                <img src={getPieceImg(cell)} alt={cell} className="piece" />
-              )}
-              {validMoves.some(
-                ([x, y]) => x === rowIndex && y === colIndex,
-              ) && <div className="move-dot" />}
-            </div>
-          )
-        }),
-      )}
-    </div>
-  )
+  return {
+    board,
+    setBoard,
+    turn,
+    setTurn,
+    selectedSquare,
+    handleSquareClick,
+    validMoves,
+  }
 }
 
-export default ChessBoard
+export default useChess

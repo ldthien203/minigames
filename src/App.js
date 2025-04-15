@@ -12,6 +12,7 @@ import GameDetail from './pages/GameDetail/GameDetail'
 import MiniGames from './pages/MiniGames/MiniGames'
 import Caro from './pages/MiniGames/components/Caro/Caro'
 import Chess from './pages/MiniGames/components/Chess/Chess'
+import {AuthContextProvider} from './hooks/useAuth'
 
 const MainRouter = [
   {path: '/', component: <Home />},
@@ -29,16 +30,18 @@ const MainRouter = [
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="sign-in" element={<Login />} />
-        {MainRouter.map(el => (
-          <Route
-            key={el.path}
-            path={el.path}
-            element={<MainLayout path={el.path}>{el.component}</MainLayout>}
-          />
-        ))}
-      </Routes>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="sign-in" element={<Login />} />
+          {MainRouter.map(el => (
+            <Route
+              key={el.path}
+              path={el.path}
+              element={<MainLayout path={el.path}>{el.component}</MainLayout>}
+            />
+          ))}
+        </Routes>
+      </AuthContextProvider>
     </BrowserRouter>
   )
 }

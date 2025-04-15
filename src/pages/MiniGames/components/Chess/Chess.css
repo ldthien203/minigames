@@ -4,10 +4,46 @@
 }
 
 .chess-section .container {
+  display: flex;
   width: 100%;
   padding: 0 15px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.chess-section .game-info {
+  background-color: #f2f2f2;
+  padding: 16px;
+  margin-left: 24px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+}
+
+.chess-section .game-info h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.chess-section .game-info p {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.chess-section .reset-button {
+  background-color: #ff4d4d;
+  color: #fff;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.chess-section .reset-button:hover {
+  background-color: #e60000;
 }
 
 @media (max-width: 767px) {

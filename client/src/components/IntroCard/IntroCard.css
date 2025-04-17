@@ -76,10 +76,16 @@
 }
 
 .card-container .intro-text-box p {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 15px;
   font-weight: 500;
   color: #68647d;
   margin-bottom: 25px;
+  min-height: 50px;
 }
 
 .card-container .intro-text-box .read-more {

@@ -13,7 +13,7 @@ import MiniGames from './pages/MiniGames/MiniGames'
 import Caro from './pages/MiniGames/components/Caro/Caro'
 import Chess from './pages/MiniGames/components/Chess/Chess'
 import {AuthContextProvider} from './hooks/useAuth'
-import {useEffect, useState} from 'react'
+import {GameDataProvider} from './hooks/useGameData'
 
 const MainRouter = [
   {path: '/', component: <Home />},
@@ -29,41 +29,21 @@ const MainRouter = [
 ]
 
 function App() {
-  const [backendData, setBackendData] = useState([{}])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:4000/api')
-        const data = await response.json()
-        console.log(data)
-        setBackendData(data)
-      } catch (error) {
-        console.log(`Error: ${error.message}`)
-      }
-    }
-
-    fetchData()
-  }, [])
-
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        {typeof backendData.users === 'undefined' ? (
-          <p>Loading...</p>
-        ) : (
-          backendData.users.map(user => <li key={user}>{user}</li>)
-        )}
-        <Routes>
-          <Route path="sign-in" element={<Login />} />
-          {MainRouter.map(el => (
-            <Route
-              key={el.path}
-              path={el.path}
-              element={<MainLayout path={el.path}>{el.component}</MainLayout>}
-            />
-          ))}
-        </Routes>
+        <GameDataProvider>
+          <Routes>
+            <Route path="sign-in" element={<Login />} />
+            {MainRouter.map(el => (
+              <Route
+                key={el.path}
+                path={el.path}
+                element={<MainLayout path={el.path}>{el.component}</MainLayout>}
+              />
+            ))}
+          </Routes>
+        </GameDataProvider>
       </AuthContextProvider>
     </BrowserRouter>
   )

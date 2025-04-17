@@ -7,6 +7,7 @@ import Category from '../../../../components/Category/Category'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import './BlogSection.css'
 import add from '../../../../assets/img/add.jpg'
+import useGameData from '../../../../hooks/useGameData'
 
 const listIntroCard = [
   {
@@ -49,6 +50,10 @@ const blogFilter = [
 ]
 
 const BlogSection = () => {
+  const data = useGameData()
+  console.log(data)
+  console.log()
+
   return (
     <section className="blog-section">
       <div className="container">
@@ -58,17 +63,19 @@ const BlogSection = () => {
               <h2>Lastest News</h2>
             </div>
             <BlogFilter blogFilter={blogFilter} />
-            {listIntroCard.map(card => (
-              <div key={card.img} className="blog-item">
-                <IntroCard
-                  category={card.category}
-                  title={card.title}
-                  description={card.description}
-                  isShowImg={true}
-                  img={card.img}
-                />
-              </div>
-            ))}
+            {data &&
+              data.map(card => (
+                <div key={card.id} className="blog-item">
+                  <IntroCard
+                    title={card.name}
+                    description={card.summary}
+                    img={card.screenshot}
+                    isShowImg={true}
+                    rating={card.rating}
+                    date={card.release_date}
+                  />
+                </div>
+              ))}
           </div>
           <div className="col-2">
             <StickSidebar>

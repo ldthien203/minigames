@@ -32,11 +32,7 @@ const IntroSection = () => {
         <div className="row">
           {introCard.map(card => (
             <div key={card.id} className="col">
-              <IntroCard
-                category={card.category}
-                title={card.title}
-                description={card.description}
-              />
+              <IntroCard title={card.title} description={card.description} />
             </div>
           ))}
         </div>

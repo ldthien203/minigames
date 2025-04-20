@@ -1,55 +1,46 @@
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import IconLink from '../../../../components/IconLink/IconLink'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import './GamesSinglePage.css'
-import gameImg from '../../../../assets/img/games/big.jpg'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import {useEffect, useState} from 'react'
 
 const GamesSinglePage = () => {
+  const {id} = useParams()
+  const [gameData, setGameData] = useState({})
+
+  useEffect(() => {
+    const fetchGameDetail = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/games/${id}`)
+        const data = await response.json()
+        console.log('------------------------data', data)
+        setGameData(data[0])
+      } catch (error) {
+        console.error('Error fetching game detail: ', error)
+      }
+    }
+
+    fetchGameDetail()
+  }, [id])
+
   return (
     <section className="games-single-page">
       <div className="container">
         <div className="game-single-preview">
-          <img src={gameImg} alt="game" />
+          <img src={gameData.screenshot} alt="game" />
         </div>
         <div className="row">
           <div className="col-1 game-single-content">
             <div className="gs-meta">
-              11.11.18 / in
+              {gameData.release_date} / in
               <Link to="/games"> Games</Link>
             </div>
-            <h2 className="gs-title">Final Appocalipse 2.1</h2>
+            <h2 className="gs-title">{gameData.name}</h2>
             <h4>Gameplay</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliquamet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Vestibulum posuere porttitor justo id pellentesque. Proin id lacus
-              feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque
-              vestibulum metus.
-            </p>
+            <p>{gameData.summary}</p>
             <h4>Conclusion</h4>
-            <p>
-              Nulla ut maximus mauris. Sed malesuada at sapien sed euismod.
-              Vestibulum pharetra in sem id laoreet. Cras metus ex, placerat nec
-              justo quis, luctus posuere ex. Vivamus volutpat nibh ac
-              sollicitudin imperdiet. Donec scelerisque lorem sodales odio
-              ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem
-              id varius. Donec ele-mentum aliquet tortor. Curabitur justo mi,
-              efficitur sed eros aliquet, dictum molestie eros. Nullam
-              scelerisque convallis gravida. Morbi id lorem accumsan,
-              scelerisque enim laoreet, sollicitudin neque. Vivamus volutpat
-              nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales
-              odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit
-              amet sem id varius. Donec ele-mentum aliquet tortor. Curabitur
-              justo mi, efficitur sed eros aliqueDonec vitae tellus sodales,
-              congue augue at, biben-dum justo. Pellentesque non dolor et magna
-              volutpat pharetra eget vel ligula. Maecenas facilisis vestibulum
-              mattis. Sed sagittis gravida urna. Cras nec mi risus. Share:
-            </p>
+            <p>{gameData.storyline}</p>
             <IconLink text="Share: " align="left" />
           </div>
           <div className="col-2">

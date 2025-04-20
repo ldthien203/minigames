@@ -9,30 +9,6 @@ import './BlogSection.css'
 import add from '../../../../assets/img/add.jpg'
 import useGameData from '../../../../hooks/useGameData'
 
-const listIntroCard = [
-  {
-    category: 'Games',
-    title: 'The best online game is out now!',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
-    img: '../../assets/img/blog/1.jpg',
-  },
-  {
-    category: 'Games',
-    title: 'The best online game is out now!',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
-    img: '../../assets/img/blog/2.jpg',
-  },
-  {
-    category: 'Games',
-    title: 'The best online game is out now!',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....',
-    img: '../../assets/img/blog/3.jpg',
-  },
-]
-
 const itemInCategory = [
   'Games',
   'Gaming Tips & Tricks',
@@ -51,8 +27,6 @@ const blogFilter = [
 
 const BlogSection = () => {
   const data = useGameData()
-  console.log(data)
-  console.log()
 
   return (
     <section className="blog-section">
@@ -67,6 +41,7 @@ const BlogSection = () => {
               data.map(card => (
                 <div key={card.id} className="blog-item">
                   <IntroCard
+                    id={card.id}
                     title={card.name}
                     description={card.summary}
                     img={card.screenshot}

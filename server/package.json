@@ -2,6 +2,7 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
@@ -16,7 +17,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pg": "^8.14.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

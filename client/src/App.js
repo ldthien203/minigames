@@ -22,7 +22,7 @@ const MainRouter = [
   {path: '/contact', component: <Contact />},
   {path: '/news', component: <News />},
   {path: '/games', component: <Games />},
-  {path: '/games/:detail', component: <GameDetail />},
+  {path: '/games/:id', component: <GameDetail />},
   {path: '/games/minigames', component: <MiniGames />},
   {path: '/games/minigames/caro', component: <Caro />},
   {path: '/games/minigames/chess', component: <Chess />},

@@ -14,7 +14,6 @@ export const GameDataProvider = ({children}) => {
       try {
         const response = await fetch('http://localhost:4000')
         const data = await response.json()
-        console.log(data)
         setData(data)
       } catch (error) {
         console.log(`Error: ${error.message}`)

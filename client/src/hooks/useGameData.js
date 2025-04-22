@@ -12,7 +12,7 @@ export const GameDataProvider = ({children}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000')
+        const response = await fetch('http://localhost:4000/games')
         const data = await response.json()
         setData(data)
       } catch (error) {

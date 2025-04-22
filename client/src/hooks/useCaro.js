@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {WIN_CONDITION} from '../constants'
+import {WIN_CONDITION} from '../utils/constants'
 import useAuth from './useAuth'
 
 const useCaro = () => {

@@ -2,15 +2,14 @@ import db from '../utils/db.js'
 
 const getAllGames = async () => {
   const result = await db.query(`
-    SELECT g.*,
-        ROUND(AVG(r.price), 1) AS avg_price,
-        ROUND(AVG(r.graphics), 1) AS avg_graphics,
-        ROUND(AVG(r.levels), 1) AS avg_levels,
-        ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
-        ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack 
-    from games g
-    JOIN rating r ON g.game_id = r.game_id
-    GROUP BY g.game_id
+    SELECT 
+	    g.game_id,
+	    g.name,
+	    g.release_date,
+	    g.summary,
+	    gi.thumbnail
+    FROM games g
+    JOIN game_image gi ON g.game_id = gi.game_id
     `)
   return result.rows
 }
@@ -52,3 +51,16 @@ const getGameCommentAuthor = async id => {
 }
 
 export {getAllGames, getGameById, getGameCommentAuthor}
+
+// `
+// SELECT g.*,
+//     ROUND(AVG(r.price), 1) AS avg_price,
+//     ROUND(AVG(r.graphics), 1) AS avg_graphics,
+//     ROUND(AVG(r.levels), 1) AS avg_levels,
+//     ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
+//     ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack
+// from games g
+// JOIN rating r ON g.game_id = r.game_id
+// where g.game_id = $1
+// GROUP BY g.game_id
+// `,

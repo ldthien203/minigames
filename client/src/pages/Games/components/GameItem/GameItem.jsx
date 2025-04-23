@@ -3,15 +3,15 @@ import './GameItem.css'
 import doubleArrow from '../../../../assets/img/icons/double-arrow.png'
 
 const GameItem = ({
+  id,
   title,
   image = '../../../../assets/img/games/1.jpg',
-  link = '/games/detail',
 }) => {
   return (
     <div className="game-item">
-      <img src={image} alt="item pic" />
+      <img src={image} alt="item pic" className="thumbnail" />
       <h5>{title}</h5>
-      <Link to={link} className="read-more">
+      <Link to={`/games/${id}`} className="read-more">
         Read more
         <img src={doubleArrow} alt="double arrow icon" />
       </Link>

@@ -2,21 +2,51 @@ import {
   getAllGames,
   getGameById,
   getGameCommentAuthor,
+  getNewestReleaseGame,
 } from '../models/gameModel.js'
 
 const formatDate = date => {
-  return new Date(date).toLocaleDateString('en-US', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  })
+  return new Date(date)
+    .toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+    .replaceAll('/', '.')
+}
+
+const calcAvgRating = (price, graphics, levels, gameplay, soundtrack) => {
+  return (
+    (Number(price) +
+      Number(graphics) +
+      Number(levels) +
+      Number(gameplay) +
+      Number(soundtrack)) /
+    5
+  )
 }
 
 const fetchAllGames = async (req, res) => {
   try {
     const gamesQueried = await getAllGames()
+
     const games = gamesQueried.map(game => {
-      return {...game, release_date: formatDate(game.release_date)}
+      return {
+        ...game,
+        release_date: formatDate(game.release_date),
+        avg_price: Number(game.avg_price),
+        avg_graphics: Number(game.avg_graphics),
+        avg_levels: Number(game.avg_levels),
+        avg_gameplay: Number(game.avg_gameplay),
+        avg_soundtrack: Number(game.avg_soundtrack),
+        avg_rating: calcAvgRating(
+          game.avg_gameplay,
+          game.avg_graphics,
+          game.avg_levels,
+          game.avg_price,
+          game.avg_soundtrack,
+        ),
+      }
     })
     res.json(games)
   } catch (error) {
@@ -39,6 +69,13 @@ const fetchGameById = async (req, res) => {
       avg_levels: Number(gameQueried.avg_levels),
       avg_gameplay: Number(gameQueried.avg_gameplay),
       avg_soundtrack: Number(gameQueried.avg_soundtrack),
+      avg_rating: calcAvgRating(
+        gameQueried.avg_gameplay,
+        gameQueried.avg_graphics,
+        gameQueried.avg_levels,
+        gameQueried.avg_price,
+        gameQueried.avg_soundtrack,
+      ),
     }
     res.json({...game, ...comment})
   } catch (error) {
@@ -47,4 +84,19 @@ const fetchGameById = async (req, res) => {
   }
 }
 
-export {fetchAllGames, fetchGameById}
+const fetchNewestReleaseGame = async (req, res) => {
+  try {
+    const newestGameQueried = await getNewestReleaseGame()
+    const newestGame = {
+      ...newestGameQueried,
+      release_date: formatDate(newestGameQueried.release_date),
+    }
+
+    res.json(newestGame)
+  } catch (error) {
+    console.error('Error fetching newest release game', error.message)
+    res.status(500).json({error: 'Failed to fetch newest release game'})
+  }
+}
+
+export {fetchAllGames, fetchGameById, fetchNewestReleaseGame}

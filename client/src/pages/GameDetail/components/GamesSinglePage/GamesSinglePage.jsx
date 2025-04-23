@@ -9,7 +9,7 @@ const GamesSinglePage = ({game = {}}) => {
     <section className="games-single-page">
       <div className="container">
         <div className="game-single-preview">
-          <img src={game?.image} alt="game" />
+          <img src={game?.screenshot} alt="game" />
         </div>
         <div className="row">
           <div className="col-1 game-single-content">
@@ -48,15 +48,7 @@ const GamesSinglePage = ({game = {}}) => {
                   <div className="rating">
                     <h5>
                       <i>Rating</i>
-                      <span>
-                        {(game?.avg_price +
-                          game?.avg_graphics +
-                          game?.avg_levels +
-                          game?.avg_soundtrack +
-                          game?.avg_gameplay) /
-                          5}
-                      </span>{' '}
-                      / 10
+                      <span>{game?.avg_rating}</span> / 10
                     </h5>
                   </div>
                 </WidgetItem>

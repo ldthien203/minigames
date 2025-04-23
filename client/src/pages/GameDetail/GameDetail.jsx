@@ -33,7 +33,9 @@ const GameDetail = () => {
       ) : (
         <>
           <GamesSinglePage game={gameData} />
-          <GameAuthorSection game={gameData} />
+          {gameData.user_comment && gameData.user_name && (
+            <GameAuthorSection game={gameData} />
+          )}
         </>
       )}
     </Fragment>

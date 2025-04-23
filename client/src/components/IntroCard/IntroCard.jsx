@@ -26,7 +26,7 @@ const IntroCard = ({
           <div className="rating">
             <h5>
               <i>Rating </i>
-              <span>{rating}</span> / 5
+              <span>{rating}</span> / 10
             </h5>
           </div>
         )}

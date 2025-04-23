@@ -48,6 +48,15 @@
   margin-bottom: 40px;
 }
 
+.featured-section .featured-box .text-box h4 {
+  font-size: 40px;
+  line-height: 1.2;
+  max-width: 100%;
+  margin: 0;
+  margin-bottom: 40px;
+  color: #b01ba5;
+}
+
 .featured-section .featured-box .text-box p {
   font-size: 16px;
   font-weight: 500;

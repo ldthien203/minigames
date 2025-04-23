@@ -1,27 +1,43 @@
 import {Link} from 'react-router'
 import './FeaturedSection.css'
 import doubleArrow from '../../assets/img/icons/double-arrow.png'
+import {useEffect, useState} from 'react'
 
-const FeaturedSection = ({
-  date = new Date().toLocaleDateString().replaceAll('/', '.'),
-  category = 'Games',
-  title = 'The game you’ve been waiting for is out now',
-  desc = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus...',
-}) => {
+const FeaturedSection = () => {
+  const [newGame, setNewGame] = useState({})
+
+  useEffect(() => {
+    const fetchNewGame = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/games/newest')
+        const data = await response.json()
+        setNewGame(data)
+      } catch (error) {
+        console.error('Error fetching new game', error.message)
+      }
+    }
+    fetchNewGame()
+  }, [])
+
   return (
     <section className="featured-section">
       <div className="featured-bg"></div>
       <div className="featured-box">
         <div className="text-box">
-          <div className="top-meta">
-            {date} / in
-            <Link to={`/${category.toLowerCase()}`}>{' ' + category}</Link>
-          </div>
-          <h3>{title}</h3>
-          <p>{desc}</p>
-          <Link to="#" className="read-more">
-            Read more <img src={doubleArrow} alt="arrow icon" />
-          </Link>
+          {newGame && (
+            <>
+              <div className="top-meta">
+                {newGame.release_date} / in
+                <Link to="/games"> Games</Link>
+              </div>
+              <h3>The game you've been waiting for is out now</h3>
+              <h4>{newGame.name}</h4>
+              <p>{newGame.summary}</p>
+              <Link to={`/games/${newGame.game_id}`} className="read-more">
+                Read more <img src={doubleArrow} alt="arrow icon" />
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </section>

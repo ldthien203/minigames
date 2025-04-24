@@ -10,7 +10,7 @@ import './GameSection.css'
 const GameSection = () => {
   const data = useGameData()
 
-  const [category, setCategory] = useState([])
+  const [genre, setGenre] = useState([])
   const [platform, setPlatform] = useState([])
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const GameSection = () => {
       try {
         const response = await fetch('http://localhost:4000/category')
         const data = await response.json()
-        setCategory(data)
+        setGenre(data)
       } catch (error) {
         console.error('Error fetching all category')
       }
@@ -61,11 +61,8 @@ const GameSection = () => {
             <div className="col-2">
               <StickSidebar>
                 <WidgetItem key="category">
-                  {category && (
-                    <Category
-                      title="Category"
-                      items={category.map(c => c.name)}
-                    />
+                  {genre && (
+                    <Category title="Category" items={genre.map(c => c.name)} />
                   )}
                 </WidgetItem>
 

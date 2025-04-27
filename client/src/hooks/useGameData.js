@@ -1,4 +1,5 @@
-import {createContext, useContext, useEffect, useState} from 'react'
+import {createContext, useContext, useState} from 'react'
+import useFetchData from './useFetchData'
 
 const GameData = createContext([])
 
@@ -9,19 +10,7 @@ const useGameData = () => {
 export const GameDataProvider = ({children}) => {
   const [data, setData] = useState([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:4000/games')
-        const data = await response.json()
-        setData(data)
-      } catch (error) {
-        console.log(`Error: ${error.message}`)
-      }
-    }
-
-    fetchData()
-  }, [])
+  useFetchData('http://localhost:4000/games', setData, 'Error fetching games')
 
   return <GameData.Provider value={data}>{children}</GameData.Provider>
 }

@@ -1,42 +1,24 @@
-import {Fragment, useState, useEffect} from 'react'
+import {Fragment, useState} from 'react'
+import {useParams} from 'react-router-dom'
+import useFetchData from '../../hooks/useFetchData'
 import GamesSinglePage from './components/GamesSinglePage/GamesSinglePage'
 import GameAuthorSection from './components/GameAuthorSection/GameAuthorSection'
-import {useParams} from 'react-router-dom'
 
 const GameDetail = () => {
   const {id} = useParams()
   const [gameData, setGameData] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchGameDetail = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/games/${id}`)
-        const data = await response.json()
-        console.log(data)
-
-        setGameData(data)
-      } catch (error) {
-        console.error('Error fetching game detail: ', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchGameDetail()
-  }, [id])
+  useFetchData(
+    `http://localhost:4000/games/${id}`,
+    setGameData,
+    'Error fetching game detail: ',
+  )
 
   return (
     <Fragment>
-      {isLoading ? (
-        <p>Loading</p>
-      ) : (
-        <>
-          <GamesSinglePage game={gameData} />
-          {gameData.user_comment && gameData.user_name && (
-            <GameAuthorSection game={gameData} />
-          )}
-        </>
+      <GamesSinglePage game={gameData} />
+      {gameData.user_comment && gameData.user_name && (
+        <GameAuthorSection game={gameData} />
       )}
     </Fragment>
   )

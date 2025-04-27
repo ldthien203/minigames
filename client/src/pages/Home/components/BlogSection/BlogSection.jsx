@@ -44,6 +44,7 @@ const BlogSection = () => {
                     id={card.game_id}
                     title={card.name}
                     description={card.summary}
+                    category={card.category_name}
                     img={card.thumbnail}
                     isShowImg={true}
                     rating={card.rating}

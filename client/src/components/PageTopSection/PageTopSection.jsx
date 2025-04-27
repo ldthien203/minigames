@@ -47,7 +47,7 @@ const PageTop = ({path = '/'}) => {
           <div className="page-info">
             <h2>{title}</h2>
             <div className="site-breadcrumb">
-              <Link to="#">Home </Link> / <span>{title ?? ''}</span>
+              <Link to="/">Home </Link> / <span>{title ?? ''}</span>
             </div>
           </div>
         </section>

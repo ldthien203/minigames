@@ -1,10 +1,15 @@
-import {Fragment} from 'react'
+import {Fragment, useState} from 'react'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import './ReviewSection.css'
-import useGameData from '../../../../hooks/useGameData'
+import useFetchData from '../../../../hooks/useFetchData'
 
 const ReviewSection = () => {
-  const data = useGameData()
+  const [data, setData] = useState([])
+  useFetchData(
+    'http://localhost:4000/games/reviews',
+    setData,
+    'Error fetching data!',
+  )
 
   return (
     <Fragment>
@@ -16,6 +21,7 @@ const ReviewSection = () => {
                 date={card.release_date}
                 id={card.game_id}
                 title={card.name}
+                category={card.category_name}
                 description={card.summary}
                 isShowImg={true}
                 isShowRating={true}

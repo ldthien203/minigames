@@ -8,6 +8,7 @@ const getAllGames = async () => {
         g.name,
         g.release_date,
         g.summary,
+        c.name AS category_name,
         gi.thumbnail,
         gi.screenshot,
         ROUND(AVG(r.price), 1) AS avg_price,
@@ -18,7 +19,8 @@ const getAllGames = async () => {
       FROM games g
       JOIN game_image gi ON g.game_id = gi.game_id
       JOIN rating r ON g.game_id = r.game_id
-      GROUP BY g.game_id, g.name, g.release_date, g.summary, gi.thumbnail, gi.screenshot
+      JOIN category c ON c.category_id = g.category_id
+      GROUP BY g.game_id, g.name, g.release_date, g.summary, c.name, gi.thumbnail, gi.screenshot
       ORDER BY g.release_date DESC
       `)
     return result.rows
@@ -94,17 +96,56 @@ const getNewestReleaseGame = async () => {
   }
 }
 
-export {getAllGames, getGameById, getGameCommentAuthor, getNewestReleaseGame}
+const getGamesForGames = async () => {
+  try {
+    const result = await db.query(`
+      SELECT 
+        g.game_id,
+        g.name,
+        gi.thumbnail
+      FROM games g
+      JOIN game_image gi ON gi.game_id = g.game_id
+    `)
 
-// `
-// SELECT g.*,
-//     ROUND(AVG(r.price), 1) AS avg_price,
-//     ROUND(AVG(r.graphics), 1) AS avg_graphics,
-//     ROUND(AVG(r.levels), 1) AS avg_levels,
-//     ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
-//     ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack
-// from games g
-// JOIN rating r ON g.game_id = r.game_id
-// where g.game_id = $1
-// GROUP BY g.game_id
-// `,
+    return result.rows
+  } catch (error) {
+    console.error('Error getting games for games pages', error.message)
+  }
+}
+
+const getGamesForReview = async () => {
+  try {
+    const result = await db.query(`
+      SELECT 
+        g.game_id,
+        g.name,
+        g.release_date,
+        g.summary,
+        c.name AS category_name,
+        gi.thumbnail,
+        ROUND(AVG(r.price), 1) AS avg_price,
+        ROUND(AVG(r.graphics), 1) AS avg_graphics,
+        ROUND(AVG(r.levels), 1) AS avg_levels,
+        ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
+        ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack 
+      FROM games g
+      JOIN game_image gi ON g.game_id = gi.game_id
+      JOIN rating r ON g.game_id = r.game_id
+      JOIN category c ON c.category_id = g.category_id
+      GROUP BY g.game_id, g.name, g.release_date, g.summary, c.name, gi.thumbnail
+      ORDER BY g.release_date DESC
+    `)
+    return result.rows
+  } catch (error) {
+    console.error('Error getting games for review pages', error.message)
+  }
+}
+
+export {
+  getAllGames,
+  getGameById,
+  getGameCommentAuthor,
+  getNewestReleaseGame,
+  getGamesForGames,
+  getGamesForReview,
+}

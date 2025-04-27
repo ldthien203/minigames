@@ -1,43 +1,35 @@
-import {Fragment, useState, useEffect} from 'react'
+import {Fragment, useState} from 'react'
 import Category from '../../../../components/Category/Category'
 import SitePagination from '../../../../components/SitePagination/SitePagination'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import GameItem from '../GameItem/GameItem'
-import useGameData from '../../../../hooks/useGameData'
+import useFetchData from '../../../../hooks/useFetchData'
 import './GameSection.css'
 
 const GameSection = () => {
-  const data = useGameData()
+  const [data, setData] = useState([])
 
   const [genre, setGenre] = useState([])
   const [platform, setPlatform] = useState([])
 
-  useEffect(() => {
-    const fetchAllCategory = async (req, res) => {
-      try {
-        const response = await fetch('http://localhost:4000/category')
-        const data = await response.json()
-        setGenre(data)
-      } catch (error) {
-        console.error('Error fetching all category')
-      }
-    }
-    fetchAllCategory()
-  }, [])
+  useFetchData(
+    'http://localhost:4000/games/games',
+    setData,
+    'Error fetching games for game pages',
+  )
 
-  useEffect(() => {
-    const fetchAllFlatform = async (req, res) => {
-      try {
-        const response = await fetch('http://localhost:4000/platform')
-        const data = await response.json()
-        setPlatform(data)
-      } catch (error) {
-        console.error('Error fetching all platform')
-      }
-    }
-    fetchAllFlatform()
-  }, [])
+  useFetchData(
+    'http://localhost:4000/genre',
+    setGenre,
+    'Error fetching all genres',
+  )
+
+  useFetchData(
+    'http://localhost:4000/platform',
+    setPlatform,
+    'Error fetching all platforms',
+  )
 
   return (
     <Fragment>
@@ -60,9 +52,13 @@ const GameSection = () => {
             </div>
             <div className="col-2">
               <StickSidebar>
-                <WidgetItem key="category">
+                <WidgetItem key="genre">
                   {genre && (
-                    <Category title="Category" items={genre.map(c => c.name)} />
+                    <Category
+                      title="Genres"
+                      items={genre.map(c => c.name)}
+                      queryKey="genre"
+                    />
                   )}
                 </WidgetItem>
 
@@ -71,6 +67,7 @@ const GameSection = () => {
                     <Category
                       title="Platform"
                       items={platform.map(p => p.name)}
+                      queryKey="platform"
                     />
                   )}
                 </WidgetItem>

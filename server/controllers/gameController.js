@@ -3,6 +3,8 @@ import {
   getGameById,
   getGameCommentAuthor,
   getNewestReleaseGame,
+  getGamesForGames,
+  getGamesForReview,
 } from '../models/gameModel.js'
 
 const formatDate = date => {
@@ -26,28 +28,29 @@ const calcAvgRating = (price, graphics, levels, gameplay, soundtrack) => {
   )
 }
 
+const processGameData = game => {
+  return {
+    ...game,
+    release_date: formatDate(game.release_date),
+    avg_price: Number(game.avg_price),
+    avg_graphics: Number(game.avg_graphics),
+    avg_levels: Number(game.avg_levels),
+    avg_gameplay: Number(game.avg_gameplay),
+    avg_soundtrack: Number(game.avg_soundtrack),
+    avg_rating: calcAvgRating(
+      game.avg_gameplay,
+      game.avg_graphics,
+      game.avg_levels,
+      game.avg_price,
+      game.avg_soundtrack,
+    ),
+  }
+}
+
 const fetchAllGames = async (req, res) => {
   try {
     const gamesQueried = await getAllGames()
-
-    const games = gamesQueried.map(game => {
-      return {
-        ...game,
-        release_date: formatDate(game.release_date),
-        avg_price: Number(game.avg_price),
-        avg_graphics: Number(game.avg_graphics),
-        avg_levels: Number(game.avg_levels),
-        avg_gameplay: Number(game.avg_gameplay),
-        avg_soundtrack: Number(game.avg_soundtrack),
-        avg_rating: calcAvgRating(
-          game.avg_gameplay,
-          game.avg_graphics,
-          game.avg_levels,
-          game.avg_price,
-          game.avg_soundtrack,
-        ),
-      }
-    })
+    const games = gamesQueried.map(processGameData)
     res.json(games)
   } catch (error) {
     console.error('Error fetching games:', error.message)
@@ -61,22 +64,7 @@ const fetchGameById = async (req, res) => {
     const gameQueried = await getGameById(id)
     const comment = await getGameCommentAuthor(id)
 
-    const game = {
-      ...gameQueried,
-      release_date: formatDate(gameQueried.release_date),
-      avg_price: Number(gameQueried.avg_price),
-      avg_graphics: Number(gameQueried.avg_graphics),
-      avg_levels: Number(gameQueried.avg_levels),
-      avg_gameplay: Number(gameQueried.avg_gameplay),
-      avg_soundtrack: Number(gameQueried.avg_soundtrack),
-      avg_rating: calcAvgRating(
-        gameQueried.avg_gameplay,
-        gameQueried.avg_graphics,
-        gameQueried.avg_levels,
-        gameQueried.avg_price,
-        gameQueried.avg_soundtrack,
-      ),
-    }
+    const game = processGameData(gameQueried)
     res.json({...game, ...comment})
   } catch (error) {
     console.error('Error fetching games:', error.message)
@@ -99,4 +87,32 @@ const fetchNewestReleaseGame = async (req, res) => {
   }
 }
 
-export {fetchAllGames, fetchGameById, fetchNewestReleaseGame}
+const fetchGamesForGames = async (req, res) => {
+  try {
+    const gamesQueried = await getGamesForGames()
+    res.json(gamesQueried)
+  } catch (error) {
+    console.error('Error fetching games for game pages', error.message)
+    res.status(500).json({error: 'Failed to fetch games for game pages'})
+  }
+}
+
+const fetchGamesForReview = async (req, res) => {
+  try {
+    const gamesQueried = await getGamesForReview()
+    const games = gamesQueried.map(processGameData)
+
+    res.json(games)
+  } catch (error) {
+    console.error('Error fetching games for review pages', error.message)
+    res.status(500).json({error: 'Failed to fetch games for review pages'})
+  }
+}
+
+export {
+  fetchAllGames,
+  fetchGameById,
+  fetchNewestReleaseGame,
+  fetchGamesForGames,
+  fetchGamesForReview,
+}

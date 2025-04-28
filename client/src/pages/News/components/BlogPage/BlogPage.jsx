@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
 import SitePagination from '../../../../components/SitePagination/SitePagination'
@@ -7,6 +8,7 @@ import Category from '../../../../components/Category/Category'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import LatestComment from '../../../../components/LatestComment/LatestComment'
 import BlogContent from '../BlogContent/BlogContent'
+import useFetchData from '../../../../hooks/useFetchData'
 import './BlogPage.css'
 import blogBig1 from '../../../../assets/img/blog-big/1.jpg'
 import blogBig2 from '../../../../assets/img/blog-big/2.jpg'
@@ -30,24 +32,25 @@ const blogFilter = [
 ]
 
 const BlogPage = () => {
+  const [data, setData] = useState([])
+
+  useFetchData('http://localhost:4000/news', setData, 'Failed to fetch data')
+
   return (
     <section className="blog-page">
       <div className="container">
         <div className="row">
           <div className="col-1">
             <BlogFilter blogFilter={blogFilter} />
-            <BlogContent
-              title="The best online game is out now!"
-              img={blogBig1}
-            />
-            <BlogContent
-              title="The best online game is out now!"
-              img={blogBig2}
-            />
-            <BlogContent
-              title="The best online game is out now!"
-              img={blogBig3}
-            />
+            {data.map(blog => (
+              <BlogContent
+                title={blog.title}
+                img={blogBig1}
+                content={blog.content}
+                date={blog.publish_date}
+                category={blog.category_name}
+              />
+            ))}
             <SitePagination />
           </div>
           <div className="col-2">
@@ -56,7 +59,7 @@ const BlogPage = () => {
                 <TrendingWidget />
               </WidgetItem>
               <WidgetItem>
-                <Category items={itemInCategory} />
+                <Category title="Category" items={itemInCategory} />
               </WidgetItem>
               <WidgetItem isShowTitle={true} title="Latest comment">
                 <LatestComment />

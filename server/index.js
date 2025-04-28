@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import gameRoutes from './routes/gameRoutes.js'
 import genreRoutes from './routes/genreRoutes.js'
 import platfromRoutes from './routes/platformRoutes.js'
+import newsRoutes from './routes/newsRoutes.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('/games', gameRoutes)
 app.use('/genre', genreRoutes)
 app.use('/platform', platfromRoutes)
+app.use('/news', newsRoutes)
 
 app.get('/', async (req, res) => {
   res.send('Welcome to the Minigames API!')

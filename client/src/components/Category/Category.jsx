@@ -1,11 +1,7 @@
 import {Link} from 'react-router'
 import './Category.css'
 
-const Category = ({
-  title = 'Categories',
-  items = [],
-  queryKey = 'category',
-}) => {
+const Category = ({title, items, queryKey, onSelect}) => {
   return (
     <div className="categories-widget">
       <h4 className="widget-title">{title}</h4>
@@ -13,7 +9,7 @@ const Category = ({
         {items.map(item => {
           const query = `${queryKey}=${encodeURIComponent(item.toLowerCase())}`
           return (
-            <li key={item}>
+            <li key={item} onClick={() => onSelect(item)}>
               <Link to={`/games?${query}`}>{item}</Link>
             </li>
           )

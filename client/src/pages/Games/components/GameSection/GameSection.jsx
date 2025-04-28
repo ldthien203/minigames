@@ -1,4 +1,4 @@
-import {Fragment, useState} from 'react'
+import {Fragment, useEffect, useState} from 'react'
 import Category from '../../../../components/Category/Category'
 import SitePagination from '../../../../components/SitePagination/SitePagination'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
@@ -13,11 +13,28 @@ const GameSection = () => {
   const [genre, setGenre] = useState([])
   const [platform, setPlatform] = useState([])
 
-  useFetchData(
-    'http://localhost:4000/games/games',
-    setData,
-    'Error fetching games for game pages',
-  )
+  const [selectedGenre, setSelectedGenre] = useState(null)
+  const [selectedPlatform, setSelectedPlatform] = useState(null)
+
+  useEffect(() => {
+    const fetchFilteredGames = async () => {
+      try {
+        const queryParams = new URLSearchParams()
+        if (selectedGenre) queryParams.append('genre', selectedGenre)
+        if (selectedPlatform) queryParams.append('platform', selectedPlatform)
+
+        const response = await fetch(
+          `http://localhost:4000/games/games?${queryParams.toString()}`,
+        )
+
+        const data = await response.json()
+        setData(data)
+      } catch (error) {
+        console.error('Error fetching filtered games:', error.message)
+      }
+    }
+    fetchFilteredGames()
+  }, [selectedGenre, selectedPlatform])
 
   useFetchData(
     'http://localhost:4000/genre',
@@ -58,6 +75,7 @@ const GameSection = () => {
                       title="Genres"
                       items={genre.map(c => c.name)}
                       queryKey="genre"
+                      onSelect={setSelectedGenre}
                     />
                   )}
                 </WidgetItem>
@@ -68,6 +86,7 @@ const GameSection = () => {
                       title="Platform"
                       items={platform.map(p => p.name)}
                       queryKey="platform"
+                      onSelect={setSelectedPlatform}
                     />
                   )}
                 </WidgetItem>

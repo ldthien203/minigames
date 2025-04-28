@@ -89,7 +89,8 @@ const fetchNewestReleaseGame = async (req, res) => {
 
 const fetchGamesForGames = async (req, res) => {
   try {
-    const gamesQueried = await getGamesForGames()
+    const {genre, platform} = req.query
+    const gamesQueried = await getGamesForGames({genre, platform})
     res.json(gamesQueried)
   } catch (error) {
     console.error('Error fetching games for game pages', error.message)

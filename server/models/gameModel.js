@@ -9,19 +9,13 @@ const getAllGames = async () => {
         g.release_date,
         g.summary,
         c.name AS category_name,
-        gi.thumbnail,
-        gi.screenshot,
-        ROUND(AVG(r.price), 1) AS avg_price,
-        ROUND(AVG(r.graphics), 1) AS avg_graphics,
-        ROUND(AVG(r.levels), 1) AS avg_levels,
-        ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
-        ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack 
+        gi.thumbnail
       FROM games g
       JOIN game_image gi ON g.game_id = gi.game_id
-      JOIN rating r ON g.game_id = r.game_id
       JOIN category c ON c.category_id = g.category_id
-      GROUP BY g.game_id, g.name, g.release_date, g.summary, c.name, gi.thumbnail, gi.screenshot
+      GROUP BY g.game_id, g.name, g.release_date, g.summary, c.name, gi.thumbnail
       ORDER BY g.release_date DESC
+      LIMIT 5
       `)
     return result.rows
   } catch (error) {
@@ -96,20 +90,42 @@ const getNewestReleaseGame = async () => {
   }
 }
 
-const getGamesForGames = async () => {
+const getGamesForGames = async ({genre, platform}) => {
   try {
-    const result = await db.query(`
+    let query = `
       SELECT 
         g.game_id,
         g.name,
-        gi.thumbnail
+        gi.thumbnail,
+        p.name AS platform_name,
+        genre.name AS genre_name
       FROM games g
-      JOIN game_image gi ON gi.game_id = g.game_id
-    `)
+      LEFT JOIN game_image gi ON gi.game_id = g.game_id
+      JOIN game_platforms gp ON gp.game_id = g.game_id
+      JOIN platform p ON p.platform_id = gp.platform_id
+      JOIN game_genres gg ON gg.game_id = g.game_id
+      JOIN genre ON genre.genre_id = gg.genre_id
+      WHERE 1=1
+    `
+    const params = []
+
+    if (genre) {
+      query += ` AND genre.name ILIKE $${params.length + 1}`
+      params.push(genre)
+    }
+
+    if (platform) {
+      query += ` AND p.name ILIKE $${params.length + 1}`
+      params.push(platform)
+    }
+
+    query += ` ORDER BY g.release_date DESC`
+
+    const result = await db.query(query, params)
 
     return result.rows
   } catch (error) {
-    console.error('Error getting games for games pages', error.message)
+    console.error('Error getting games for games pages:', error.message)
   }
 }
 

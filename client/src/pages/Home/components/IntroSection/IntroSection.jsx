@@ -11,14 +11,14 @@ const introCard = [
   },
   {
     id: 2,
-    category: 'Playstation',
+    category: 'Reviews',
     title: 'Top 5 best games in november',
     description:
       'Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum labore suspendisse ultrices gravida....',
   },
   {
     id: 3,
-    category: 'Reviews',
+    category: 'News',
     title: 'Get this game at a promo price',
     description:
       'Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida ncididunt ut labore ....',
@@ -32,7 +32,11 @@ const IntroSection = () => {
         <div className="row">
           {introCard.map(card => (
             <div key={card.id} className="col">
-              <IntroCard title={card.title} description={card.description} />
+              <IntroCard
+                category={card.category}
+                title={card.title}
+                description={card.description}
+              />
             </div>
           ))}
         </div>

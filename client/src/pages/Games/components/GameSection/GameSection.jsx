@@ -1,6 +1,5 @@
 import {Fragment, useEffect, useState} from 'react'
 import Category from '../../../../components/Category/Category'
-import SitePagination from '../../../../components/Pagination/Pagination'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import SitePaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
@@ -60,7 +59,7 @@ const GameSection = () => {
                 data={data}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                pageSize={3}
+                pageSize={1}
               >
                 {currentTableData => (
                   <div className="row">

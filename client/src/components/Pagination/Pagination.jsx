@@ -38,7 +38,7 @@ const Pagination = ({
           if (pageNumber === DOTS) {
             return (
               <li key={`dots-${index}`} className="pagination-item dots">
-                &#8230
+                ...
               </li>
             )
           }

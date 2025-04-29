@@ -7,7 +7,9 @@ import Category from '../../../../components/Category/Category'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import './BlogSection.css'
 import add from '../../../../assets/img/add.jpg'
-import useGameData from '../../../../hooks/useGameData'
+// import useGameData from '../../../../hooks/useGameData'
+import useFetchData from '../../../../hooks/useFetchData'
+import {useState} from 'react'
 
 const itemInCategory = [
   'Games',
@@ -26,7 +28,12 @@ const blogFilter = [
 ]
 
 const BlogSection = () => {
-  const data = useGameData()
+  const [data, setData] = useState([])
+  useFetchData(
+    'http://localhost:4000/games',
+    setData,
+    'Failed to fetch all games',
+  )
 
   return (
     <section className="blog-section">

@@ -18,6 +18,7 @@ const ReviewSection = () => {
           {data.map(card => (
             <div className="review-item" key={card.id}>
               <IntroCard
+                key={card.id}
                 date={card.release_date}
                 id={card.game_id}
                 title={card.name}

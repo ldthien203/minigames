@@ -2,7 +2,7 @@
   display: flex;
 }
 
-.site-pagination a {
+.site-pagination .pagination-item {
   height: 44px;
   width: 38px;
   border-radius: 50%;
@@ -13,15 +13,21 @@
   justify-content: center;
   transition: all 0.5s;
   text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
 }
 
-.site-pagination a:first-child {
+.site-pagination .pagination-item:hover {
+  background: #f3e6fa;
+  color: #b01ba5;
+}
+
+.site-pagination .pagination-item.selected {
   margin-left: 0;
   margin: 0 10px;
   color: #b01ba5;
+  background: #f3e6fa;
   border: 2px solid #b01ba5;
-}
-
-.site-pagination a.active {
   width: 44px;
 }

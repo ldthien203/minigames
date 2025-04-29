@@ -1,20 +1,22 @@
 import {Fragment, useEffect, useState} from 'react'
 import Category from '../../../../components/Category/Category'
-import SitePagination from '../../../../components/SitePagination/SitePagination'
+import SitePagination from '../../../../components/Pagination/Pagination'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import SitePaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import GameItem from '../GameItem/GameItem'
 import useFetchData from '../../../../hooks/useFetchData'
 import './GameSection.css'
 
 const GameSection = () => {
   const [data, setData] = useState([])
-
   const [genre, setGenre] = useState([])
   const [platform, setPlatform] = useState([])
 
   const [selectedGenre, setSelectedGenre] = useState(null)
   const [selectedPlatform, setSelectedPlatform] = useState(null)
+
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     const fetchFilteredGames = async () => {
@@ -54,18 +56,26 @@ const GameSection = () => {
         <div className="container">
           <div className="row">
             <div className="col-1">
-              <div className="row">
-                {data.map(item => (
-                  <div key={item.game_id} className="child-col">
-                    <GameItem
-                      id={item.game_id}
-                      title={item.name}
-                      image={item.thumbnail}
-                    />
+              <SitePaginationWrapper
+                data={data}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                pageSize={3}
+              >
+                {currentTableData => (
+                  <div className="row">
+                    {currentTableData.map(item => (
+                      <div key={item.game_id} className="child-col">
+                        <GameItem
+                          id={item.game_id}
+                          title={item.name}
+                          image={item.thumbnail}
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <SitePagination />
+                )}
+              </SitePaginationWrapper>
             </div>
             <div className="col-2">
               <StickSidebar>

@@ -13,7 +13,6 @@ import MiniGames from './pages/MiniGames/MiniGames'
 import Caro from './pages/MiniGames/components/Caro/Caro'
 import Chess from './pages/MiniGames/components/Chess/Chess'
 import {AuthContextProvider} from './hooks/useAuth'
-import {GameDataProvider} from './hooks/useGameData'
 
 const MainRouter = [
   {path: '/', component: <Home />},
@@ -32,18 +31,16 @@ function App() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <GameDataProvider>
-          <Routes>
-            <Route path="sign-in" element={<Login />} />
-            {MainRouter.map(el => (
-              <Route
-                key={el.path}
-                path={el.path}
-                element={<MainLayout path={el.path}>{el.component}</MainLayout>}
-              />
-            ))}
-          </Routes>
-        </GameDataProvider>
+        <Routes>
+          <Route path="sign-in" element={<Login />} />
+          {MainRouter.map(el => (
+            <Route
+              key={el.path}
+              path={el.path}
+              element={<MainLayout path={el.path}>{el.component}</MainLayout>}
+            />
+          ))}
+        </Routes>
       </AuthContextProvider>
     </BrowserRouter>
   )

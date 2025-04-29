@@ -1,12 +1,12 @@
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
-import SitePagination from '../../../../components/SitePagination/SitePagination'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import Category from '../../../../components/Category/Category'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import LatestComment from '../../../../components/LatestComment/LatestComment'
+import SitePaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import BlogContent from '../BlogContent/BlogContent'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogPage.css'
@@ -33,6 +33,7 @@ const blogFilter = [
 
 const BlogPage = () => {
   const [data, setData] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
 
   useFetchData('http://localhost:4000/news', setData, 'Failed to fetch data')
 
@@ -42,16 +43,24 @@ const BlogPage = () => {
         <div className="row">
           <div className="col-1">
             <BlogFilter blogFilter={blogFilter} />
-            {data.map(blog => (
-              <BlogContent
-                title={blog.title}
-                img={blogBig1}
-                content={blog.content}
-                date={blog.publish_date}
-                category={blog.category_name}
-              />
-            ))}
-            <SitePagination />
+            <SitePaginationWrapper
+              data={data}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            >
+              {currentTableData =>
+                currentTableData.map(blog => (
+                  <BlogContent
+                    key={blog.news_id}
+                    title={blog.title}
+                    img={blogBig1}
+                    content={blog.content}
+                    date={blog.publish_date}
+                    category={blog.category_name}
+                  />
+                ))
+              }
+            </SitePaginationWrapper>
           </div>
           <div className="col-2">
             <StickSidebar>

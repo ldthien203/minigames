@@ -5,11 +5,7 @@ import useFetchData from '../../../../hooks/useFetchData'
 
 const ReviewSection = () => {
   const [data, setData] = useState([])
-  useFetchData(
-    'http://localhost:4000/games/reviews',
-    setData,
-    'Error fetching data!',
-  )
+  useFetchData('http://localhost:4000/games', setData, 'Error fetching data!')
 
   return (
     <Fragment>

@@ -5,12 +5,12 @@ import {
   getGameCommentAuthor,
   getNewestReleaseGame,
   getGamesForGames,
-  getGamesForReview,
 } from '../models/gameModel.js'
 
 const fetchAllGames = async (req, res) => {
   try {
-    const gamesQueried = await getAllGames()
+    const {genre, platform} = req.query
+    const gamesQueried = await getAllGames({genre, platform})
     const games = gamesQueried.map(processGameData)
     res.json(games)
   } catch (error) {
@@ -59,22 +59,9 @@ const fetchGamesForGames = async (req, res) => {
   }
 }
 
-const fetchGamesForReview = async (req, res) => {
-  try {
-    const gamesQueried = await getGamesForReview()
-    const games = gamesQueried.map(processGameData)
-
-    res.json(games)
-  } catch (error) {
-    console.error('Error fetching games for review pages', error.message)
-    res.status(500).json({error: 'Failed to fetch games for review pages'})
-  }
-}
-
 export {
   fetchAllGames,
   fetchGameById,
   fetchNewestReleaseGame,
   fetchGamesForGames,
-  fetchGamesForReview,
 }

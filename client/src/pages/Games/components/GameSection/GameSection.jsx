@@ -25,7 +25,7 @@ const GameSection = () => {
         if (selectedPlatform) queryParams.append('platform', selectedPlatform)
 
         const response = await fetch(
-          `http://localhost:4000/games/games?${queryParams.toString()}`,
+          `http://localhost:4000/games?${queryParams.toString()}`,
         )
 
         const data = await response.json()
@@ -59,7 +59,7 @@ const GameSection = () => {
                 data={data}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                pageSize={1}
+                pageSize={3}
               >
                 {currentTableData => (
                   <div className="row">

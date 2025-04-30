@@ -4,7 +4,6 @@ import {
   getGameById,
   getGameCommentAuthor,
   getNewestReleaseGame,
-  getGamesForGames,
 } from '../models/gameModel.js'
 
 const fetchAllGames = async (req, res) => {
@@ -48,20 +47,4 @@ const fetchNewestReleaseGame = async (req, res) => {
   }
 }
 
-const fetchGamesForGames = async (req, res) => {
-  try {
-    const {genre, platform} = req.query
-    const gamesQueried = await getGamesForGames({genre, platform})
-    res.json(gamesQueried)
-  } catch (error) {
-    console.error('Error fetching games for game pages', error.message)
-    res.status(500).json({error: 'Failed to fetch games for game pages'})
-  }
-}
-
-export {
-  fetchAllGames,
-  fetchGameById,
-  fetchNewestReleaseGame,
-  fetchGamesForGames,
-}
+export {fetchAllGames, fetchGameById, fetchNewestReleaseGame}

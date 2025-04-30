@@ -56,6 +56,10 @@ const BlogSection = () => {
                     isShowImg={true}
                     rating={card.rating}
                     date={card.release_date}
+                    categoryLink={`/${card.category_name.toLowerCase()}`}
+                    readMoreLink={`/${card.category_name.toLowerCase()}/${
+                      card.game_id
+                    }`}
                   />
                 </div>
               ))}

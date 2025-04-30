@@ -12,9 +12,9 @@ const ReviewSection = () => {
       <section className="review-section">
         <div className="container">
           {data.map(card => (
-            <div className="review-item" key={card.id}>
+            <div className="review-item" key={card.game_id}>
               <IntroCard
-                key={card.id}
+                key={card.game_id}
                 date={card.release_date}
                 id={card.game_id}
                 title={card.name}
@@ -24,6 +24,10 @@ const ReviewSection = () => {
                 isShowRating={true}
                 img={card.thumbnail}
                 rating={card.avg_rating}
+                categoryLink={`/${card.category_name.toLowerCase()}`}
+                readMoreLink={`/${card.category_name.toLowerCase()}/${
+                  card.game_id
+                }`}
               />
             </div>
           ))}

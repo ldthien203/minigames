@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom'
 import IconLink from '../../../../components/IconLink/IconLink'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
+import Category from '../../../../components/Category/Category'
 import './GamesSinglePage.css'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 
@@ -54,16 +55,18 @@ const GamesSinglePage = ({game = {}}) => {
                 </WidgetItem>
               </div>
               <div className="widget-container">
-                <WidgetItem isShowTitle={true} title="Testimonials">
+                <WidgetItem isShowTitle={true} title="Genres">
                   <div className="testim-text">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolo re
-                      magna aliqua. Quis ipsum suspend isse ultrices.
-                    </p>
-                    <h6>
-                      <span>James Smith,</span> Gamer
-                    </h6>
+                    {game.genre_short_name &&
+                    game.genre_short_name.length > 1 ? (
+                      <Category
+                        title="Genres"
+                        items={game?.genre_short_name}
+                        queryKey="genres"
+                      />
+                    ) : (
+                      <p>{game?.genre_short_name}</p>
+                    )}
                   </div>
                 </WidgetItem>
               </div>

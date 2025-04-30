@@ -12,8 +12,10 @@ const IntroCard = ({
   isShowLink = true,
   img = '../../assets/img/blog/1.jpg',
   isShowImg = false,
-  rating = 4.5,
+  rating = 5,
   isShowRating = false,
+  categoryLink = '/games',
+  readMoreLink = '/games',
 }) => {
   return (
     <div className="card-container">
@@ -33,12 +35,12 @@ const IntroCard = ({
         )}
         <div className="top-meta">
           {date} / in
-          <Link to="/games"> {category}</Link>
+          <Link to={`${categoryLink}`}> {category}</Link>
         </div>
         <h3>{title}</h3>
         {isShowDesc && <p>{description}</p>}
         {isShowLink && (
-          <Link to={`/games/${id}`} className="read-more">
+          <Link to={`${readMoreLink}`} className="read-more">
             Read more
             <img src={doubleArrow} alt="double arrow" />
           </Link>

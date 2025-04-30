@@ -10,6 +10,8 @@ const getAllGames = async ({genre, platform}) => {
         g.summary,
         c.name AS category_name,
         gi.thumbnail,
+        ARRAY_AGG(DISTINCT p.name) AS platform_name,
+        ARRAY_AGG(DISTINCT genre.short_name) AS genre_short_name,
         ROUND(AVG(r.price), 1) AS avg_price,
         ROUND(AVG(r.graphics), 1) AS avg_graphics,
         ROUND(AVG(r.levels), 1) AS avg_levels,
@@ -38,7 +40,9 @@ const getAllGames = async ({genre, platform}) => {
     }
 
     query += ` 
-      GROUP BY g.game_id, c.name, gi.thumbnail
+      GROUP BY 
+        g.game_id, c.name, g.release_date, 
+        g.summary, gi.thumbnail
       ORDER BY g.release_date DESC`
 
     const result = await db.query(query, params)
@@ -56,16 +60,19 @@ const getGameById = async id => {
       SELECT g.*,
           gi.thumbnail,
           gi.screenshot,
+          ARRAY_AGG(DISTINCT genre.short_name) AS genre_short_name,
           ROUND(AVG(r.price), 1) AS avg_price,
           ROUND(AVG(r.graphics), 1) AS avg_graphics,
           ROUND(AVG(r.levels), 1) AS avg_levels,
           ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
           ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack 
       FROM games g
-      JOIN game_image gi ON g.game_id = gi.game_id
-      JOIN rating r ON g.game_id = r.game_id
+      LEFT JOIN game_image gi ON g.game_id = gi.game_id
+      LEFT JOIN rating r ON g.game_id = r.game_id
+      LEFT JOIN game_genres gg ON gg.game_id = g.game_id
+      LEFT JOIN genre ON genre.genre_id = gg.genre_id 
       WHERE g.game_id = $1 
-      GROUP BY g.game_id, g.name, g.release_date, g.summary, gi.thumbnail, gi.screenshot
+      GROUP BY g.game_id, g.name, g.release_date, g.summary, gi.thumbnail, gi.screenshot, genre.short_name
       `,
       [id],
     )
@@ -116,49 +123,4 @@ const getNewestReleaseGame = async () => {
   }
 }
 
-const getGamesForGames = async ({genre, platform}) => {
-  try {
-    let query = `
-      SELECT 
-        g.game_id,
-        g.name,
-        gi.thumbnail,
-        p.name AS platform_name,
-        genre.name AS genre_name
-      FROM games g
-      LEFT JOIN game_image gi ON gi.game_id = g.game_id
-      JOIN game_platforms gp ON gp.game_id = g.game_id
-      JOIN platform p ON p.platform_id = gp.platform_id
-      JOIN game_genres gg ON gg.game_id = g.game_id
-      JOIN genre ON genre.genre_id = gg.genre_id
-      WHERE 1=1
-    `
-    const params = []
-
-    if (genre) {
-      query += ` AND genre.name ILIKE $${params.length + 1}`
-      params.push(genre)
-    }
-
-    if (platform) {
-      query += ` AND p.name ILIKE $${params.length + 1}`
-      params.push(platform)
-    }
-
-    query += ` ORDER BY g.release_date DESC`
-
-    const result = await db.query(query, params)
-
-    return result.rows
-  } catch (error) {
-    console.error('Error getting games for games pages:', error.message)
-  }
-}
-
-export {
-  getAllGames,
-  getGameById,
-  getGameCommentAuthor,
-  getNewestReleaseGame,
-  getGamesForGames,
-}
+export {getAllGames, getGameById, getGameCommentAuthor, getNewestReleaseGame}

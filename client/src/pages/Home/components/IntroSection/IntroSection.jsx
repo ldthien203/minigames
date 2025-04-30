@@ -7,21 +7,21 @@ const introCard = [
     category: 'Games',
     title: 'The best online game is out now!',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida....',
+      "Discover the latest in gaming with trending titles, must-play releases, and exciting updates from the world of video games. Whether you''re into strategy, action, or immersive open-world adventures, our Games section brings you in-depth insights, fresh reviews, and all the news you need to stay ahead in the gaming scene.",
   },
   {
     id: 2,
     category: 'Reviews',
-    title: 'Top 5 best games in november',
+    title: 'Top 5 highest rating games in 2025',
     description:
-      'Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum labore suspendisse ultrices gravida....',
+      "2025 has been a groundbreaking year for gamers, with titles pushing the limits of storytelling, graphics, and gameplay. In this article, we rank the top 5 highest-rated games based on critic reviews, player feedback, and overall impact. Whether you're looking for a game to sink hours into or just want to see what's leading the charts, this list has something for every type of player.",
   },
   {
     id: 3,
     category: 'News',
-    title: 'Get this game at a promo price',
+    title: 'More news about Update, DLC',
     description:
-      'Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida ncididunt ut labore ....',
+      'Stay up to date with the latest game updates, expansions, and downloadable content (DLCs) that keep your favorite titles fresh and exciting. From new story chapters and character packs to performance patches and seasonal events, we bring you all the essential news to enhance your gameplay experience and keep you ahead of the curve.',
   },
 ]
 
@@ -36,6 +36,8 @@ const IntroSection = () => {
                 category={card.category}
                 title={card.title}
                 description={card.description}
+                categoryLink={`/${card.category.toLowerCase()}`}
+                readMoreLink={`/${card.category.toLowerCase()}`}
               />
             </div>
           ))}

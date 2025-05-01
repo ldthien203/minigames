@@ -8,8 +8,8 @@ import {
 
 const fetchAllGames = async (req, res) => {
   try {
-    const {genre, platform} = req.query
-    const gamesQueried = await getAllGames({genre, platform})
+    const {genre, platform, sort, order} = req.query
+    const gamesQueried = await getAllGames({genre, platform, sort, order})
     const games = gamesQueried.map(processGameData)
     res.json(games)
   } catch (error) {

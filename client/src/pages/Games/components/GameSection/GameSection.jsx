@@ -1,4 +1,5 @@
-import {Fragment, useEffect, useState} from 'react'
+import {Fragment, useMemo, useState} from 'react'
+import {useSearchParams} from 'react-router-dom'
 import Category from '../../../../components/Category/Category'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
@@ -8,46 +9,39 @@ import useFetchData from '../../../../hooks/useFetchData'
 import './GameSection.css'
 
 const GameSection = () => {
-  const [data, setData] = useState([])
-  const [genre, setGenre] = useState([])
-  const [platform, setPlatform] = useState([])
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedGenre = searchParams.get('genre') || null
+  const selectedPlatform = searchParams.get('platform') || null
 
-  const [selectedGenre, setSelectedGenre] = useState(null)
-  const [selectedPlatform, setSelectedPlatform] = useState(null)
+  const params = useMemo(
+    () => ({
+      genre: selectedGenre,
+      platform: selectedPlatform,
+    }),
+    [selectedGenre, selectedPlatform],
+  )
 
   const [currentPage, setCurrentPage] = useState(1)
 
-  useEffect(() => {
-    const fetchFilteredGames = async () => {
-      try {
-        const queryParams = new URLSearchParams()
-        if (selectedGenre) queryParams.append('genre', selectedGenre)
-        if (selectedPlatform) queryParams.append('platform', selectedPlatform)
+  const {
+    data: games,
+    loading,
+    error,
+  } = useFetchData('http://localhost:4000/games', params)
 
-        const response = await fetch(
-          `http://localhost:4000/games?${queryParams.toString()}`,
-        )
+  const {data: genres} = useFetchData('http://localhost:4000/genre')
+  const {data: platform} = useFetchData('http://localhost:4000/platform')
 
-        const data = await response.json()
-        setData(data)
-      } catch (error) {
-        console.error('Error fetching filtered games:', error.message)
-      }
+  const updateQueryParams = (key, value) => {
+    const newParams = new URLSearchParams(searchParams)
+    if (value) {
+      newParams.set(key, value)
+    } else {
+      newParams.delete(key)
     }
-    fetchFilteredGames()
-  }, [selectedGenre, selectedPlatform])
 
-  useFetchData(
-    'http://localhost:4000/genre',
-    setGenre,
-    'Error fetching all genres',
-  )
-
-  useFetchData(
-    'http://localhost:4000/platform',
-    setPlatform,
-    'Error fetching all platforms',
-  )
+    setSearchParams(newParams)
+  }
 
   return (
     <Fragment>
@@ -55,36 +49,40 @@ const GameSection = () => {
         <div className="container">
           <div className="row">
             <div className="col-1">
-              <SitePaginationWrapper
-                data={data}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                pageSize={3}
-              >
-                {currentTableData => (
-                  <div className="row">
-                    {currentTableData.map(item => (
-                      <div key={item.game_id} className="child-col">
-                        <GameItem
-                          id={item.game_id}
-                          title={item.name}
-                          image={item.thumbnail}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </SitePaginationWrapper>
+              {loading && <p>Loading games...</p>}
+              {error && <p>{error}</p>}
+              {games && (
+                <SitePaginationWrapper
+                  data={games}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  pageSize={3}
+                >
+                  {currentTableData => (
+                    <div className="row">
+                      {currentTableData.map(item => (
+                        <div key={item.game_id} className="child-col">
+                          <GameItem
+                            id={item.game_id}
+                            title={item.name}
+                            image={item.thumbnail}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </SitePaginationWrapper>
+              )}
             </div>
             <div className="col-2">
               <StickSidebar>
                 <WidgetItem key="genre">
-                  {genre && (
+                  {genres && (
                     <Category
                       title="Genres"
-                      items={genre.map(c => c.name)}
+                      items={genres.map(c => c.name)}
                       queryKey="genre"
-                      onSelect={setSelectedGenre}
+                      onSelect={genre => updateQueryParams('genre', genre)}
                     />
                   )}
                 </WidgetItem>
@@ -95,7 +93,9 @@ const GameSection = () => {
                       title="Platform"
                       items={platform.map(p => p.name)}
                       queryKey="platform"
-                      onSelect={setSelectedPlatform}
+                      onSelect={platform =>
+                        updateQueryParams('platform', platform)
+                      }
                     />
                   )}
                 </WidgetItem>

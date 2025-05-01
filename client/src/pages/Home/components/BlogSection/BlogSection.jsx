@@ -5,11 +5,9 @@ import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import Category from '../../../../components/Category/Category'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import useFetchData from '../../../../hooks/useFetchData'
 import './BlogSection.css'
 import add from '../../../../assets/img/add.jpg'
-// import useGameData from '../../../../hooks/useGameData'
-import useFetchData from '../../../../hooks/useFetchData'
-import {useState} from 'react'
 
 const itemInCategory = [
   'Games',
@@ -28,12 +26,7 @@ const blogFilter = [
 ]
 
 const BlogSection = () => {
-  const [data, setData] = useState([])
-  useFetchData(
-    'http://localhost:4000/games',
-    setData,
-    'Failed to fetch all games',
-  )
+  const {data, loading, error} = useFetchData('http://localhost:4000/games')
 
   return (
     <section className="blog-section">
@@ -44,6 +37,8 @@ const BlogSection = () => {
               <h2>Lastest News</h2>
             </div>
             <BlogFilter blogFilter={blogFilter} />
+            {loading && <p>Loading games...</p>}
+            {error && <p>{error}</p>}
             {data &&
               data.map(card => (
                 <div key={card.game_id} className="blog-item">

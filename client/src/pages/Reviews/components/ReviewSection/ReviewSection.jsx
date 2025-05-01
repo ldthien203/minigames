@@ -1,36 +1,52 @@
-import {Fragment, useState} from 'react'
+import {Fragment, useMemo} from 'react'
+import {useSearchParams} from 'react-router-dom'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import './ReviewSection.css'
 import useFetchData from '../../../../hooks/useFetchData'
 
 const ReviewSection = () => {
-  const [data, setData] = useState([])
-  useFetchData('http://localhost:4000/games', setData, 'Error fetching data!')
+  const [searchParams] = useSearchParams()
+  const selectedSort = searchParams.get('sort') || null
+  const selectedOrder = searchParams.get('order') || null
+
+  const params = useMemo(
+    () => ({sort: selectedSort, order: selectedOrder}),
+    [selectedOrder, selectedSort],
+  )
+
+  const {
+    data: reviews,
+    loading,
+    error,
+  } = useFetchData('http://localhost:4000/games', params)
 
   return (
     <Fragment>
       <section className="review-section">
         <div className="container">
-          {data.map(card => (
-            <div className="review-item" key={card.game_id}>
-              <IntroCard
-                key={card.game_id}
-                date={card.release_date}
-                id={card.game_id}
-                title={card.name}
-                category={card.category_name}
-                description={card.summary}
-                isShowImg={true}
-                isShowRating={true}
-                img={card.thumbnail}
-                rating={card.avg_rating}
-                categoryLink={`/${card.category_name.toLowerCase()}`}
-                readMoreLink={`/${card.category_name.toLowerCase()}/${
-                  card.game_id
-                }`}
-              />
-            </div>
-          ))}
+          {loading && <p>Loading reviews...</p>}
+          {error && <p>{error}</p>}
+          {reviews &&
+            reviews.map(card => (
+              <div className="review-item" key={card.game_id}>
+                <IntroCard
+                  key={card.game_id}
+                  date={card.release_date}
+                  id={card.game_id}
+                  title={card.name}
+                  category={card.category_name}
+                  description={card.summary}
+                  isShowImg={true}
+                  isShowRating={true}
+                  img={card.thumbnail}
+                  rating={card.avg_rating}
+                  categoryLink={`/${card.category_name.toLowerCase()}`}
+                  readMoreLink={`/${card.category_name.toLowerCase()}/${
+                    card.game_id
+                  }`}
+                />
+              </div>
+            ))}
         </div>
       </section>
     </Fragment>

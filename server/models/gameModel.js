@@ -1,8 +1,8 @@
 import db from '../utils/db.js'
 
-const getAllGames = async ({genre, platform}) => {
+const getAllGames = async ({genre, platform, sort, order}) => {
   try {
-    let query = `
+    let queryStr = `
       SELECT 
         g.game_id,
         g.name,
@@ -16,7 +16,8 @@ const getAllGames = async ({genre, platform}) => {
         ROUND(AVG(r.graphics), 1) AS avg_graphics,
         ROUND(AVG(r.levels), 1) AS avg_levels,
         ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
-        ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack 
+        ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack,
+        ROUND(AVG((r.graphics + r.levels + r.gameplay + r.soundtrack + r.price) / 5), 1) AS avg_rating
       FROM games g
       LEFT JOIN game_image gi ON g.game_id = gi.game_id
       LEFT JOIN rating r ON g.game_id = r.game_id
@@ -30,22 +31,27 @@ const getAllGames = async ({genre, platform}) => {
     const params = []
 
     if (genre) {
-      query += ` AND genre.name ILIKE $${params.length + 1}`
+      queryStr += ` AND genre.name ILIKE $${params.length + 1}`
       params.push(genre)
     }
 
     if (platform) {
-      query += ` AND p.name ILIKE $${params.length + 1}`
+      queryStr += ` AND p.name ILIKE $${params.length + 1}`
       params.push(platform)
     }
 
-    query += ` 
+    queryStr += ` 
       GROUP BY 
         g.game_id, c.name, g.release_date, 
-        g.summary, gi.thumbnail
-      ORDER BY g.release_date DESC`
+        g.summary, gi.thumbnail`
 
-    const result = await db.query(query, params)
+    if (sort === 'rating' && order === 'desc') {
+      queryStr += ` ORDER BY avg_rating DESC LIMIT 5`
+    } else {
+      queryStr += ` ORDER BY g.release_date DESC`
+    }
+
+    const result = await db.query(queryStr, params)
 
     return result.rows
   } catch (error) {

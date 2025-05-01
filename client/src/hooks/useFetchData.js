@@ -1,19 +1,49 @@
-import {useEffect} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 
-const useFetchData = (url, setter, errorMsg) => {
+const useFetchData = (
+  url,
+  queryParams = {},
+  errorMsg = 'Error fetching data',
+) => {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(null)
+  const [error, setError] = useState(null)
+
+  const stableQueryParams = useMemo(() => {
+    return Object.fromEntries(
+      Object.entries(queryParams).filter(([_, value]) => value !== null),
+    )
+  }, [queryParams])
+
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
+      setError(null)
+
       try {
-        const response = await fetch(url)
-        const data = await response.json()
-        setter(data)
+        const queryString = new URLSearchParams(stableQueryParams).toString()
+        const fullUrl = queryString ? `${url}?${queryString}` : url
+
+        const response = await fetch(fullUrl)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        setData(result)
       } catch (error) {
         console.error(errorMsg, error)
+        setError(error.message)
+      } finally {
+        setLoading(false)
       }
     }
 
     fetchData()
-  }, [errorMsg, setter, url])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url, errorMsg, JSON.stringify(stableQueryParams)])
+
+  return {data, loading, error}
 }
 
 export default useFetchData

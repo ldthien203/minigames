@@ -32,10 +32,9 @@ const blogFilter = [
 ]
 
 const BlogPage = () => {
-  const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
 
-  useFetchData('http://localhost:4000/news', setData, 'Failed to fetch data')
+  const {data, loading, error} = useFetchData('http://localhost:4000/news')
 
   return (
     <section className="blog-page">
@@ -43,24 +42,28 @@ const BlogPage = () => {
         <div className="row">
           <div className="col-1">
             <BlogFilter blogFilter={blogFilter} />
-            <SitePaginationWrapper
-              data={data}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            >
-              {currentTableData =>
-                currentTableData.map(blog => (
-                  <BlogContent
-                    key={blog.news_id}
-                    title={blog.title}
-                    img={blogBig1}
-                    content={blog.content}
-                    date={blog.publish_date}
-                    category={blog.category_name}
-                  />
-                ))
-              }
-            </SitePaginationWrapper>
+            {loading && <p>Loading games...</p>}
+            {error && <p>{error}</p>}
+            {data && (
+              <SitePaginationWrapper
+                data={data}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              >
+                {currentTableData =>
+                  currentTableData.map(blog => (
+                    <BlogContent
+                      key={blog.news_id}
+                      title={blog.title}
+                      img={blogBig1}
+                      content={blog.content}
+                      date={blog.publish_date}
+                      category={blog.category_name}
+                    />
+                  ))
+                }
+              </SitePaginationWrapper>
+            )}
           </div>
           <div className="col-2">
             <StickSidebar>

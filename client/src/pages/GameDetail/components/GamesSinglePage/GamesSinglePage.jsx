@@ -4,8 +4,24 @@ import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import Category from '../../../../components/Category/Category'
 import './GamesSinglePage.css'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import image from '../../../../assets/img/games/1.jpg'
 
-const GamesSinglePage = ({game = {}}) => {
+const GamesSinglePage = ({
+  game = {
+    screenshot: image,
+    release_date: '01.05.2025',
+    name: 'New game',
+    summary: 'Summary',
+    conclusion: 'Conclusion',
+    avg_price: 5,
+    avg_graphics: 5,
+    avg_levels: 5,
+    avg_soundtrack: 5,
+    avg_gameplay: 5,
+    avg_rating: 5,
+    genre_short_name: 'FPS',
+  },
+}) => {
   return (
     <section className="games-single-page">
       <div className="container">
@@ -57,8 +73,8 @@ const GamesSinglePage = ({game = {}}) => {
               <div className="widget-container">
                 <WidgetItem isShowTitle={true} title="Genres">
                   <div className="testim-text">
-                    {game.genre_short_name &&
-                    game.genre_short_name.length > 1 ? (
+                    {game?.genre_short_name &&
+                    game?.genre_short_name.length > 1 ? (
                       <Category
                         title="Genres"
                         items={game?.genre_short_name}

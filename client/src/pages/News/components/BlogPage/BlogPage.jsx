@@ -67,7 +67,7 @@ const BlogPage = () => {
           </div>
           <div className="col-2">
             <StickSidebar>
-              <WidgetItem isShowTitle={true} title="Trending">
+              <WidgetItem isShowTitle={true} title="Trending News">
                 <TrendingWidget />
               </WidgetItem>
               <WidgetItem>

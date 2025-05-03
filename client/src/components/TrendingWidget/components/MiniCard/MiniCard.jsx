@@ -3,7 +3,7 @@ import './MiniCard.css'
 
 const MiniCard = ({
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
-  category,
+  category = 'news',
   title,
   img = '../../../../assets/img/blog-widget/1.jpg',
 }) => {

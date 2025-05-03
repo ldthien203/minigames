@@ -12,7 +12,7 @@ const getAllNews = async () => {
       FROM news n
       JOIN category c ON c.category_id = n.category_id
       ORDER BY n.published_at DESC
-      LIMIT 3
+      LIMIT 4
     `)
     return result.rows
   } catch (error) {

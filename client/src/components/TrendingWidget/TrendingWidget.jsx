@@ -1,44 +1,24 @@
 import MiniCard from './components/MiniCard/MiniCard'
+import useFetchData from '../../hooks/useFetchData'
 import './TrendingWidget.css'
-
-const trendingItems = [
-  {
-    id: 1,
-    title: 'The best online game is out now!',
-    category: 'Games',
-    img: '../../../../assets/img/blog-widget/1.jpg',
-  },
-  {
-    id: 2,
-    title: 'The best online game is out now!',
-    category: 'Games',
-    img: '../../../../assets/img/blog-widget/2.jpg',
-  },
-  {
-    id: 3,
-    title: 'The best online game is out now!',
-    category: 'Games',
-    img: '../../../../assets/img/blog-widget/3.jpg',
-  },
-  {
-    id: 4,
-    title: 'The best online game is out now!',
-    category: 'Games',
-    img: '../../../../assets/img/blog-widget/4.jpg',
-  },
-]
+import img from '../../assets/img/blog-widget/1.jpg'
 
 const TrendingWidget = () => {
+  const {data, loading, error} = useFetchData('http://localhost:4000/news')
+
   return (
     <div className="trending-widget">
-      {trendingItems.map(item => (
-        <MiniCard
-          key={item.id}
-          title={item.title}
-          category={item.category}
-          img={item.img}
-        />
-      ))}
+      {loading && <p>Loading news...</p>}
+      {error && <p>{error}</p>}
+      {data &&
+        data.map(news => (
+          <MiniCard
+            key={news.news_id}
+            title={news.title}
+            category={news.category_name}
+            img={img}
+          />
+        ))}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {Link, useSearchParams} from 'react-router-dom'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
@@ -8,6 +8,7 @@ import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogSection.css'
 import add from '../../../../assets/img/add.jpg'
+import {useMemo} from 'react'
 
 const itemInCategory = [
   'Games',
@@ -18,15 +19,28 @@ const itemInCategory = [
   'Uncategorized',
 ]
 
-const blogFilter = [
-  {id: 1, link: '#', name: 'Racing'},
-  {id: 2, link: '#', name: 'Shooters'},
-  {id: 3, link: '#', name: 'Strategy'},
-  {id: 4, link: '#', name: 'Online'},
-]
-
 const BlogSection = () => {
-  const {data, loading, error} = useFetchData('http://localhost:4000/games')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedGenre = searchParams.get('genre') || null
+
+  const param = useMemo(
+    () => ({
+      genre: selectedGenre,
+    }),
+    [selectedGenre],
+  )
+
+  const {
+    data: games,
+    loading,
+    error,
+  } = useFetchData('http://localhost:4000/games', param)
+
+  const {
+    data: genre,
+    loading: genreLoading,
+    error: genreError,
+  } = useFetchData('http://localhost:4000/genre')
 
   return (
     <section className="blog-section">
@@ -36,11 +50,13 @@ const BlogSection = () => {
             <div className="section-title">
               <h2>Lastest News</h2>
             </div>
-            <BlogFilter blogFilter={blogFilter} />
+            {genreLoading && <p>Loading games...</p>}
+            {genreError && <p>{genreError}</p>}
+            {genre && <BlogFilter filters={genre} queryKey="genre" />}
             {loading && <p>Loading games...</p>}
             {error && <p>{error}</p>}
-            {data &&
-              data.map(card => (
+            {games &&
+              games.map(card => (
                 <div key={card.game_id} className="blog-item">
                   <IntroCard
                     id={card.game_id}

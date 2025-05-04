@@ -17,6 +17,10 @@ const dataByPath = {
     title: 'Chess',
     background: '../../assets/img/page-top-bg/1.jpg',
   },
+  '/games/:id': {
+    title: 'Games',
+    background: '../../assets/img/page-top-bg/1.jpg',
+  },
   '/reviews': {
     title: 'Reviews',
     background: '../../assets/img/page-top-bg/2.jpg',

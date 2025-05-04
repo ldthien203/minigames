@@ -2,7 +2,7 @@ import db from '../utils/db.js'
 
 const getAllNews = async () => {
   try {
-    const result = await db.query(`
+    let queryStr = `
       SELECT 
         n.news_id,
         n.title,
@@ -12,8 +12,9 @@ const getAllNews = async () => {
       FROM news n
       JOIN category c ON c.category_id = n.category_id
       ORDER BY n.published_at DESC
-      LIMIT 4
-    `)
+    `
+
+    const result = await db.query(queryStr)
     return result.rows
   } catch (error) {
     console.error('Error getting all news', error.message)

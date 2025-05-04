@@ -2,8 +2,8 @@ import {Link} from 'react-router'
 import './Category.css'
 
 const Category = ({
-  title = 'Defauly Category',
-  items,
+  title = 'Default Category',
+  items = [],
   queryKey = 'category',
   onSelect = null,
 }) => {

@@ -1,14 +1,17 @@
 import {Link} from 'react-router'
 import './BlogFilter.css'
 
-const BlogFilter = ({blogFilter = {}}) => {
+const BlogFilter = ({filters = [], queryKey = ''}) => {
   return (
     <ul className="blog-filter">
-      {blogFilter.map(blog => (
-        <li key={blog.id}>
-          <Link to={blog.link}>{blog.name}</Link>
-        </li>
-      ))}
+      {filters.map(filter => {
+        const query = `${queryKey}=${encodeURIComponent(filter.short_name)}`
+        return (
+          <li key={filter.id}>
+            <Link to={`?${query}`}>{filter.short_name}</Link>
+          </li>
+        )
+      })}
     </ul>
   )
 }

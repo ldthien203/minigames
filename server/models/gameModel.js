@@ -31,7 +31,9 @@ const getAllGames = async ({genre, platform, sort, order}) => {
     const params = []
 
     if (genre) {
-      queryStr += ` AND genre.name ILIKE $${params.length + 1}`
+      queryStr += ` AND genre.name ILIKE $${
+        params.length + 1
+      } OR genre.short_name = $${params.length + 1}`
       params.push(genre)
     }
 

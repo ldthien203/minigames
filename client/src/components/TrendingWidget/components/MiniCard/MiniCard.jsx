@@ -9,15 +9,18 @@ const MiniCard = ({
 }) => {
   return (
     <div className="tw-item">
-      <div className="tw-thumb">
+      {/* <div className="tw-thumb">
         <img src={img} alt="widget-thumb" />
-      </div>
+      </div> */}
       <div className="tw-text">
         <div className="tw-meta">
           {date} / in
           <Link to={`/${category.toLowerCase()}`}>{' ' + category}</Link>
         </div>
-        <h5>{title}</h5>
+        <Link>
+          {' '}
+          <h5>{title}</h5>
+        </Link>
       </div>
     </div>
   )

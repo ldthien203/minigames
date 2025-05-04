@@ -18,7 +18,11 @@ const GameDetail = () => {
     <Fragment>
       <GamesSinglePage game={data} />
       {data?.user_comment && data?.user_name && (
-        <GameAuthorSection game={data} />
+        <GameAuthorSection
+          key={data.user_id}
+          userName={data.user_name}
+          userComment={data.user_comment}
+        />
       )}
     </Fragment>
   )

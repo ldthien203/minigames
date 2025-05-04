@@ -1,8 +1,9 @@
 .game-author-section {
   background: #3a1854;
-  padding: 51px 0;
+  padding: 20px;
   overflow: hidden;
   display: block;
+  border-bottom: 3px solid rgba(226, 30, 228, 0.24);
 }
 
 .game-author-section .container {

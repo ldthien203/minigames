@@ -48,11 +48,18 @@ const BlogSection = () => {
         <div className="row">
           <div className="col-1">
             <div className="section-title">
-              <h2>Lastest News</h2>
+              <h2>Lastest Games</h2>
             </div>
             {genreLoading && <p>Loading games...</p>}
             {genreError && <p>{genreError}</p>}
-            {genre && <BlogFilter filters={genre} queryKey="genre" />}
+            {genre && (
+              <BlogFilter
+                filters={genre}
+                queryKey="genre"
+                labelKey="short_name"
+                idKey="genre_id"
+              />
+            )}
             {loading && <p>Loading games...</p>}
             {error && <p>{error}</p>}
             {games &&

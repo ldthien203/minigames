@@ -8,6 +8,7 @@ import Profile from './pages/Profile/Profile'
 import Reviews from './pages/Reviews/Reviews'
 import Contact from './pages/Contact/Contact'
 import News from './pages/News/News'
+import NewsDetail from './pages/NewsDetail/NewsDetail'
 import GameDetail from './pages/GameDetail/GameDetail'
 import MiniGames from './pages/MiniGames/MiniGames'
 import Caro from './pages/MiniGames/components/Caro/Caro'
@@ -20,6 +21,7 @@ const MainRouter = [
   {path: '/reviews', component: <Reviews />},
   {path: '/contact', component: <Contact />},
   {path: '/news', component: <News />},
+  {path: '/news/:id', component: <NewsDetail />},
   {path: '/games', component: <Games />},
   {path: '/games/:id', component: <GameDetail />},
   {path: '/games/minigames', component: <MiniGames />},

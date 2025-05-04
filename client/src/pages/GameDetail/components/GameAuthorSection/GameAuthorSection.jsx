@@ -1,7 +1,10 @@
 import './GameAuthorSection.css'
 import authorImg from '../../../../assets/img/author.jpg'
 
-const GameAuthorSection = ({game = {}}) => {
+const GameAuthorSection = ({
+  userName = 'Admin',
+  userComment = 'This is great',
+}) => {
   return (
     <section className="game-author-section">
       <div className="container">
@@ -9,8 +12,8 @@ const GameAuthorSection = ({game = {}}) => {
           <img src={authorImg} alt="author avatar" />
         </div>
         <div className="game-author-info">
-          <h4>Written by: {game.user_name}</h4>
-          <p>{game.user_comment}</p>
+          <h4>Written by: {userName}</h4>
+          <p>{userComment}</p>
         </div>
       </div>
     </section>

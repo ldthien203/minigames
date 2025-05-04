@@ -4,6 +4,7 @@ import './BlogContent.css'
 import doubleArrow from '../../../../assets/img/icons/double-arrow.png'
 
 const BlogContent = ({
+  id,
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
   category = 'Games',
   title = 'The best VR games on the market',
@@ -22,7 +23,7 @@ const BlogContent = ({
           </div>
           <h3>{title}</h3>
           <p>{content}</p>
-          <Link to="#" className="read-more">
+          <Link to={`/news/${id}`} className="read-more">
             Read more
             <img src={doubleArrow} alt="double arrow icon" />
           </Link>

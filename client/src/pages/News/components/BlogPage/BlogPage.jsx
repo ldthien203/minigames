@@ -34,19 +34,38 @@ const blogFilter = [
 const BlogPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
-  const {data, loading, error} = useFetchData('http://localhost:4000/news')
+  const {
+    data: news,
+    loading,
+    error,
+  } = useFetchData('http://localhost:4000/news')
+
+  const {
+    data: newsType,
+    loading: loadingNewsType,
+    error: errorNewsType,
+  } = useFetchData('http://localhost:4000/news/type')
 
   return (
     <section className="blog-page">
       <div className="container">
         <div className="row">
           <div className="col-1">
-            <BlogFilter blogFilter={blogFilter} />
+            {loadingNewsType && <p>Loading games...</p>}
+            {errorNewsType && <p>{errorNewsType}</p>}
+            {newsType && (
+              <BlogFilter
+                filters={newsType}
+                queryKey="type"
+                labelKey="type"
+                idKey="news_type_id"
+              />
+            )}
             {loading && <p>Loading games...</p>}
             {error && <p>{error}</p>}
-            {data && (
+            {news && (
               <SitePaginationWrapper
-                data={data}
+                data={news}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
               >
@@ -54,6 +73,7 @@ const BlogPage = () => {
                   currentTableData.map(blog => (
                     <BlogContent
                       key={blog.news_id}
+                      id={blog.news_id}
                       title={blog.title}
                       img={blogBig1}
                       content={blog.content}

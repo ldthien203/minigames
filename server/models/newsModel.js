@@ -21,4 +21,45 @@ const getAllNews = async () => {
   }
 }
 
-export {getAllNews}
+const getNewsById = async id => {
+  try {
+    let queryStr = `
+      SELECT 
+        n.news_id,
+        n.title,
+        n.content,
+        n.published_at,
+        nt.type AS news_type,
+        c.name AS category_name,
+        ARRAY_AGG(
+          JSON_BUILD_OBJECT(
+            'user_id', nc.user_id, 
+            'user_name', u.name,
+            'user_comment', nc.content
+          )
+        ) AS comments
+      FROM news n
+      LEFT JOIN news_types nt ON nt.news_type_id = n.news_type_id
+      LEFT JOIN category c ON c.category_id = n.category_id
+      LEFT JOIN news_comment nc ON nc.news_id = n.news_id
+      LEFT JOIN "user" u ON u.user_id = nc.user_id
+      WHERE n.news_id = $1
+      GROUP BY n.news_id, nt.type, c.name`
+
+    const result = await db.query(queryStr, [id])
+    return result.rows[0]
+  } catch (error) {
+    console.error('Error getting news by id:', error.message)
+  }
+}
+
+const getAllNewsType = async () => {
+  try {
+    const result = await db.query(`SELECT * FROM news_types`)
+    return result.rows
+  } catch (error) {
+    console.error('Error getting news by id:', error.message)
+  }
+}
+
+export {getAllNews, getNewsById, getAllNewsType}

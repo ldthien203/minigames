@@ -26,6 +26,10 @@ const dataByPath = {
     background: '../../assets/img/page-top-bg/2.jpg',
   },
   '/news': {title: 'News', background: '../../assets/img/page-top-bg/3.jpg'},
+  '/news/:id': {
+    title: 'News',
+    background: '../../assets/img/page-top-bg/3.jpg',
+  },
   '/contact': {
     title: 'Contact',
     background: '../../assets/img/page-top-bg/4.jpg',

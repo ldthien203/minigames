@@ -20,7 +20,7 @@ const itemInCategory = [
 ]
 
 const BlogSection = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const selectedGenre = searchParams.get('genre') || null
 
   const param = useMemo(

@@ -1,6 +1,6 @@
 import db from '../utils/db.js'
 
-const getAllNews = async () => {
+const getAllNews = async ({type}) => {
   try {
     let queryStr = `
       SELECT 
@@ -8,13 +8,26 @@ const getAllNews = async () => {
         n.title,
         n.content,
         n.published_at AS publish_date,
-        c.name AS category_name
+        c.name AS category_name,
+        nt.type AS news_type
       FROM news n
       JOIN category c ON c.category_id = n.category_id
+      JOIN news_types nt ON nt.news_type_id = n.news_type_id
+      WHERE 1=1`
+
+    const params = []
+
+    if (type) {
+      queryStr += ` AND nt.type = $${params.length + 1} `
+      params.push(type)
+    }
+
+    queryStr += ` 
       ORDER BY n.published_at DESC
     `
+    console.log(queryStr)
 
-    const result = await db.query(queryStr)
+    const result = await db.query(queryStr, params)
     return result.rows
   } catch (error) {
     console.error('Error getting all news', error.message)

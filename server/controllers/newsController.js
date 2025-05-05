@@ -2,8 +2,9 @@ import {formatDate} from '../utils/gameUtils.js'
 import {getAllNews, getNewsById, getAllNewsType} from '../models/newsModel.js'
 
 const fetchAllNews = async (req, res) => {
+  const type = req.query.type
   try {
-    const newsQueried = await getAllNews()
+    const newsQueried = await getAllNews({type})
     const allNews = newsQueried.map(news => ({
       ...news,
       publish_date: formatDate(news.publish_date),

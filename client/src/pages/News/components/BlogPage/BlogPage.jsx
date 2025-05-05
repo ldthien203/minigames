@@ -1,5 +1,5 @@
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {useMemo, useState} from 'react'
+import {Link, useSearchParams} from 'react-router-dom'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
@@ -24,21 +24,24 @@ const itemInCategory = [
   'Uncategorized',
 ]
 
-const blogFilter = [
-  {id: 1, link: '#', name: 'Racing'},
-  {id: 2, link: '#', name: 'Shooters'},
-  {id: 3, link: '#', name: 'Strategy'},
-  {id: 4, link: '#', name: 'Online'},
-]
-
 const BlogPage = () => {
+  const [searchParams] = useSearchParams()
+  const selectedType = searchParams.get('type') || null
+
   const [currentPage, setCurrentPage] = useState(1)
+
+  const params = useMemo(
+    () => ({
+      type: selectedType,
+    }),
+    [selectedType],
+  )
 
   const {
     data: news,
     loading,
     error,
-  } = useFetchData('http://localhost:4000/news')
+  } = useFetchData('http://localhost:4000/news', params)
 
   const {
     data: newsType,

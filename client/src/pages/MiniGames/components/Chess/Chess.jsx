@@ -1,36 +1,44 @@
-import {useState} from 'react'
 import ChessBoard from './components/ChessBoard/ChessBoard'
-import {initialBoard} from '../../../../utils/chessUtils/boardUtils'
+import useChess from '../../../../hooks/useChess'
 import './Chess.css'
+import {useState} from 'react'
 
 const Chess = () => {
-  const [gameState, setGameState] = useState({
-    board: initialBoard,
-    turn: 'white',
-  })
-
-  const handleResetGame = () => {
-    setGameState({
-      ...gameState,
-      board: initialBoard,
-      turn: 'white',
-    })
-  }
+  const [mode, setMode] = useState('offline')
+  const roomId = 'room1'
+  const {
+    board,
+    turn,
+    handleSquareClick,
+    selectedSquare,
+    validMoves,
+    handleResetGame,
+  } = useChess(mode, roomId)
 
   return (
     <section className="chess-section">
       <div className="container">
         <div className="board-section">
-          <ChessBoard gameState={gameState} setGameState={setGameState} />
+          <ChessBoard
+            board={board}
+            turn={turn}
+            validMoves={validMoves}
+            selectedSquare={selectedSquare}
+            handleSquareClick={handleSquareClick}
+          />
         </div>
         <div className="game-info">
           <h2>Game Info</h2>
           <p>
-            Current Turn: <span>{gameState.turn}</span>
+            Current Turn: <span>{turn}</span>
           </p>
           <button className="reset-button" onClick={handleResetGame}>
             Reset Game
           </button>
+          <div className="mode-selection">
+            <button onClick={() => setMode('offline')}>Play Offline</button>
+            <button onClick={() => setMode('online')}>Play Online</button>
+          </div>
         </div>
       </div>
     </section>

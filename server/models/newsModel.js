@@ -26,7 +26,6 @@ const getAllNews = async ({type}) => {
     queryStr += ` 
       ORDER BY n.published_at DESC
     `
-    console.log(queryStr)
 
     const result = await db.query(queryStr, params)
     return result.rows

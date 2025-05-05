@@ -15,10 +15,26 @@
 }
 
 .tw-item .tw-text .tw-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #68647d;
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 7px;
+}
+
+.tw-item .tw-text .left-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tw-item .tw-text .right-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: 15px;
 }
 
 .tw-item .tw-text a,
@@ -26,6 +42,12 @@
   color: #b01ba5;
   text-decoration: none;
   background: transparent;
+}
+
+.tw-item .tw-text .tw-meta img {
+  width: 16px;
+  height: 16px;
+  margin-left: 16px;
 }
 
 .tw-item .tw-text h5 {

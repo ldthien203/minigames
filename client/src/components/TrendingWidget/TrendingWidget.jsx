@@ -19,6 +19,8 @@ const TrendingWidget = () => {
             id={news.news_id}
             title={news.title}
             category={news.category_name}
+            date={news.publish_date}
+            viewCount={news.view_count}
             img={img}
           />
         ))}

@@ -3,6 +3,7 @@ import './MiniCard.css'
 
 const MiniCard = ({
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
+  id,
   category = 'news',
   title,
   img = '../../../../assets/img/blog-widget/1.jpg',
@@ -17,7 +18,7 @@ const MiniCard = ({
           {date} / in
           <Link to={`/${category.toLowerCase()}`}>{' ' + category}</Link>
         </div>
-        <Link>
+        <Link to={`/news/${id}`}>
           {' '}
           <h5>{title}</h5>
         </Link>

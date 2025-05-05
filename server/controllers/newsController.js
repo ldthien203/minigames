@@ -1,5 +1,10 @@
 import {formatDate} from '../utils/gameUtils.js'
-import {getAllNews, getNewsById, getAllNewsType} from '../models/newsModel.js'
+import {
+  getAllNews,
+  getNewsById,
+  getAllNewsType,
+  getTrendingNews,
+} from '../models/newsModel.js'
 
 const fetchAllNews = async (req, res) => {
   const type = req.query.type
@@ -23,7 +28,7 @@ const fetchNewsById = async (req, res) => {
     const queriedNews = await getNewsById(id)
     const news = {
       ...queriedNews,
-      published_at: formatDate(queriedNews.published_at),
+      publish_date: formatDate(queriedNews.publish_date),
     }
 
     res.json(news)
@@ -36,6 +41,7 @@ const fetchNewsById = async (req, res) => {
 const fetchAllNewsType = async (req, res) => {
   try {
     const queriedNewsType = await getAllNewsType()
+
     res.json(queriedNewsType)
   } catch (error) {
     console.error('Error fetching all news type:', error.message)
@@ -43,4 +49,20 @@ const fetchAllNewsType = async (req, res) => {
   }
 }
 
-export {fetchAllNews, fetchNewsById, fetchAllNewsType}
+const fetchTrendingNews = async (req, res) => {
+  const limit = req.query.limit || 4
+  try {
+    const queriedTrendingNews = await getTrendingNews(limit)
+    const trendingNews = queriedTrendingNews.map(news => ({
+      ...news,
+      publish_date: formatDate(news.publish_date),
+    }))
+
+    res.json(trendingNews)
+  } catch (error) {
+    console.error('Error fetching trending news:', error.message)
+    res.status(500).json({error: 'Failed to fetch trending news'})
+  }
+}
+
+export {fetchAllNews, fetchNewsById, fetchAllNewsType, fetchTrendingNews}

@@ -8,6 +8,7 @@ const getAllNews = async ({type}) => {
         n.title,
         n.content,
         n.published_at AS publish_date,
+        n.view_count,
         c.name AS category_name,
         nt.type AS news_type
       FROM news n
@@ -41,7 +42,7 @@ const getNewsById = async id => {
         n.news_id,
         n.title,
         n.content,
-        n.published_at,
+        n.published_at AS publish_date,
         nt.type AS news_type,
         c.name AS category_name,
         ARRAY_AGG(
@@ -75,4 +76,28 @@ const getAllNewsType = async () => {
   }
 }
 
-export {getAllNews, getNewsById, getAllNewsType}
+const getTrendingNews = async ({limit = 4}) => {
+  try {
+    const result = await db.query(
+      `
+      SELECT 
+        n.news_id,
+        n.title,
+        n.published_at AS publish_date,
+        n.view_count,
+        c.name AS category_name
+      FROM news n
+      JOIN category c ON c.category_id = n.category_id
+      ORDER BY n.view_count DESC
+      LIMIT $1
+    `,
+      [limit],
+    )
+
+    return result.rows
+  } catch (error) {
+    console.error('Error getting trending news:', error.message)
+  }
+}
+
+export {getAllNews, getNewsById, getAllNewsType, getTrendingNews}

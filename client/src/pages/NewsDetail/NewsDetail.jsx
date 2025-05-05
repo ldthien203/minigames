@@ -21,7 +21,7 @@ const NewsDetail = () => {
             {data && (
               <>
                 <h1 className="news-title">{data.title}</h1>
-                <h4 className="news-meta">Published on {data.published_at}</h4>
+                <h4 className="news-meta">Published on {data.publish_date}</h4>
                 <h3 className="">{data.news_type}</h3>
                 <p className="news-content">{data.content}</p>
 

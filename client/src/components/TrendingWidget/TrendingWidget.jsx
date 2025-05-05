@@ -4,7 +4,9 @@ import './TrendingWidget.css'
 import img from '../../assets/img/blog-widget/1.jpg'
 
 const TrendingWidget = () => {
-  const {data, loading, error} = useFetchData('http://localhost:4000/news')
+  const {data, loading, error} = useFetchData(
+    'http://localhost:4000/news/trending?limit=4',
+  )
 
   return (
     <div className="trending-widget">
@@ -14,6 +16,7 @@ const TrendingWidget = () => {
         data.map(news => (
           <MiniCard
             key={news.news_id}
+            id={news.news_id}
             title={news.title}
             category={news.category_name}
             img={img}

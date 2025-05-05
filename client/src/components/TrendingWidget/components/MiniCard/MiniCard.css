@@ -21,6 +21,7 @@
   margin-bottom: 7px;
 }
 
+.tw-item .tw-text a,
 .tw-item .tw-text .tw-meta a {
   color: #b01ba5;
   text-decoration: none;

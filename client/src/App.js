@@ -13,6 +13,7 @@ import GameDetail from './pages/GameDetail/GameDetail'
 import MiniGames from './pages/MiniGames/MiniGames'
 import Caro from './pages/MiniGames/components/Caro/Caro'
 import Chess from './pages/MiniGames/components/Chess/Chess'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import {AuthContextProvider} from './hooks/useAuth'
 
 const MainRouter = [
@@ -32,6 +33,7 @@ const MainRouter = [
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthContextProvider>
         <Routes>
           <Route path="sign-in" element={<Login />} />

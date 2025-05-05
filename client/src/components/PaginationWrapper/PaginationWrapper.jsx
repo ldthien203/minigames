@@ -1,13 +1,9 @@
-import {useMemo} from 'react'
+import {useMemo, useState} from 'react'
 import Pagination from '../Pagination/Pagination'
 
-const PaginationWrapper = ({
-  data,
-  currentPage,
-  setCurrentPage,
-  pageSize = 3,
-  children,
-}) => {
+const PaginationWrapper = ({data, pageSize = 3, children}) => {
+  const [currentPage, setCurrentPage] = useState(1)
+
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
@@ -18,9 +14,9 @@ const PaginationWrapper = ({
     <>
       {children(currentTableData)}
       <Pagination
-        currentPage={currentPage}
         totalCount={data.length}
         pageSize={pageSize}
+        currentPage={currentPage}
         onPageChange={setCurrentPage}
       />
     </>

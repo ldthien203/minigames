@@ -2,11 +2,11 @@ import {usePagination, DOTS} from '../../hooks/usePagination'
 import './Pagination.css'
 
 const Pagination = ({
+  currentPage,
   onPageChange,
   totalCount,
   siblingCount = 1,
-  currentPage,
-  pageSize = 3,
+  pageSize,
 }) => {
   const paginationRange = usePagination({
     totalCount,

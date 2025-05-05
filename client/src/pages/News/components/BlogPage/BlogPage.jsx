@@ -6,7 +6,7 @@ import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import Category from '../../../../components/Category/Category'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import LatestComment from '../../../../components/LatestComment/LatestComment'
-import SitePaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
+import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import BlogContent from '../BlogContent/BlogContent'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogPage.css'
@@ -27,8 +27,6 @@ const itemInCategory = [
 const BlogPage = () => {
   const [searchParams] = useSearchParams()
   const selectedType = searchParams.get('type') || null
-
-  const [currentPage, setCurrentPage] = useState(1)
 
   const params = useMemo(
     () => ({
@@ -67,11 +65,7 @@ const BlogPage = () => {
             {loading && <p>Loading games...</p>}
             {error && <p>{error}</p>}
             {news && (
-              <SitePaginationWrapper
-                data={news}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              >
+              <PaginationWrapper data={news}>
                 {currentTableData =>
                   currentTableData.map(blog => (
                     <BlogContent
@@ -85,7 +79,7 @@ const BlogPage = () => {
                     />
                   ))
                 }
-              </SitePaginationWrapper>
+              </PaginationWrapper>
             )}
           </div>
           <div className="col-2">

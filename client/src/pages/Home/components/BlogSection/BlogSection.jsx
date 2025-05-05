@@ -5,6 +5,7 @@ import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import Category from '../../../../components/Category/Category'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogSection.css'
 import add from '../../../../assets/img/add.jpg'
@@ -62,25 +63,30 @@ const BlogSection = () => {
             )}
             {loading && <p>Loading games...</p>}
             {error && <p>{error}</p>}
-            {games &&
-              games.map(card => (
-                <div key={card.game_id} className="blog-item">
-                  <IntroCard
-                    id={card.game_id}
-                    title={card.name}
-                    description={card.summary}
-                    category={card.category_name}
-                    img={card.thumbnail}
-                    isShowImg={true}
-                    rating={card.rating}
-                    date={card.release_date}
-                    categoryLink={`/${card.category_name.toLowerCase()}`}
-                    readMoreLink={`/${card.category_name.toLowerCase()}/${
-                      card.game_id
-                    }`}
-                  />
-                </div>
-              ))}
+            {games && (
+              <PaginationWrapper data={games} pageSize={4}>
+                {currentTableData =>
+                  currentTableData.map(card => (
+                    <div key={card.game_id} className="blog-item">
+                      <IntroCard
+                        id={card.game_id}
+                        title={card.name}
+                        description={card.summary}
+                        category={card.category_name}
+                        img={card.thumbnail}
+                        isShowImg={true}
+                        rating={card.rating}
+                        date={card.release_date}
+                        categoryLink={`/${card.category_name.toLowerCase()}`}
+                        readMoreLink={`/${card.category_name.toLowerCase()}/${
+                          card.game_id
+                        }`}
+                      />
+                    </div>
+                  ))
+                }
+              </PaginationWrapper>
+            )}
           </div>
           <div className="col-2">
             <StickSidebar>

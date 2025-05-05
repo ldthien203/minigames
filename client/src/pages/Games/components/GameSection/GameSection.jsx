@@ -3,7 +3,7 @@ import {useSearchParams} from 'react-router-dom'
 import Category from '../../../../components/Category/Category'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
-import SitePaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
+import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import GameItem from '../GameItem/GameItem'
 import useFetchData from '../../../../hooks/useFetchData'
 import './GameSection.css'
@@ -20,8 +20,6 @@ const GameSection = () => {
     }),
     [selectedGenre, selectedPlatform],
   )
-
-  const [currentPage, setCurrentPage] = useState(1)
 
   const {
     data: games,
@@ -52,12 +50,7 @@ const GameSection = () => {
               {loading && <p>Loading games...</p>}
               {error && <p>{error}</p>}
               {games && (
-                <SitePaginationWrapper
-                  data={games}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  pageSize={3}
-                >
+                <PaginationWrapper data={games} pageSize={3}>
                   {currentTableData => (
                     <div className="row">
                       {currentTableData.map(item => (
@@ -71,7 +64,7 @@ const GameSection = () => {
                       ))}
                     </div>
                   )}
-                </SitePaginationWrapper>
+                </PaginationWrapper>
               )}
             </div>
             <div className="col-2">

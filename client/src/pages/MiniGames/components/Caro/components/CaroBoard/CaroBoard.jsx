@@ -1,6 +1,6 @@
 import './CaroBoard.css'
 
-const Board = ({board, boardSize, onClick}) => {
+const CaroBoard = ({board, boardSize, onClick}) => {
   return (
     <div className="board" style={{'--board-size': boardSize}}>
       {board.map((value, index) => (
@@ -17,4 +17,4 @@ const Board = ({board, boardSize, onClick}) => {
   )
 }
 
-export default Board
+export default CaroBoard

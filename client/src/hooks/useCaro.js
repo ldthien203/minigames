@@ -1,8 +1,11 @@
 import {useState} from 'react'
 import {WIN_CONDITION} from '../utils/constants'
+import {io} from 'socket.io-client'
 import useAuth from './useAuth'
 
-const useCaro = () => {
+const socket = io('http://localhost:4000')
+
+const useCaro = roomId => {
   const [boardSize, setBoardSize] = useState(3)
   const [board, setBoard] = useState(Array(3 * 3).fill(null))
   const [isXNext, setIsXNext] = useState(true)

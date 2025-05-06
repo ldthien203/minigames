@@ -1,9 +1,11 @@
 import React from 'react'
-import Board from './components/CaroBoard/CaroBoard'
+import CaroBoard from './components/CaroBoard/CaroBoard'
 import useCaro from '../../../../hooks/useCaro'
 import './Caro.css'
 
 const Caro = () => {
+  const room = 'room1'
+
   const {
     board,
     handleClick,
@@ -11,13 +13,17 @@ const Caro = () => {
     messageStatus,
     boardSize,
     updateBoardSize,
-  } = useCaro()
+  } = useCaro(room)
 
   return (
     <section className="caro-section">
       <div className="container">
         <div className="board-section">
-          <Board board={board} boardSize={boardSize} onClick={handleClick} />
+          <CaroBoard
+            board={board}
+            boardSize={boardSize}
+            onClick={handleClick}
+          />
         </div>
 
         <div className="controls-section">

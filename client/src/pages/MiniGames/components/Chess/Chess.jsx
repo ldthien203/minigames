@@ -4,8 +4,8 @@ import './Chess.css'
 import {useState} from 'react'
 
 const Chess = () => {
-  const [mode, setMode] = useState('offline')
-  const roomId = 'room1'
+  const [mode, setMode] = useState('online')
+  const roomId = 'room123'
   const {
     board,
     turn,
@@ -35,9 +35,9 @@ const Chess = () => {
           <button className="reset-button" onClick={handleResetGame}>
             Reset Game
           </button>
-          <div className="mode-selection">
-            <button onClick={() => setMode('offline')}>Play Offline</button>
-            <button onClick={() => setMode('online')}>Play Online</button>
+          <div>
+            <button onClick={() => setMode('offline')}>Offline Mode</button>
+            <button onClick={() => setMode('online')}>Online Mode</button>
           </div>
         </div>
       </div>

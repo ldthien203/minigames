@@ -36,24 +36,39 @@ app.get('/', async (req, res) => {
   res.send('Welcome to the Minigames API!')
 })
 
-io.on('connection', chessSocket => {
-  console.log('A user connected to Chess namespace: ', chessSocket.id)
+const rooms = {}
 
-  chessSocket.on('joinRoom', roomId => {
-    chessSocket.join(roomId)
-    io.of('/chess').to(roomId).emit('playerJoined', {playerId: chessSocket.id})
+io.on('connection', socket => {
+  console.log('A user connected to Chess namespace: ', socket.id)
+
+  socket.on('joinRoom', roomId => {
+    socket.join(roomId)
+
+    if (!rooms[roomId]) {
+      rooms[roomId] = []
+    }
+
+    if (rooms[roomId].length < 2) {
+      rooms[roomId].push(socket.id)
+      const color = rooms[roomId].length === 1 ? 'white' : 'black'
+
+      socket.emit('assignColor', color)
+      io.of('/chess').to(roomId).emit('playerJoined', {playerId: socket.id})
+    } else {
+      io.emit('roomFull')
+    }
   })
 
-  chessSocket.on('makeMove', ({roomId, move}) => {
-    chessSocket.to(roomId).emit('opponentMove', move)
+  socket.on('makeMove', ({roomId, move}) => {
+    socket.to(roomId).emit('opponentMove', move)
   })
 
-  chessSocket.on('resetGame', roomId => {
+  socket.on('resetGame', roomId => {
     io.of('/chess').to(roomId).emit('gameReset')
   })
 
-  chessSocket.on('disconnect', () => {
-    console.log('A user disconnected: ', chessSocket.id)
+  socket.on('disconnect', () => {
+    console.log('A user disconnected: ', socket.id)
   })
 })
 

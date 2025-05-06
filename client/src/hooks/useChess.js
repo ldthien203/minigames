@@ -7,7 +7,7 @@ import {
   isKingInCheck,
 } from '../utils/chessUtils/chessLogic'
 
-const useChess = ({turn, onMove}) => {
+const useChess = ({turn, isMyTurn, onMove}) => {
   const [board, setBoard] = useState(initialBoard)
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [validMoves, setValidMoves] = useState([])
@@ -20,6 +20,7 @@ const useChess = ({turn, onMove}) => {
   const handleSquareClick = (row, col) => {
     const piece = board[row][col]
 
+    // if (!isMyTurn) return
     // If not selected then select
     if (!selectedSquare) {
       if (piece && isPlayerTurn(piece, turn)) {
@@ -55,7 +56,7 @@ const useChess = ({turn, onMove}) => {
     clearSelection()
   }
 
-  const resetBoard = () => {
+  const handleResetGame = () => {
     setBoard(initialBoard)
     clearSelection()
   }
@@ -66,7 +67,7 @@ const useChess = ({turn, onMove}) => {
     selectedSquare,
     validMoves,
     handleSquareClick,
-    resetBoard,
+    handleResetGame,
   }
 }
 

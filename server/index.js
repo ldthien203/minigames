@@ -50,10 +50,11 @@ io.on('connection', socket => {
 
     if (rooms[roomId].length < 2) {
       rooms[roomId].push(socket.id)
+
       const color = rooms[roomId].length === 1 ? 'white' : 'black'
 
       socket.emit('assignColor', color)
-      io.of('/chess').to(roomId).emit('playerJoined', {playerId: socket.id})
+      io.to(roomId).emit('playerJoined', {playerId: socket.id})
     } else {
       io.emit('roomFull')
     }

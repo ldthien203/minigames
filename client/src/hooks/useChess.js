@@ -5,12 +5,14 @@ import {
   isValidMove,
   getValidMoves,
   isKingInCheck,
+  findKing,
 } from '../utils/chessUtils/chessLogic'
 
 const useChess = ({turn, isMyTurn, onMove}) => {
   const [board, setBoard] = useState(initialBoard)
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [validMoves, setValidMoves] = useState([])
+  const [kingInCheck, setKingInCheck] = useState(null)
 
   const clearSelection = () => {
     setSelectedSquare(null)
@@ -45,9 +47,21 @@ const useChess = ({turn, isMyTurn, onMove}) => {
       newBoard[fromX][fromY] = null
 
       const opponentColor = turn === 'white' ? 'black' : 'white'
+      const kingPosition = findKing(newBoard, opponentColor)
+
+      if (!kingPosition) {
+        alert(`${opponentColor} has lost!`)
+        resetBoard()
+        return
+      }
+
       if (isKingInCheck(newBoard, opponentColor)) {
         console.log(`${opponentColor} king is in check`)
+        setKingInCheck(kingPosition)
+      } else {
+        setKingInCheck(null)
       }
+
       setBoard(newBoard)
       clearSelection()
       onMove({from: [fromX, fromY], to: [row, col], board: newBoard})
@@ -56,9 +70,10 @@ const useChess = ({turn, isMyTurn, onMove}) => {
     clearSelection()
   }
 
-  const handleResetGame = () => {
+  const resetBoard = () => {
     setBoard(initialBoard)
     clearSelection()
+    setKingInCheck(null)
   }
 
   return {
@@ -66,8 +81,9 @@ const useChess = ({turn, isMyTurn, onMove}) => {
     setBoard,
     selectedSquare,
     validMoves,
+    kingInCheck,
     handleSquareClick,
-    handleResetGame,
+    resetBoard,
   }
 }
 

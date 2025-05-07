@@ -7,8 +7,6 @@ const useGameTurn = (roomId, onOpponent, onGameReset) => {
   const [isMyTurn, setIsMyTurn] = useState(false)
 
   useEffect(() => {
-    socket.emit('joinRoom', roomId)
-
     socket.on('assignColor', color => {
       setPlayerColor(color)
       setIsMyTurn(color === 'white')
@@ -35,7 +33,7 @@ const useGameTurn = (roomId, onOpponent, onGameReset) => {
       socket.off('opponentMove')
       socket.off('gameReset')
     }
-  }, [onGameReset, onOpponent, playerColor, roomId])
+  }, [onGameReset, onOpponent, playerColor])
 
   const emitMove = (from, to) => {
     socket.emit('makeMove', {

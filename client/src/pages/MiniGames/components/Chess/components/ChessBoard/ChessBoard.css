@@ -34,6 +34,11 @@
   background-color: #f5f682;
 }
 
+.chess-board .square.king-in-check {
+  border: 3px solid red;
+  box-sizing: border-box;
+}
+
 .chess-board .piece {
   width: 90%;
   height: 90%;

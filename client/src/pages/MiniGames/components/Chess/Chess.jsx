@@ -1,10 +1,13 @@
 import ChessBoard from './components/ChessBoard/ChessBoard'
 import useChess from '../../../../hooks/useChess'
 import useGameTurn from '../../../../hooks/useGameTurn'
+import useWebSocket from '../../../../hooks/useWebSocket'
 import './Chess.css'
 
 const Chess = () => {
-  const roomId = 'room123'
+  const roomId = 'room12'
+
+  useWebSocket(roomId)
 
   const {turn, playerColor, isMyTurn, emitMove, emitReset} = useGameTurn(
     roomId,
@@ -22,11 +25,12 @@ const Chess = () => {
 
   const {
     board,
-    handleSquareClick,
+    setBoard,
     selectedSquare,
     validMoves,
+    kingInCheck,
+    handleSquareClick,
     resetBoard,
-    setBoard,
   } = useChess({
     turn,
     isMyTurn,
@@ -44,6 +48,7 @@ const Chess = () => {
             board={board}
             turn={turn}
             validMoves={validMoves}
+            kingInCheck={kingInCheck}
             selectedSquare={selectedSquare}
             handleSquareClick={handleSquareClick}
           />
@@ -56,7 +61,7 @@ const Chess = () => {
           <p>
             Current Turn: <span>{turn}</span>
           </p>
-          <button className="reset-button" onClick={emitReset}>
+          <button className="reset-button" onClick={resetBoard}>
             Reset Game
           </button>
         </div>

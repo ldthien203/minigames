@@ -1,7 +1,13 @@
 import {getPieceImg} from '../../../../../../utils/chessUtils/boardUtils'
 import './ChessBoard.css'
 
-const ChessBoard = ({board, selectedSquare, validMoves, handleSquareClick}) => {
+const ChessBoard = ({
+  board,
+  selectedSquare,
+  validMoves,
+  kingInCheck,
+  handleSquareClick,
+}) => {
   return (
     <div className="chess-board">
       {board.map((row, rowIndex) =>
@@ -11,12 +17,18 @@ const ChessBoard = ({board, selectedSquare, validMoves, handleSquareClick}) => {
             selectedSquare &&
             selectedSquare[0] === rowIndex &&
             selectedSquare[1] === colIndex
+
+          const isKingInCheck =
+            kingInCheck &&
+            kingInCheck[0] === rowIndex &&
+            kingInCheck[1] === colIndex
+
           return (
             <div
               key={`${rowIndex}-${colIndex}`}
               className={`square ${isWhite ? 'white' : 'black'} ${
                 isSelected ? 'selected' : ''
-              }`}
+              } ${isKingInCheck ? 'king-in-check' : ''}`}
               onClick={() => handleSquareClick(rowIndex, colIndex)}
             >
               {cell && (

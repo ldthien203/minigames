@@ -4,6 +4,7 @@ import MainLayout from './components/MainLayout/MainLayout'
 import Home from './pages/Home/Home'
 import Games from './pages/Games/Games'
 import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
 import Profile from './pages/Profile/Profile'
 import Reviews from './pages/Reviews/Reviews'
 import Contact from './pages/Contact/Contact'
@@ -37,6 +38,7 @@ function App() {
       <AuthContextProvider>
         <Routes>
           <Route path="sign-in" element={<Login />} />
+          <Route path="register" element={<Register />} />
           {MainRouter.map(el => (
             <Route
               key={el.path}

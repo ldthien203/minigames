@@ -1,5 +1,6 @@
 import useProfile from '../../hooks/useProfile'
 import './Profile.css'
+import avatarDefault from '../../assets/img/avatar.png'
 
 const Profile = () => {
   const {user, isEditing, toggleEdit, saveProfile, handleChange} = useProfile()
@@ -33,6 +34,17 @@ const Profile = () => {
           )}
         </p>
         <p>
+          <label>Avatar: </label>
+          <img
+            src={user.avatar || avatarDefault}
+            alt="avatar"
+            className="avatar"
+          />
+          {isEditing && (
+            <input type="file" name="avatar" onChange={handleChange} />
+          )}
+        </p>
+        <p>
           <label>Age: </label>
           {isEditing ? (
             <input
@@ -46,8 +58,21 @@ const Profile = () => {
           )}
         </p>
         <p>
-          <label>Score: </label>
-          <span>{user.score}</span>
+          <label>Email :</label>
+          {isEditing ? (
+            <input
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+            />
+          ) : (
+            <span>{user.email}</span>
+          )}
+        </p>
+        <p>
+          <label>Joined: </label>
+          <span>{}</span>
         </p>
       </div>
     </div>

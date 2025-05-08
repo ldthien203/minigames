@@ -3,10 +3,12 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import {createServer} from 'http'
 import {Server} from 'socket.io'
+import authRoutes from './routes/authRoutes.js'
 import gameRoutes from './routes/gameRoutes.js'
 import genreRoutes from './routes/genreRoutes.js'
 import platfromRoutes from './routes/platformRoutes.js'
 import newsRoutes from './routes/newsRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -27,10 +29,12 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 // Routes
+app.use('/auth', authRoutes)
 app.use('/games', gameRoutes)
 app.use('/genre', genreRoutes)
 app.use('/platform', platfromRoutes)
 app.use('/news', newsRoutes)
+app.use('/users', userRoutes)
 
 app.get('/', async (req, res) => {
   res.send('Welcome to the Minigames API!')

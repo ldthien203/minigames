@@ -55,38 +55,61 @@
   margin: 0 10px;
 }
 
-.navbar .user-panel:hover span,
-.navbar .user-panel:hover a {
-  color: #b01ba5;
-}
-
 .navbar .user-panel .username {
   cursor: pointer;
 }
 
+.navbar .user-panel .username:hover {
+  color: #b01ba5;
+}
+
+.navbar .user-panel .sign-in:hover,
+.navbar .user-panel .register:hover {
+  color: #b01ba5;
+}
+
 .navbar .drop-down {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   top: 85%;
   right: 40px;
-  background: #222;
-  padding: 10px;
-  border-radius: 5px;
+  background: rgba(20, 20, 20, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.navbar .drop-down::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent rgba(20, 20, 20, 0.9) transparent;
 }
 
 .navbar .drop-down button {
   color: #fff;
-  font-size: 18px;
-  background: #222;
+  font-size: 16px;
+  background: #282828;
   border: none;
   cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .navbar .drop-down button:hover {
-  color: #b01ba5;
+  background-color: #b01ba5;
+  color: #fff;
 }
 
 .navbar .user-panel:hover .drop-down {
-  display: block;
+  display: flex;
 }
 
 .navbar .menu-toggle-container {

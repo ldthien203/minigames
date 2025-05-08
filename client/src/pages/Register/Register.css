@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   background-image: url('../../assets/img/login_background.png');
 }
 
-.login-form {
+.register-form {
   width: 300px;
   padding: 20px;
   background: #ffffff;
@@ -16,17 +16,17 @@
   flex-direction: column;
 }
 
-.login-form h2 {
+.register-form h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.login-form label {
+.register-form label {
   margin-top: 10px;
   font-weight: bold;
 }
 
-.login-form input {
+.register-form input {
   width: 100% - 10px;
   padding: 10px 0 10px 10px;
   margin-top: 5px;
@@ -34,7 +34,7 @@
   border-radius: 4px;
 }
 
-.login-form button {
+.register-form button {
   width: 100%;
   padding: 10px;
   margin-top: 15px;
@@ -43,10 +43,4 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.login-form .message {
-  margin-top: 10px;
-  text-align: center;
-  color: #ff6b6b;
 }

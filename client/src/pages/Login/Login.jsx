@@ -10,8 +10,10 @@ const Login = () => {
   const navigate = useNavigate()
   const {login} = useAuth()
 
-  const handleClick = () => {
-    if (login(username, password)) {
+  const handleClick = async () => {
+    const success = await login(username, password)
+    if (success) {
+      setMessage('Login successful! Redirecting...')
       setTimeout(() => navigate('/'), 1000)
     } else {
       setMessage('Something wrong, try again!')

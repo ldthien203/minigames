@@ -34,6 +34,10 @@ const dataByPath = {
     title: 'Contact',
     background: '../../assets/img/page-top-bg/4.jpg',
   },
+  '/profile': {
+    title: 'Profile',
+    background: '../../assets/img/page-top-bg/4.jpg',
+  },
 }
 
 const PageTop = ({path = '/'}) => {

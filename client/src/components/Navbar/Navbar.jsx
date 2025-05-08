@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   const {isOpen, toggleDropDown} = useDropdown()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const {user, logout} = useAuth()
+  const {user, loading, logout} = useAuth()
 
   const handleLogout = () => {
     logout()
@@ -28,21 +28,29 @@ const Navbar = () => {
           <MainMenu />
         </div>
         <div className="user-panel">
-          {user ? (
+          {loading ? (
+            <p>Loading</p>
+          ) : user ? (
             <>
               <span className="username" onClick={toggleDropDown}>
-                {user?.name || 'Guest'}
+                {user?.username || 'Guest'}
               </span>
               {isOpen && (
                 <div className="drop-down">
+                  <button onClick={() => navigate('/profile')}>Profile</button>
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </>
           ) : (
             <>
-              <Link to="/sign-in">Login</Link> /{' '}
-              <Link to="/register">Register</Link>
+              <Link to="/sign-in" className="sign-in">
+                Login
+              </Link>{' '}
+              /{' '}
+              <Link to="/register" className="register">
+                Register
+              </Link>
             </>
           )}
         </div>

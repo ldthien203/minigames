@@ -43,7 +43,7 @@ const useFetchData = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, errorMsg, JSON.stringify(stableQueryParams)])
 
-  return {data, loading, error}
+  return {data, loading, error, setData, setLoading, setError}
 }
 
 export default useFetchData

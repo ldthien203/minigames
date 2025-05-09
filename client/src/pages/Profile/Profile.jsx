@@ -1,81 +1,148 @@
-import useProfile from '../../hooks/useProfile'
-import './Profile.css'
+import {useState} from 'react'
+import useFetchData from '../../hooks/useFetchData'
+import useAuth from '../../hooks/useAuth'
 import avatarDefault from '../../assets/img/avatar.png'
+import './Profile.css'
 
 const Profile = () => {
-  const {user, isEditing, toggleEdit, saveProfile, handleChange} = useProfile()
+  const {user} = useAuth()
+
+  const {data, setData, loading, error} = useFetchData(
+    `http://localhost:4000/users/${user.id}`,
+  )
+
+  const [isEditing, setIsEditing] = useState(false)
+
+  const handleChange = e => {
+    const {name, value} = e.target
+    setData(prevData => ({...prevData, [name]: value}))
+  }
+
+  const toggleEdit = () => {
+    setIsEditing(!isEditing)
+  }
+
+  const saveProfile = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await fetch(`http://localhost:4000/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to save profile')
+      }
+
+      const updatedData = await response.json()
+      setData(updatedData)
+      setIsEditing(false)
+    } catch (error) {
+      console.error('Error saving profile: ', error.message)
+    }
+  }
+
+  if (loading) return <p>Loading ...</p>
+  if (error) return <p>Error: ${error}</p>
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <h2>Profile</h2>
-        {!isEditing ? (
-          <button className="edit-button" onClick={toggleEdit}>
-            Edit
-          </button>
-        ) : (
-          <button className="save-button" onClick={saveProfile}>
-            Save
-          </button>
+    <section className="profile-section">
+      <div className="profile-container">
+        {data && (
+          <>
+            <div className="profile-avatar">
+              <img
+                src={data.avatar || avatarDefault}
+                alt="avatar"
+                className="avatar"
+              />
+              {isEditing && (
+                <input type="file" name="avatar" onChange={handleChange} />
+              )}
+            </div>
+            <div className="profile-header">
+              <h2>Profile</h2>
+              {!isEditing ? (
+                <button className="edit-button" onClick={toggleEdit}>
+                  Edit
+                </button>
+              ) : (
+                <button className="save-button" onClick={saveProfile}>
+                  Save
+                </button>
+              )}
+            </div>
+            <div className="profile-info">
+              <p>
+                <label htmlFor={data.username}>Username: </label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    id={data.username}
+                    name="name"
+                    value={data.username}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <span>{data.username}</span>
+                )}
+              </p>
+              <p>
+                <label htmlFor="fullname">Fullname: </label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    id="fullname"
+                    name="fullname"
+                    value={data.fullname}
+                    onChange={handleChange}
+                    placeholder="Enter your fullname"
+                  />
+                ) : (
+                  <span>{data.fullname || 'Enter your fullname'}</span>
+                )}
+              </p>
+              <p>
+                <label>Age: </label>
+                {isEditing ? (
+                  <input
+                    type="number"
+                    name="age"
+                    value={parseInt(data.age)}
+                    onChange={handleChange}
+                    placeholder="Enter your age"
+                  />
+                ) : (
+                  <span>{data.age || 'Enter your age'}</span>
+                )}
+              </p>
+              <p>
+                <label>Email :</label>
+                {isEditing ? (
+                  <input
+                    type="email"
+                    name="email"
+                    value={data.email}
+                    onChange={handleChange}
+                    placeholder="Enter your email"
+                  />
+                ) : (
+                  <span>{data.email}</span>
+                )}
+              </p>
+              <p>
+                <label>Joined: </label>
+                <span>{data.created_at}</span>
+              </p>
+            </div>
+          </>
         )}
       </div>
-      <div className="profile-info">
-        <p>
-          <label>Name: </label>
-          {isEditing ? (
-            <input
-              type="text"
-              name="name"
-              value={user.name}
-              onChange={handleChange}
-            />
-          ) : (
-            <span>{user.name}</span>
-          )}
-        </p>
-        <p>
-          <label>Avatar: </label>
-          <img
-            src={user.avatar || avatarDefault}
-            alt="avatar"
-            className="avatar"
-          />
-          {isEditing && (
-            <input type="file" name="avatar" onChange={handleChange} />
-          )}
-        </p>
-        <p>
-          <label>Age: </label>
-          {isEditing ? (
-            <input
-              type="number"
-              name="age"
-              value={parseInt(user.age)}
-              onChange={handleChange}
-            />
-          ) : (
-            <span>{user.age}</span>
-          )}
-        </p>
-        <p>
-          <label>Email :</label>
-          {isEditing ? (
-            <input
-              type="email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-            />
-          ) : (
-            <span>{user.email}</span>
-          )}
-        </p>
-        <p>
-          <label>Joined: </label>
-          <span>{}</span>
-        </p>
-      </div>
-    </div>
+    </section>
   )
 }
 

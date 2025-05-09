@@ -1,4 +1,4 @@
-import {Fragment, useMemo, useState} from 'react'
+import {Fragment, useMemo} from 'react'
 import {useSearchParams} from 'react-router-dom'
 import Category from '../../../../components/Category/Category'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'

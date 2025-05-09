@@ -2,7 +2,16 @@ import db from '../utils/db.js'
 
 const getAllUsers = async () => {
   try {
-    const result = await db.query(`SELECT * from "user"`)
+    const result = await db.query(`
+      SELECT 
+        u.user_id,
+        u.username,
+        u.email,
+        u.avatar,
+        u.created_at,
+        u.full_name AS fullname
+      FROM "user" u
+      `)
 
     return result.rows
   } catch (error) {
@@ -13,8 +22,16 @@ const getAllUsers = async () => {
 const getUserByUsername = async username => {
   try {
     const result = await db.query(
-      `SELECT * 
-      FROM "user" 
+      `SELECT 
+        user_id,
+        username,
+        password,
+        email,
+        avatar,
+        created_at,
+        full_name AS fullname,
+        age
+      FROM "user"
       WHERE LOWER(username) = LOWER($1)`,
       [username],
     )
@@ -38,4 +55,52 @@ const insertUser = async (username, email, password) => {
   }
 }
 
-export {getAllUsers, getUserByUsername, insertUser}
+const getUserById = async id => {
+  try {
+    const response = await db.query(
+      `
+      SELECT 
+        u.user_id,
+        u.username,
+        u.email,
+        u.avatar,
+        u.created_at,
+        u.full_name AS fullname,
+        u.age
+      FROM "user" u
+      WHERE user_id = $1
+      `,
+      [id],
+    )
+    return response.rows[0]
+  } catch (error) {
+    console.error(`Error getting user by id: `, error.message)
+  }
+}
+
+const updateUser = async ({
+  user_id,
+  username,
+  fullname,
+  age,
+  email,
+  avatar,
+}) => {
+  try {
+    const query = `
+      UPDATE "user"
+      SET username = $1, full_name = $2, age = $3, email = $4, avatar = $5
+      WHERE user_id = $6
+      RETURNING username, full_name, age, email, avatar, user_id
+    `
+
+    const values = [username, fullname, age, email, avatar, user_id]
+    const result = await db.query(query, values)
+
+    return result.rows[0]
+  } catch (error) {
+    console.error('Error updating user: ', error.message)
+  }
+}
+
+export {getAllUsers, getUserByUsername, getUserById, insertUser, updateUser}

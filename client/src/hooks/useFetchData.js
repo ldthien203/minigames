@@ -24,8 +24,15 @@ const useFetchData = (
         const queryString = new URLSearchParams(stableQueryParams).toString()
         const fullUrl = queryString ? `${url}?${queryString}` : url
 
-        const response = await fetch(fullUrl)
+        const token = localStorage.getItem('token')
+        const response = await fetch(fullUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
         if (!response.ok) {
+          localStorage.removeItem('token')
           throw new Error(`HTTP error! status: ${response.status}`)
         }
 

@@ -6,12 +6,11 @@ import './Profile.css'
 
 const Profile = () => {
   const {user} = useAuth()
+  const [isEditing, setIsEditing] = useState(false)
 
   const {data, setData, loading, error} = useFetchData(
-    `http://localhost:4000/users/${user.id}`,
+    user ? `http://localhost:4000/users/${user.id}` : null,
   )
-
-  const [isEditing, setIsEditing] = useState(false)
 
   const handleChange = e => {
     const {name, value} = e.target
@@ -47,7 +46,7 @@ const Profile = () => {
   }
 
   if (loading) return <p>Loading ...</p>
-  if (error) return <p>Error: ${error}</p>
+  if (error) return <p>Error: {error}</p>
 
   return (
     <section className="profile-section">

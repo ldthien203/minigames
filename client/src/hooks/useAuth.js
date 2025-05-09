@@ -1,4 +1,5 @@
 import {useEffect, useState, createContext, useContext} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const AuthContext = createContext({})
 
@@ -10,6 +11,7 @@ export const AuthContextProvider = ({children}) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'))
@@ -47,7 +49,9 @@ export const AuthContextProvider = ({children}) => {
   }
 
   const logout = () => {
+    navigate('/sign-in')
     localStorage.removeItem('user')
+    localStorage.removeItem('token')
     setUser(null)
   }
 

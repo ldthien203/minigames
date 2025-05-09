@@ -12,11 +12,6 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const {user, loading, logout} = useAuth()
 
-  const handleLogout = () => {
-    logout()
-    navigate('/sign-in')
-  }
-
   return (
     <div className="navbar">
       <Link to="/" className="site-logo">
@@ -38,7 +33,7 @@ const Navbar = () => {
               {isOpen && (
                 <div className="drop-down">
                   <button onClick={() => navigate('/profile')}>Profile</button>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={logout}>Logout</button>
                 </div>
               )}
             </>

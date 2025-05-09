@@ -16,6 +16,8 @@ const useFetchData = (
   }, [queryParams])
 
   useEffect(() => {
+    if (!url) return
+
     const fetchData = async () => {
       setLoading(true)
       setError(null)

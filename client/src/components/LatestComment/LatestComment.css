@@ -28,8 +28,13 @@
   color: #fff;
 }
 
-.latest-comments .lc-item .tw-text a {
+.latest-comments .lc-item .tw-text p {
+  display: inline;
   color: #b01ba5;
+}
+
+.latest-comments .lc-item .tw-text a {
+  color: #fff;
   text-decoration: none;
   background: transparent;
 }

@@ -10,7 +10,9 @@ const Login = () => {
   const navigate = useNavigate()
   const {login} = useAuth()
 
-  const handleClick = async () => {
+  const handleSubmit = async e => {
+    e.preventDefault()
+
     const success = await login(username, password)
     if (success) {
       setMessage('Login successful! Redirecting...')
@@ -22,7 +24,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <label htmlFor="username">Username</label>
         <input
@@ -39,9 +41,7 @@ const Login = () => {
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
         ></input>
-        <button type="button" onClick={handleClick}>
-          Login
-        </button>
+        <button type="submit">Login</button>
         {message && <p className="message">{message}</p>}
       </form>
     </div>

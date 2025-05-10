@@ -44,7 +44,7 @@
 }
 
 .news-detail .row .col-1 .comments-section {
-  margin-top: 40px;
+  margin: 40px 20px 0 0;
   padding: 20px;
   background-color: #3a1d4f;
   border-radius: 8px;

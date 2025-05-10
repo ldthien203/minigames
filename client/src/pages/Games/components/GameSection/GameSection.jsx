@@ -50,7 +50,7 @@ const GameSection = () => {
               {loading && <p>Loading games...</p>}
               {error && <p>{error}</p>}
               {games && (
-                <PaginationWrapper data={games} pageSize={3}>
+                <PaginationWrapper data={games} pageSize={9}>
                   {currentTableData => (
                     <div className="row">
                       {currentTableData.map(item => (

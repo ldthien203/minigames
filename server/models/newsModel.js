@@ -45,12 +45,15 @@ const getNewsById = async id => {
         nt.type AS news_type,
         c.name AS category_name,
         ARRAY_AGG(
-          JSON_BUILD_OBJECT(
-            'user_id', nc.user_id, 
-            'user_name', u.name,
-            'user_comment', nc.content
-          )
-        ) AS comments
+          CASE
+            WHEN nc.content IS NOT NULL THEN
+              JSON_BUILD_OBJECT(
+                'user_id', nc.user_id, 
+                'user_username', u.username,
+                'user_comment', nc.content
+              )
+          END
+        ) FILTER (WHERE nc.content IS NOT NULL) AS comments
       FROM news n
       LEFT JOIN news_types nt ON nt.news_type_id = n.news_type_id
       LEFT JOIN category c ON c.category_id = n.category_id
@@ -99,4 +102,33 @@ const getTrendingNews = async ({limit = 4}) => {
   }
 }
 
-export {getAllNews, getNewsById, getAllNewsType, getTrendingNews}
+const getLatestComment = async () => {
+  try {
+    const query = `
+      SELECT 
+        nc.news_cmt_id AS cmt_id,
+        nc.news_id,
+        n.title, 
+        u.username,
+        u.avatar,
+        nc.created_at
+      FROM news_comment nc
+      LEFT JOIN news n ON n.news_id = nc.news_id
+      LEFT JOIN "user" u ON u.user_id = nc.news_id
+      ORDER BY nc.created_at DESC
+      LIMIT 4
+    `
+    const result = await db.query(query)
+    return result.rows
+  } catch (error) {
+    console.error('Error getting latest comment')
+  }
+}
+
+export {
+  getAllNews,
+  getNewsById,
+  getAllNewsType,
+  getTrendingNews,
+  getLatestComment,
+}

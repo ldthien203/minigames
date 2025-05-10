@@ -1,42 +1,33 @@
 import {Link} from 'react-router-dom'
+import useFetchData from '../../hooks/useFetchData'
 import './LatestComment.css'
-
-const latestCmts = [
-  {
-    username: 'Brock Leshnar',
-    avatarImg: '../../../../assets/img/blog-widget/1.jpg',
-    title: 'The best online game out there',
-  },
-  {
-    username: 'Roman Reign',
-    avatarImg: '../../../../assets/img/blog-widget/2.jpg',
-    title: 'The best VR games on the market',
-  },
-  {
-    username: 'Michael Jordan',
-    avatarImg: '../../../../assets/img/blog-widget/3.jpg',
-    title: 'The best VR games on the market',
-  },
-  {
-    username: 'Son Tung MTP',
-    avatarImg: '../../../../assets/img/blog-widget/4.jpg',
-    title: 'The best VR games on the market',
-  },
-]
+import avatarDefault from '../../assets/img/avatar.png'
 
 const LatestComment = () => {
+  const {data, loading, error} = useFetchData(
+    'http://localhost:4000/news/latest',
+  )
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+
   return (
     <div className="latest-comments">
-      {latestCmts.map(cmt => (
-        <div key={cmt.username} className="lc-item">
-          <img src={cmt.avatarImg} alt="lc-avatar" className="lc-avatar" />
-          <div className="tw-text">
-            <Link to="#">{cmt.username}</Link>
-            <span> On </span>
-            {cmt.title}
+      {data &&
+        data.map(cmt => (
+          <div key={cmt.username} className="lc-item">
+            <img
+              src={cmt?.avatar || avatarDefault}
+              alt="lc-avatar"
+              className="lc-avatar"
+            />
+            <div className="tw-text">
+              <p>{cmt.username}</p>
+              <span> On </span>
+              <Link to={`/news/${cmt.news_id}`}>{cmt.title}</Link>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   )
 }

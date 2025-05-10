@@ -4,6 +4,7 @@ import {
   getNewsById,
   getAllNewsType,
   getTrendingNews,
+  getLatestComment,
 } from '../models/newsModel.js'
 
 const fetchAllNews = async (req, res) => {
@@ -65,4 +66,25 @@ const fetchTrendingNews = async (req, res) => {
   }
 }
 
-export {fetchAllNews, fetchNewsById, fetchAllNewsType, fetchTrendingNews}
+const fetchLatestComment = async (req, res) => {
+  try {
+    const queriedCmt = await getLatestComment()
+    const comment = queriedCmt.map(cmt => ({
+      ...cmt,
+      created_at: formatDate(cmt.created_at),
+    }))
+
+    res.json(comment)
+  } catch (error) {
+    console.error('Error fetching latest comment: ', error.message)
+    res.status(500).json({error: 'Failed to fetch latest comment'})
+  }
+}
+
+export {
+  fetchAllNews,
+  fetchNewsById,
+  fetchAllNewsType,
+  fetchTrendingNews,
+  fetchLatestComment,
+}

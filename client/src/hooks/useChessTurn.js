@@ -1,42 +1,46 @@
 import {useEffect, useState} from 'react'
-import socket from '../utils/socket'
+import {getChessSocket} from '../utils/socket'
+const chessSocket = getChessSocket()
 
-const useGameTurn = (roomId, onOpponent, onGameReset) => {
+const useChessTurn = (roomId, onOpponent, onGameReset) => {
   const [turn, setTurn] = useState('white')
   const [playerColor, setPlayerColor] = useState(null)
   const [isMyTurn, setIsMyTurn] = useState(false)
 
   useEffect(() => {
-    socket.on('assignColor', color => {
+    chessSocket.emit('joinRoom', roomId)
+
+    chessSocket.on('assignColor', color => {
       setPlayerColor(color)
       setIsMyTurn(color === 'white')
     })
 
-    socket.on('opponentMove', ({from, to}) => {
+    chessSocket.on('opponentMove', ({from, to}) => {
       onOpponent(from, to)
       setTurn(prev => (prev === 'white' ? 'black' : 'white'))
       setIsMyTurn(true)
     })
 
-    socket.on('gameReset', () => {
+    chessSocket.on('gameReset', () => {
       setTurn('white')
       setIsMyTurn(playerColor === 'white')
       onGameReset()
     })
 
-    // socket.on('roomFull', () => {
+    // chessSocket.on('roomFull', () => {
     //   alert('The room is full. Please try joining another room')
     // })
 
     return () => {
-      socket.off('assignColor')
-      socket.off('opponentMove')
-      socket.off('gameReset')
+      chessSocket.off('assignColor')
+      chessSocket.off('opponentMove')
+      chessSocket.off('gameReset')
+      chessSocket.emit('leaveRoom', roomId)
     }
-  }, [onGameReset, onOpponent, playerColor])
+  }, [onGameReset, onOpponent, playerColor, roomId])
 
   const emitMove = (from, to) => {
-    socket.emit('makeMove', {
+    chessSocket.emit('makeMove', {
       roomId,
       move: {from, to},
     })
@@ -45,7 +49,7 @@ const useGameTurn = (roomId, onOpponent, onGameReset) => {
   }
 
   const emitReset = () => {
-    socket.emit('resetGame', roomId)
+    chessSocket.emit('resetGame', roomId)
   }
 
   return {
@@ -57,4 +61,4 @@ const useGameTurn = (roomId, onOpponent, onGameReset) => {
   }
 }
 
-export default useGameTurn
+export default useChessTurn

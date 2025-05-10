@@ -1,15 +1,10 @@
 import {useState} from 'react'
 import {WIN_CONDITION} from '../utils/constants'
-import {io} from 'socket.io-client'
-import useAuth from './useAuth'
 
-const socket = io('http://localhost:4000')
-
-const useCaro = roomId => {
+const useCaro = () => {
   const [boardSize, setBoardSize] = useState(3)
   const [board, setBoard] = useState(Array(3 * 3).fill(null))
   const [isXNext, setIsXNext] = useState(true)
-  const {user} = useAuth()
 
   const calculateWinner = board => {
     const currentWinCondition = Math.min(boardSize, WIN_CONDITION)
@@ -52,20 +47,20 @@ const useCaro = roomId => {
     return null
   }
 
-  const handleClick = index => {
+  const handleClick = (index, symbol = isXNext ? 'X' : 'O') => {
     if (board[index] || calculateWinner(board)) return
     const newBoard = [...board]
-    newBoard[index] = isXNext ? 'X' : 'O'
+    newBoard[index] = symbol
 
     setBoard(newBoard)
-    setIsXNext(!isXNext)
+    setIsXNext(symbol !== 'X')
   }
 
   const messageStatus = () => {
     const winner = calculateWinner(board)
-    if (winner) return `${winner === 'X' ? user.name : 'Bots'} wins!`
+    if (winner) return `${winner === 'X' ? 'User-1' : 'User-2'} wins!`
     if (!board.includes(null)) return `It's a Draw!`
-    return `${isXNext ? user.name : 'Bots'} turn`
+    return `${isXNext ? 'User-1' : 'User-2'} turn`
   }
 
   const resetGame = () => {
@@ -83,8 +78,9 @@ const useCaro = roomId => {
 
   return {
     board,
+    setBoard,
     isXNext,
-    calculateWinner,
+    setIsXNext,
     handleClick,
     messageStatus,
     resetGame,

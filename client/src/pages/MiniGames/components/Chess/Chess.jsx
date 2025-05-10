@@ -1,15 +1,12 @@
 import ChessBoard from './components/ChessBoard/ChessBoard'
 import useChess from '../../../../hooks/useChess'
-import useGameTurn from '../../../../hooks/useGameTurn'
-import useWebSocket from '../../../../hooks/useWebSocket'
+import useChessTurn from '../../../../hooks/useChessTurn'
 import './Chess.css'
 
 const Chess = () => {
   const roomId = 'room12'
 
-  useWebSocket(roomId)
-
-  const {turn, playerColor, isMyTurn, emitMove, emitReset} = useGameTurn(
+  const {turn, playerColor, isMyTurn, emitMove, emitReset} = useChessTurn(
     roomId,
     (from, to) => {
       const newBoard = [...board.map(row => [...row])]

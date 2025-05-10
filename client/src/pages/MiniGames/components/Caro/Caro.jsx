@@ -1,19 +1,57 @@
-import React from 'react'
+import {useEffect} from 'react'
 import CaroBoard from './components/CaroBoard/CaroBoard'
 import useCaro from '../../../../hooks/useCaro'
+import useCaroTurn from '../../../../hooks/useCaroTurn'
 import './Caro.css'
 
 const Caro = () => {
-  const room = 'room1'
+  const roomId = 'room1'
 
   const {
     board,
-    handleClick,
-    resetGame,
+    handleClick: handleLocalClick,
+    resetGame: resetLocalGame,
     messageStatus,
     boardSize,
     updateBoardSize,
-  } = useCaro(room)
+  } = useCaro()
+
+  const {mySymbol, isMyTurn, emitMove, emitReset, caroSocket} =
+    useCaroTurn(roomId)
+
+  useEffect(() => {
+    if (!mySymbol) return
+
+    const handleOpponentMove = index => {
+      const opponentSymbol = mySymbol === 'X' ? 'O' : 'X'
+      handleLocalClick(index, opponentSymbol)
+    }
+
+    const handleResetFromSocket = () => {
+      resetLocalGame()
+    }
+
+    caroSocket.on('opponentMove', handleOpponentMove)
+    caroSocket.on('gameReset', handleResetFromSocket)
+
+    return () => {
+      caroSocket.off('opponentMove', handleOpponentMove)
+      caroSocket.off('gameReset', handleResetFromSocket)
+    }
+  }, [caroSocket, handleLocalClick, mySymbol, resetLocalGame])
+
+  const handleClick = index => {
+    console.log('Click:', {mySymbol, isMyTurn, index, value: board[index]})
+
+    if (!mySymbol || !isMyTurn || board[index]) return
+    handleLocalClick(index, mySymbol)
+    emitMove(index)
+  }
+
+  const handleReset = () => {
+    resetLocalGame()
+    emitReset()
+  }
 
   return (
     <section className="caro-section">
@@ -42,7 +80,7 @@ const Caro = () => {
               Current size: {boardSize} x {boardSize}
             </p>
             <h2 className="message-status">{messageStatus()}</h2>
-            <button className="reset-button" onClick={resetGame}>
+            <button className="reset-button" onClick={handleReset}>
               Reset Game
             </button>
           </div>

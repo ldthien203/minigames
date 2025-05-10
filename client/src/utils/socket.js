@@ -1,5 +1,6 @@
 import {io} from 'socket.io-client'
 
-const socket = io('http://localhost:4000')
+const getChessSocket = () => io('http://localhost:4000/chess')
+const getCaroSocket = () => io('http://localhost:4000/caro')
 
-export default socket
+export {getChessSocket, getCaroSocket}

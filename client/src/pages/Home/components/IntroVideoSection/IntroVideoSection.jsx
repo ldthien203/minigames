@@ -37,8 +37,8 @@ const IntroVideoSection = () => {
         <div className="video-text">
           <h2>Promo video of the game</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
+            Village & Pillage: Official Trailer is finally come to us. Make sure
+            you take a look at it!
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {WIN_CONDITION} from '../utils/constants'
+import {WIN_CONDITION} from '../../utils/constants'
 
 const useCaro = () => {
   const [boardSize, setBoardSize] = useState(3)

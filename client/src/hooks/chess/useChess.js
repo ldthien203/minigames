@@ -1,14 +1,14 @@
 import {useState} from 'react'
-import {initialBoard} from '../utils/chessUtils/boardUtils'
+import {initialBoard} from '../../utils/chessUtils/boardUtils'
 import {
   isPlayerTurn,
   isValidMove,
   getValidMoves,
   isKingInCheck,
   findKing,
-} from '../utils/chessUtils/chessLogic'
+} from '../../utils/chessUtils/chessLogic'
 
-const useChess = ({turn, isMyTurn, onMove}) => {
+const useChess = onMove => {
   const [board, setBoard] = useState(initialBoard)
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [validMoves, setValidMoves] = useState([])
@@ -19,13 +19,12 @@ const useChess = ({turn, isMyTurn, onMove}) => {
     setValidMoves([])
   }
 
-  const handleSquareClick = (row, col) => {
+  const handleSquareClick = (row, col, color) => {
     const piece = board[row][col]
 
-    // if (!isMyTurn) return
     // If not selected then select
     if (!selectedSquare) {
-      if (piece && isPlayerTurn(piece, turn)) {
+      if (piece && isPlayerTurn(piece, color)) {
         setSelectedSquare([row, col])
         setValidMoves(getValidMoves(row, col, piece, board))
       }
@@ -46,7 +45,7 @@ const useChess = ({turn, isMyTurn, onMove}) => {
       newBoard[row][col] = selectedPiece
       newBoard[fromX][fromY] = null
 
-      const opponentColor = turn === 'white' ? 'black' : 'white'
+      const opponentColor = color === 'white' ? 'black' : 'white'
       const kingPosition = findKing(newBoard, opponentColor)
 
       if (!kingPosition) {
@@ -64,7 +63,9 @@ const useChess = ({turn, isMyTurn, onMove}) => {
 
       setBoard(newBoard)
       clearSelection()
-      onMove({from: [fromX, fromY], to: [row, col], board: newBoard})
+      if (onMove)
+        onMove({from: [fromX, fromY], to: [row, col], board: newBoard})
+      return
     }
 
     clearSelection()

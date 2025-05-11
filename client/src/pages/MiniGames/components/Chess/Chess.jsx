@@ -1,24 +1,19 @@
 import ChessBoard from './components/ChessBoard/ChessBoard'
-import useChess from '../../../../hooks/useChess'
-import useChessTurn from '../../../../hooks/useChessTurn'
+import useChess from '../../../../hooks/chess/useChess'
+import useChessTurn from '../../../../hooks/chess/useChessTurn'
 import './Chess.css'
+import {useEffect, useState} from 'react'
 
 const Chess = () => {
   const roomId = 'room12'
+  const {playerColor, isMyTurn, chessSocket, emitMove, emitReset} =
+    useChessTurn(roomId)
+  const [isWhiteNext, setIsWhiteNext] = useState(true)
 
-  const {turn, playerColor, isMyTurn, emitMove, emitReset} = useChessTurn(
-    roomId,
-    (from, to) => {
-      const newBoard = [...board.map(row => [...row])]
-      const piece = newBoard[from[0]][from[1]]
-      newBoard[from[0]][from[1]] = null
-      newBoard[to[0]][to[1]] = piece
-      setBoard(newBoard)
-    },
-    () => {
-      resetBoard()
-    },
-  )
+  const onMove = ({from, to, board}) => {
+    emitMove(from, to, board)
+    setIsWhiteNext(!isWhiteNext)
+  }
 
   const {
     board,
@@ -28,14 +23,36 @@ const Chess = () => {
     kingInCheck,
     handleSquareClick,
     resetBoard,
-  } = useChess({
-    turn,
-    isMyTurn,
-    onMove: ({from, to, board}) => {
-      emitMove(from, to)
-      setBoard(board)
-    },
-  })
+  } = useChess(onMove)
+
+  useEffect(() => {
+    const handleOpponentMove = ({from, to, board: newBoard}) => {
+      setIsWhiteNext(!isWhiteNext)
+      if (newBoard) setBoard(newBoard)
+    }
+
+    const handleResetFromSocket = () => {
+      resetBoard()
+    }
+
+    chessSocket.on('opponentMove', handleOpponentMove)
+    chessSocket.on('gameReset', handleResetFromSocket)
+
+    return () => {
+      chessSocket.off('opponentMove', handleOpponentMove)
+      chessSocket.off('gameReset', handleResetFromSocket)
+    }
+  }, [board, chessSocket, isWhiteNext, resetBoard, setBoard])
+
+  const handleClick = (row, col) => {
+    if (!playerColor || !isMyTurn) return
+    handleSquareClick(row, col, playerColor)
+  }
+
+  const handleReset = () => {
+    resetBoard()
+    emitReset()
+  }
 
   return (
     <section className="chess-section">
@@ -43,11 +60,10 @@ const Chess = () => {
         <div className="board-section">
           <ChessBoard
             board={board}
-            turn={turn}
             validMoves={validMoves}
             kingInCheck={kingInCheck}
             selectedSquare={selectedSquare}
-            handleSquareClick={handleSquareClick}
+            handleSquareClick={handleClick}
           />
         </div>
         <div className="game-info">
@@ -56,9 +72,9 @@ const Chess = () => {
             Your color: <span>{playerColor}</span>
           </p>
           <p>
-            Current Turn: <span>{turn}</span>
+            Current Turn: <span>{isWhiteNext ? 'White' : 'Black'}</span>
           </p>
-          <button className="reset-button" onClick={resetBoard}>
+          <button className="reset-button" onClick={handleReset}>
             Reset Game
           </button>
         </div>

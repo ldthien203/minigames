@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react'
-import {getCaroSocket} from '../utils/socket'
+import {getCaroSocket} from '../../utils/socket'
 const caroSocket = getCaroSocket()
 
 const useCaroTurn = roomId => {
-  const [mySymbol, setMySymbol] = useState(null)
+  const [playerSymbol, setPlayerSymbol] = useState(null)
   const [isMyTurn, setIsMyTurn] = useState(false)
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const useCaroTurn = roomId => {
     }
 
     const handleAssignSymbol = symbol => {
-      setMySymbol(symbol)
+      setPlayerSymbol(symbol)
       setIsMyTurn(symbol === 'X')
     }
 
@@ -44,7 +44,7 @@ const useCaroTurn = roomId => {
   }
 
   return {
-    mySymbol,
+    playerSymbol,
     isMyTurn,
     emitMove,
     emitReset,

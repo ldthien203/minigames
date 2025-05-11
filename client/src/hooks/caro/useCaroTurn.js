@@ -1,12 +1,15 @@
-import {useEffect, useState} from 'react'
-import {getCaroSocket} from '../../utils/socket'
-const caroSocket = getCaroSocket()
+import {useEffect, useRef, useState} from 'react'
+import {getCaroSocket} from '../../utils/socket/socket'
 
 const useCaroTurn = roomId => {
   const [playerSymbol, setPlayerSymbol] = useState(null)
   const [isMyTurn, setIsMyTurn] = useState(false)
+  const caroSocketRef = useRef(null)
 
   useEffect(() => {
+    caroSocketRef.current = getCaroSocket()
+    const caroSocket = caroSocketRef.current
+
     caroSocket.emit('joinRoom', roomId)
     caroSocket.emit('requestSymbol', roomId)
 
@@ -35,20 +38,20 @@ const useCaroTurn = roomId => {
   }, [roomId])
 
   const emitMove = index => {
-    caroSocket.emit('makeMove', {roomId, move: index})
+    caroSocketRef.current.emit('makeMove', {roomId, move: index})
     setIsMyTurn(false)
   }
 
   const emitReset = () => {
-    caroSocket.emit('resetGame', roomId)
+    caroSocketRef.current.emit('resetGame', roomId)
   }
 
   return {
     playerSymbol,
     isMyTurn,
+    caroSocket: caroSocketRef.current,
     emitMove,
     emitReset,
-    caroSocket,
   }
 }
 

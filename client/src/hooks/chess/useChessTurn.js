@@ -1,12 +1,15 @@
-import {useEffect, useState} from 'react'
-import {getChessSocket} from '../../utils/socket'
-const chessSocket = getChessSocket()
+import {useEffect, useState, useRef} from 'react'
+import {getChessSocket} from '../../utils/socket/socket'
 
 const useChessTurn = roomId => {
   const [playerColor, setPlayerColor] = useState(null)
   const [isMyTurn, setIsMyTurn] = useState(false)
+  const chessSocketRef = useRef(null)
 
   useEffect(() => {
+    chessSocketRef.current = getChessSocket()
+    const chessSocket = chessSocketRef.current
+
     chessSocket.emit('joinRoom', roomId)
     chessSocket.emit('requestColor', roomId)
 
@@ -36,22 +39,22 @@ const useChessTurn = roomId => {
     }
   }, [playerColor, roomId])
 
-  const emitMove = (from, to, board) => {
-    chessSocket.emit('makeMove', {
+  const emitMove = (from, to) => {
+    chessSocketRef.current.emit('makeMove', {
       roomId,
-      move: {from, to, board},
+      move: {from, to},
     })
     setIsMyTurn(false)
   }
 
   const emitReset = () => {
-    chessSocket.emit('resetGame', roomId)
+    chessSocketRef.current.emit('resetGame', roomId)
   }
 
   return {
     playerColor,
     isMyTurn,
-    chessSocket,
+    chessSocket: chessSocketRef.current,
     emitMove,
     emitReset,
   }

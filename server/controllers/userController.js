@@ -1,5 +1,5 @@
 import {getAllUsers, getUserById, updateUser} from '../models/userModel.js'
-import {formatDate} from '../utils/gameUtils.js'
+import {formatDate} from '../utils/dataFormat.js'
 
 const fetchAllUsers = async (req, res) => {
   try {

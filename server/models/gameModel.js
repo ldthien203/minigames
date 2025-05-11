@@ -1,4 +1,4 @@
-import db from '../utils/db.js'
+import db from '../config/db.js'
 
 const getAllGames = async ({genre, platform, sort, order}) => {
   try {

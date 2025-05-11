@@ -1,4 +1,4 @@
-import {formatDate, processGameData} from '../utils/gameUtils.js'
+import {formatDate, processGameData} from '../utils/dataFormat.js'
 import {
   getAllGames,
   getGameById,

@@ -1,4 +1,4 @@
-import {formatDate} from '../utils/gameUtils.js'
+import {formatDate} from '../utils/dataFormat.js'
 import {
   getAllNews,
   getNewsById,

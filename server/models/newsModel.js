@@ -1,4 +1,4 @@
-import db from '../utils/db.js'
+import db from '../config/db.js'
 
 const getAllNews = async ({type}) => {
   try {

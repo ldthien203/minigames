@@ -28,6 +28,10 @@ const caroSocket = io => {
       io.of('/caro').to(roomId).emit('gameReset')
     })
 
+    socket.on('changeBoardSize', ({roomId, boardSize}) => {
+      io.of('/caro').to(roomId).emit('boardSizeChanged', {boardSize})
+    })
+
     socket.on('disconnect', () => {
       for (const roomId in caroRooms) {
         caroRooms[roomId] = caroRooms[roomId].filter(id => id !== socket.id)

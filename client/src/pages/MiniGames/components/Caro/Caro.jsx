@@ -34,14 +34,26 @@ const Caro = () => {
       resetLocalGame()
     }
 
+    const handleBoardSizeFromSocket = ({boardSize}) => {
+      updateBoardSize(boardSize)
+    }
+
     caroSocket.on('opponentMove', handleOpponentMove)
     caroSocket.on('gameReset', handleResetFromSocket)
+    caroSocket.on('boardSizeChanged', handleBoardSizeFromSocket)
 
     return () => {
       caroSocket.off('opponentMove', handleOpponentMove)
       caroSocket.off('gameReset', handleResetFromSocket)
+      caroSocket.off('boardSizeChanged', handleBoardSizeFromSocket)
     }
-  }, [caroSocket, handleLocalClick, playerSymbol, resetLocalGame])
+  }, [
+    caroSocket,
+    handleLocalClick,
+    playerSymbol,
+    resetLocalGame,
+    updateBoardSize,
+  ])
 
   const handleClick = index => {
     if (mode === 'offline') {
@@ -63,6 +75,14 @@ const Caro = () => {
       setOfflineTurn(true)
     } else {
       emitReset && emitReset()
+    }
+  }
+
+  const handleBoardSizeChange = e => {
+    const newSize = Number(e.target.value)
+    updateBoardSize(newSize)
+    if (mode === 'online' && caroSocket) {
+      caroSocket.emit('changeBoardSize', {roomId, boardSize: newSize})
     }
   }
 
@@ -117,7 +137,7 @@ const Caro = () => {
               <input
                 type="number"
                 value={boardSize}
-                onChange={e => updateBoardSize(Number(e.target.value))}
+                onChange={handleBoardSizeChange}
                 className="board-size-input"
               />
             </label>

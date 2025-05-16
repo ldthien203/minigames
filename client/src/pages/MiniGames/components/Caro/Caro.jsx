@@ -1,26 +1,29 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import CaroBoard from './components/CaroBoard/CaroBoard'
 import useCaro from '../../../../hooks/caro/useCaro'
 import useCaroTurn from '../../../../hooks/caro/useCaroTurn'
 import './Caro.css'
 
 const Caro = () => {
+  const [mode, setMode] = useState('online')
+  const [offlineTurn, setOfflineTurn] = useState(false)
+
   const roomId = 'room1'
 
   const {
     board,
     handleClick: handleLocalClick,
     resetGame: resetLocalGame,
-    messageStatus,
     boardSize,
     updateBoardSize,
+    winner,
   } = useCaro()
 
   const {playerSymbol, isMyTurn, emitMove, emitReset, caroSocket} =
     useCaroTurn(roomId)
 
   useEffect(() => {
-    if (!playerSymbol) return
+    if (!playerSymbol || !caroSocket) return
 
     const handleOpponentMove = index => {
       const opponentSymbol = playerSymbol === 'X' ? 'O' : 'X'
@@ -41,20 +44,42 @@ const Caro = () => {
   }, [caroSocket, handleLocalClick, playerSymbol, resetLocalGame])
 
   const handleClick = index => {
-    console.log('Click:', {playerSymbol, isMyTurn, index, value: board[index]})
+    if (mode === 'offline') {
+      if (board[index]) return
+      handleLocalClick(index, offlineTurn ? 'X' : 'O')
+      setOfflineTurn(t => !t)
+    } else {
+      console.log('player symbol: ', playerSymbol)
 
-    if (!playerSymbol || !isMyTurn || board[index]) return
-    handleLocalClick(index, playerSymbol)
-    emitMove(index)
+      if (!playerSymbol || !isMyTurn || board[index]) return
+      handleLocalClick(index, playerSymbol)
+      emitMove(index)
+    }
   }
 
   const handleReset = () => {
     resetLocalGame()
-    emitReset()
+    if (mode === 'offline') {
+      setOfflineTurn(true)
+    } else {
+      emitReset && emitReset()
+    }
   }
+
+  const currentTurn = isMyTurn ? playerSymbol : playerSymbol === 'X' ? 'O' : 'X'
 
   return (
     <section className="caro-section">
+      {winner && (
+        <div className="caro-modal-overlay">
+          <div className="caro-modal-box">
+            <h2>{winner === 'X' ? 'X' : 'O'} wins!</h2>
+            <button className="reset-button" onClick={handleReset}>
+              Reset game
+            </button>
+          </div>
+        </div>
+      )}
       <div className="container">
         <div className="board-section">
           <CaroBoard
@@ -66,7 +91,27 @@ const Caro = () => {
 
         <div className="controls-section">
           <div className="controls-container">
-            <h2>Game Caro</h2>
+            <div>
+              <button
+                className={`mode-toggle-btn${
+                  mode === 'offline' ? ' active' : ''
+                }`}
+                onClick={() => setMode('offline')}
+                disabled={mode === 'offline'}
+              >
+                Offline
+              </button>
+              <button
+                className={`mode-toggle-btn${
+                  mode === 'online' ? ' active' : ''
+                }`}
+                onClick={() => setMode('online')}
+                disabled={mode === 'online'}
+              >
+                Online
+              </button>
+            </div>
+            <h2>Game Caro ({mode === 'online' ? 'Online' : 'Offline'})</h2>
             <label>
               Board Size:
               <input
@@ -79,7 +124,8 @@ const Caro = () => {
             <p>
               Current size: {boardSize} x {boardSize}
             </p>
-            <h2 className="message-status">{messageStatus()}</h2>
+            <h2 className="message-status">Current turn: {currentTurn}</h2>
+            <h2 className="message-status">Your symbol: {playerSymbol}</h2>
             <button className="reset-button" onClick={handleReset}>
               Reset Game
             </button>

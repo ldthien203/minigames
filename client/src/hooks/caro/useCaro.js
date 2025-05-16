@@ -5,6 +5,7 @@ const useCaro = () => {
   const [boardSize, setBoardSize] = useState(3)
   const [board, setBoard] = useState(Array(3 * 3).fill(null))
   const [isXNext, setIsXNext] = useState(true)
+  const [winner, setWinner] = useState(null)
 
   const calculateWinner = board => {
     const currentWinCondition = Math.min(boardSize, WIN_CONDITION)
@@ -48,24 +49,17 @@ const useCaro = () => {
   }
 
   const handleClick = (index, symbol = isXNext ? 'X' : 'O') => {
-    if (board[index] || calculateWinner(board)) return
+    if (board[index] || calculateWinner(board) || winner) return
     const newBoard = [...board]
     newBoard[index] = symbol
-
     setBoard(newBoard)
     setIsXNext(symbol !== 'X')
-  }
-
-  const messageStatus = () => {
-    const winner = calculateWinner(board)
-    if (winner) return `${winner === 'X' ? 'User-1' : 'User-2'} wins!`
-    if (!board.includes(null)) return `It's a Draw!`
-    return `${isXNext ? 'User-1' : 'User-2'} turn`
   }
 
   const resetGame = () => {
     setBoard(Array(boardSize * boardSize).fill(null))
     setIsXNext(true)
+    setWinner(null)
   }
 
   const updateBoardSize = size => {
@@ -73,6 +67,7 @@ const useCaro = () => {
     if (newSize >= 3 && newSize <= 14) {
       setBoardSize(newSize)
       setBoard(Array(newSize * newSize).fill(null))
+      setWinner(null)
     }
   }
 
@@ -82,7 +77,7 @@ const useCaro = () => {
     isXNext,
     setIsXNext,
     handleClick,
-    messageStatus,
+    winner,
     resetGame,
     boardSize,
     setBoardSize,

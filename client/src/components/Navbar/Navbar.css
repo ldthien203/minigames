@@ -138,6 +138,8 @@
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
+  box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.24);
+  border-radius: 5px;
 }
 
 .navbar .mobile-menu.show-menu {

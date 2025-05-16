@@ -11,13 +11,9 @@ const useCaroTurn = roomId => {
     const caroSocket = caroSocketRef.current
 
     caroSocket.emit('joinRoom', roomId)
-    caroSocket.emit('requestSymbol', roomId)
-
-    const handlePlayerJoined = () => {
-      caroSocket.emit('requestSymbol', roomId)
-    }
 
     const handleAssignSymbol = symbol => {
+      console.log('Assigned symbol: ', symbol)
       setPlayerSymbol(symbol)
       setIsMyTurn(symbol === 'X')
     }
@@ -26,14 +22,13 @@ const useCaroTurn = roomId => {
       setIsMyTurn(true)
     }
 
-    caroSocket.on('playerJoined', handlePlayerJoined)
     caroSocket.on('assignSymbol', handleAssignSymbol)
     caroSocket.on('opponentMove', handleOpponentMove)
 
     return () => {
-      caroSocket.off('playerJoined', handlePlayerJoined)
       caroSocket.off('assignSymbol', handleAssignSymbol)
       caroSocket.off('opponentMove', handleOpponentMove)
+      // caroSocket.disconnect()
     }
   }, [roomId])
 

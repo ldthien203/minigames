@@ -9,14 +9,15 @@ const caroSocket = io => {
       if (!caroRooms[roomId].includes(socket.id)) {
         caroRooms[roomId].push(socket.id)
       }
-      socket.to(roomId).emit('playerJoined', {playerId: socket.id})
-    })
 
-    socket.on('requestSymbol', roomId => {
-      const players = caroRooms[roomId] || []
-      let symbol = 'O'
-      if (players[0] === socket.id) symbol = 'X'
-      socket.emit('assignSymbol', symbol)
+      if (caroRooms[roomId].length > 2) {
+        socket.emit('roomFull')
+      } else if (caroRooms[roomId].length === 2) {
+        const [player1, player2] = caroRooms[roomId]
+        io.of('/caro').to(player1).emit('assignSymbol', 'X')
+        io.of('/caro').to(player2).emit('assignSymbol', 'O')
+        io.of('/caro').to(roomId).emit('playerJoined', {playerId: socket.id})
+      }
     })
 
     socket.on('makeMove', ({roomId, move}) => {

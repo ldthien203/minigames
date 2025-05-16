@@ -15,10 +15,50 @@
   background-color: lightblue;
   color: #fe4f2d;
   border: 1px solid gray;
-  font-size: calc(600px / var(--board-size) * 0.65);
+  font-size: calc(var(--board-size-px, 600px) / var(--board-size) * 0.65);
   font-weight: bold;
 }
 
 .board .square:hover {
   background-color: #ffd63a;
+}
+
+@media (max-width: 767px) {
+  .board {
+    height: 300px;
+    width: 300px;
+  }
+  .board .square {
+    font-size: calc(300px / var(--board-size) * 0.65);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .board {
+    height: 400px;
+    width: 400px;
+  }
+  .board .square {
+    font-size: calc(400px / var(--board-size) * 0.65);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .board {
+    height: 500px;
+    width: 500px;
+  }
+  .board .square {
+    font-size: calc(500px / var(--board-size) * 0.65);
+  }
+}
+
+@media (min-width: 1281px) {
+  .board {
+    height: 600px;
+    width: 600px;
+  }
+  .board .square {
+    font-size: calc(600px / var(--board-size) * 0.65);
+  }
 }

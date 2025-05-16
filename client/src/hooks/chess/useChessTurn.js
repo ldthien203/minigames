@@ -24,7 +24,6 @@ const useChessTurn = roomId => {
     }
 
     const handleOpponentMove = ({from, to}) => {
-      // setTurn(prev => (prev === 'white' ? 'black' : 'white'))
       setIsMyTurn(true)
     }
 

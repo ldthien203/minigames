@@ -58,7 +58,10 @@ const Navbar = () => {
         >
           ☰
         </button>
-        <div className={`mobile-menu ${isMenuOpen ? 'show-menu' : ''}`}>
+        <div
+          className={`mobile-menu ${isMenuOpen ? 'show-menu' : ''}`}
+          onMouseLeave={() => setIsMenuOpen(false)}
+        >
           <MainMenu />
         </div>
       </div>

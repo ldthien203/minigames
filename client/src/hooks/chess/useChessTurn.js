@@ -11,14 +11,9 @@ const useChessTurn = roomId => {
     const chessSocket = chessSocketRef.current
 
     chessSocket.emit('joinRoom', roomId)
-    chessSocket.emit('requestColor', roomId)
-
-    const handlePlayerJoined = () => {
-      chessSocket.emit('requestColor', roomId)
-    }
 
     const handleAssignColor = color => {
-      console.log('assign color: ', color)
+      console.log('Assigned color: ', color)
       setPlayerColor(color)
       setIsMyTurn(color === 'white')
     }
@@ -27,21 +22,19 @@ const useChessTurn = roomId => {
       setIsMyTurn(true)
     }
 
-    chessSocket.on('playerJoined', handlePlayerJoined)
     chessSocket.on('assignColor', handleAssignColor)
     chessSocket.on('opponentMove', handleOpponentMove)
 
     return () => {
-      chessSocket.off('playerJoined', handlePlayerJoined)
       chessSocket.off('assignColor', handleAssignColor)
       chessSocket.off('opponentMove', handleOpponentMove)
     }
-  }, [playerColor, roomId])
+  }, [roomId])
 
-  const emitMove = (from, to) => {
+  const emitMove = (from, to, board) => {
     chessSocketRef.current.emit('makeMove', {
       roomId,
-      move: {from, to},
+      move: {from, to, board},
     })
     setIsMyTurn(false)
   }

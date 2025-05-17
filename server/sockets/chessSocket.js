@@ -8,15 +8,16 @@ const chessSocket = io => {
       if (!chessRooms[roomId]) chessRooms[roomId] = []
       if (!chessRooms[roomId].includes(socket.id)) {
         chessRooms[roomId].push(socket.id)
-        socket.to(roomId).emit('playerJoined', {playerId: socket.id})
       }
-    })
 
-    socket.on('requestColor', roomId => {
-      const players = chessRooms[roomId] || []
-      let color = 'black'
-      if (players[0] === socket.id) color = 'white'
-      socket.emit('assignColor', color)
+      if (chessRooms[roomId].length > 2) {
+        socket.emit('roomFull')
+      } else if (chessRooms[roomId].length === 2) {
+        const [player1, player2] = chessRooms[roomId]
+        io.of('/chess').to(player1).emit('assignColor', 'white')
+        io.of('/chess').to(player2).emit('assignColor', 'black')
+        io.of('/chess').to(roomId).emit('playerJoined', {playerId: socket.id})
+      }
     })
 
     socket.on('makeMove', ({roomId, move}) => {

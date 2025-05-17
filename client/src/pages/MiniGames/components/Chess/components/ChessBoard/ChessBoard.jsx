@@ -1,4 +1,4 @@
-import {getPieceImg} from '../../../../../../utils/chessUtils/boardUtils'
+import {getPieceImg} from '../../../../../../utils/chessUtils/boardInit'
 import './ChessBoard.css'
 
 const ChessBoard = ({

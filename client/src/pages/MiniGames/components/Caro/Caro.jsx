@@ -61,9 +61,8 @@ const Caro = () => {
       handleLocalClick(index, offlineTurn ? 'X' : 'O')
       setOfflineTurn(t => !t)
     } else {
-      console.log('player symbol: ', playerSymbol)
-
       if (!playerSymbol || !isMyTurn || board[index]) return
+      console.log('player symbol: ', playerSymbol)
       handleLocalClick(index, playerSymbol)
       emitMove(index)
     }

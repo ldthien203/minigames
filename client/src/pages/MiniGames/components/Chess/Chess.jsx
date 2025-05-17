@@ -1,11 +1,15 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import ChessBoard from './components/ChessBoard/ChessBoard'
 import useChess from '../../../../hooks/chess/useChess'
 import useChessTurn from '../../../../hooks/chess/useChessTurn'
 import './Chess.css'
 
 const Chess = () => {
-  const roomId = 'room12'
+  const [mode, setMode] = useState('online')
+  const [offlineTurn, setOfflineTurn] = useState(false)
+
+  const roomId = 'room2'
+
   const {playerColor, isMyTurn, chessSocket, emitMove, emitReset} =
     useChessTurn(roomId)
 
@@ -20,10 +24,13 @@ const Chess = () => {
     validMoves,
     kingInCheck,
     handleSquareClick,
+    winner,
     resetBoard,
-  } = useChess(onMove)
+  } = useChess(playerColor, onMove)
 
   useEffect(() => {
+    if (!playerColor || !chessSocket) return
+
     const handleOpponentMove = ({from, to, board: newBoard}) => {
       if (newBoard) setBoard(newBoard)
     }
@@ -39,16 +46,27 @@ const Chess = () => {
       chessSocket.off('opponentMove', handleOpponentMove)
       chessSocket.off('gameReset', handleResetFromSocket)
     }
-  }, [chessSocket, resetBoard, setBoard])
+  }, [chessSocket, playerColor, resetBoard, setBoard])
 
   const handleClick = (row, col) => {
-    if (!playerColor || !isMyTurn) return
-    handleSquareClick(row, col, playerColor)
+    if (mode === 'offline') {
+      handleClick(row, col, offlineTurn ? 'white' : 'black')
+      setOfflineTurn(t => !t)
+    } else {
+      if (!playerColor || !isMyTurn) return
+      console.log('Player color: ', playerColor)
+      handleSquareClick(row, col, playerColor)
+    }
   }
 
   const handleReset = () => {
-    resetBoard()
-    emitReset()
+    if (mode === 'offline') {
+      setOfflineTurn(true)
+      resetBoard()
+    } else {
+      emitReset && emitReset()
+      resetBoard()
+    }
   }
 
   const currentTurn = isMyTurn
@@ -59,6 +77,16 @@ const Chess = () => {
 
   return (
     <section className="chess-section">
+      {winner && (
+        <div className="chess-modal-overlay">
+          <div className="chess-modal-box">
+            <h2>{winner === 'black' ? 'black' : 'white'} wins!</h2>
+            <button className="reset-button" onClick={handleReset}>
+              Reset game
+            </button>
+          </div>
+        </div>
+      )}
       <div className="container">
         <div className="board-section">
           <ChessBoard
@@ -70,6 +98,24 @@ const Chess = () => {
           />
         </div>
         <div className="game-info">
+          <div>
+            <button
+              className={`mode-toggle-btn${
+                mode === 'offline' ? ' active' : ''
+              }`}
+              onClick={() => setMode('offline')}
+              disabled={mode === 'offline'}
+            >
+              Offline
+            </button>
+            <button
+              className={`mode-toggle-btn${mode === 'online' ? ' active' : ''}`}
+              onClick={() => setMode('online')}
+              disabled={mode === 'online'}
+            >
+              Online
+            </button>
+          </div>
           <h2>Game Info</h2>
           <p>
             Your color: <span>{playerColor}</span>

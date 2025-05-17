@@ -5,10 +5,11 @@
 
 .minigame-list-section .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   max-width: 100%;
-  gap: 70px;
-  margin: 20px 50px;
+  gap: 40px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .minigame-list-section .game-card {
@@ -122,5 +123,35 @@
   }
   100% {
     left: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .minigame-list-section .container {
+    max-width: 560px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .minigame-list-section .container {
+    max-width: 750px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .minigame-list-section .container {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .minigame-list-section .container {
+    max-width: 1250px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .minigame-list-section .container {
+    max-width: 1300px;
   }
 }

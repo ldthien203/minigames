@@ -3,6 +3,40 @@
   background: linear-gradient(45deg, #501755 0%, #2d1854 100%);
 }
 
+.chess-section .chess-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.chess-section .chess-modal-box {
+  background: #fff;
+  color: #bf3131;
+  padding: 40px 32px 32px 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  min-width: 260px;
+}
+
+.chess-section .chess-modal-box h2 {
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.chess-section .chess-modal-box .reset-button {
+  margin-top: 0;
+  width: 100%;
+}
+
 .chess-section .container {
   display: flex;
   width: 100%;
@@ -18,6 +52,31 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 200px;
+}
+
+.chess-section .mode-toggle-btn {
+  padding: 6px 18px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #eee;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.chess-section .mode-toggle-btn.active,
+.chess-section .mode-toggle-btn:disabled {
+  background: #fe4f2d;
+  color: #fff;
+  cursor: default;
+  opacity: 0.8;
+}
+
+.chess-section .mode-toggle-btn:not(:disabled):hover {
+  background: #ffd63a;
+  color: #fe4f2d;
 }
 
 .chess-section .game-info h2 {

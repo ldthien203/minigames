@@ -54,6 +54,7 @@ const useCaro = () => {
     newBoard[index] = symbol
     setBoard(newBoard)
     setIsXNext(symbol !== 'X')
+    if (calculateWinner(newBoard)) setWinner(symbol === 'X' ? 'X' : 'O')
   }
 
   const resetGame = () => {

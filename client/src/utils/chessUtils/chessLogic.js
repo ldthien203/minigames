@@ -125,7 +125,14 @@ const isKingInCheck = (board, color) => {
         isValidMove(board[x][y], x, y, kingX, kingY, board),
     ),
   )
-}   
+}
+
+const checkKingStatus = (board, color) => {
+  if (isKingInCheck(board, color)) {
+    return findKing(board, color)
+  }
+  return null
+}
 
 export {
   isPlayerTurn,
@@ -135,4 +142,5 @@ export {
   getValidMoves,
   findKing,
   isKingInCheck,
+  checkKingStatus,
 }

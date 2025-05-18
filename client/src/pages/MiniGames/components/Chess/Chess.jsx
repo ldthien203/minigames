@@ -83,7 +83,7 @@ const Chess = () => {
       )
     }
 
-    if (!chessUser) <p>Wating for opponent ...</p>
+    if (!chessUser) return <p>Wating for opponent ...</p>
 
     const currentTurn = isMyTurn ? chessUser?.yourUser : chessUser?.opponent
 

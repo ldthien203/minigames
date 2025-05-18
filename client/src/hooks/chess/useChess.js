@@ -7,7 +7,7 @@ import {
   checkKingStatus,
 } from '../../utils/chessUtils/chessLogic'
 
-const useChess = (playerColor, onMove) => {
+const useChess = (playerColor = 'white', onMove) => {
   const [board, setBoard] = useState(initialBoard)
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [validMoves, setValidMoves] = useState([])
@@ -15,16 +15,13 @@ const useChess = (playerColor, onMove) => {
   const [winner, setWinner] = useState(null)
 
   useEffect(() => {
-    if (!playerColor) return
-    const opponentColor = playerColor === 'white' ? 'black' : 'white'
+    const kingWhiteInCheck = checkKingStatus(board, 'white')
+    const kingBlackInCheck = checkKingStatus(board, 'black')
 
-    const myKingCheck = checkKingStatus(board, playerColor)
-    const opponentKingCheck = checkKingStatus(board, opponentColor)
-
-    if (myKingCheck) setKingInCheck(myKingCheck)
-    else if (opponentKingCheck) setKingInCheck(opponentKingCheck)
+    if (kingWhiteInCheck) setKingInCheck(kingWhiteInCheck)
+    else if (kingBlackInCheck) setKingInCheck(kingBlackInCheck)
     else setKingInCheck(null)
-  }, [board, playerColor])
+  }, [board])
 
   const clearSelection = () => {
     setSelectedSquare(null)

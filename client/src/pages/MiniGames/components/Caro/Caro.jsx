@@ -7,7 +7,6 @@ import './Caro.css'
 const Caro = () => {
   const [mode, setMode] = useState('online')
   const [offlineTurn, setOfflineTurn] = useState(false)
-
   const roomId = 'room1'
 
   const {
@@ -19,7 +18,7 @@ const Caro = () => {
     winner,
   } = useCaro()
 
-  const {playerSymbol, isMyTurn, emitMove, emitReset, caroSocket} =
+  const {playerSymbol, isMyTurn, emitMove, emitReset, caroSocket, caroUser} =
     useCaroTurn(roomId)
 
   useEffect(() => {
@@ -145,7 +144,14 @@ const Caro = () => {
             </p>
             {mode === 'online' ? (
               <>
-                <p className="message-status">Current turn: {currentTurn}</p>
+                {caroUser ? (
+                  <p className="message-status">
+                    {isMyTurn ? caroUser.yourUser : caroUser.opponent}'s turn
+                  </p>
+                ) : (
+                  <p className="message-status">Wating for opponent...</p>
+                )}
+
                 <p className="message-status">Your symbol: {playerSymbol}</p>
               </>
             ) : (

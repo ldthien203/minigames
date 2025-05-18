@@ -49,3 +49,14 @@
   text-align: center;
   color: #ff6b6b;
 }
+
+.register-link {
+  color: #b01ba5;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.register-link:hover {
+  color: #8a1280;
+}

@@ -45,6 +45,12 @@ const Login = () => {
           placeholder="Password"
         ></input>
         <button type="submit">Login</button>
+        <p>
+          Don't have an account?{' '}
+          <span className="register-link" onClick={() => navigate('/register')}>
+            Register here
+          </span>
+        </p>
         {message && <p className="message">{message}</p>}
       </form>
     </div>

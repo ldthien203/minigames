@@ -1,20 +1,24 @@
 import {useEffect, useState, useRef} from 'react'
 import {getChessSocket} from '../../utils/socket/socket'
+import useAuth from '../useAuth'
 
 const useChessTurn = roomId => {
   const [playerColor, setPlayerColor] = useState(null)
   const [isMyTurn, setIsMyTurn] = useState(false)
   const chessSocketRef = useRef(null)
+  const {user} = useAuth()
+  const [chessUser, setChessUser] = useState(null)
 
   useEffect(() => {
     chessSocketRef.current = getChessSocket()
     const chessSocket = chessSocketRef.current
 
-    chessSocket.emit('joinRoom', roomId)
+    user && chessSocket.emit('joinRoom', {roomId, user: user.username})
 
-    const handleAssignColor = color => {
+    const handleAssignColor = ({color, yourUser, opponent}) => {
       console.log('Assigned color: ', color)
       setPlayerColor(color)
+      setChessUser({yourUser, opponent})
       setIsMyTurn(color === 'white')
     }
 
@@ -29,7 +33,7 @@ const useChessTurn = roomId => {
       chessSocket.off('assignColor', handleAssignColor)
       chessSocket.off('opponentMove', handleOpponentMove)
     }
-  }, [roomId])
+  }, [roomId, user])
 
   const emitMove = (from, to, board) => {
     chessSocketRef.current.emit('makeMove', {
@@ -46,6 +50,7 @@ const useChessTurn = roomId => {
   return {
     playerColor,
     isMyTurn,
+    chessUser,
     chessSocket: chessSocketRef.current,
     emitMove,
     emitReset,

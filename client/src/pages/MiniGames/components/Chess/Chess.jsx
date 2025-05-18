@@ -10,7 +10,7 @@ const Chess = () => {
 
   const roomId = 'room2'
 
-  const {playerColor, isMyTurn, chessSocket, emitMove, emitReset} =
+  const {playerColor, isMyTurn, chessUser, chessSocket, emitMove, emitReset} =
     useChessTurn(roomId)
 
   const handleOfflineMoveSuccess = () => {
@@ -57,7 +57,7 @@ const Chess = () => {
 
   const handleClick = (row, col) => {
     if (mode === 'offline') {
-      handleSquareClick(row, col, offlineTurn ? 'white' : 'black')
+      handleSquareClick(row, col, offlineTurn ? 'black' : 'white')
     } else {
       if (!playerColor || !isMyTurn) return
       handleSquareClick(row, col, playerColor)
@@ -66,7 +66,7 @@ const Chess = () => {
 
   const handleReset = () => {
     if (mode === 'offline') {
-      setOfflineTurn(true)
+      setOfflineTurn(t => !t)
       resetBoard()
     } else {
       emitReset && emitReset()
@@ -74,11 +74,30 @@ const Chess = () => {
     }
   }
 
-  const currentTurn = isMyTurn
-    ? playerColor
-    : playerColor === 'white'
-    ? 'black'
-    : 'white'
+  const renderStatus = () => {
+    if (mode === 'offline') {
+      return (
+        <p>
+          Current turn: <span>{offlineTurn ? 'Black' : 'White'}</span>
+        </p>
+      )
+    }
+
+    if (!chessUser) <p>Wating for opponent ...</p>
+
+    const currentTurn = isMyTurn ? chessUser?.yourUser : chessUser?.opponent
+
+    return (
+      <>
+        <p>
+          Your color: <span>{playerColor}</span>
+        </p>
+        <p>
+          Current Turn: <span>{currentTurn}</span>
+        </p>
+      </>
+    )
+  }
 
   return (
     <section className="chess-section">
@@ -122,22 +141,9 @@ const Chess = () => {
             </button>
           </div>
           <h2>Chess ({mode === 'offline' ? 'offline' : 'online'})</h2>
-          {mode === 'online' ? (
-            <>
-              <p>
-                Your color: <span>{playerColor}</span>
-              </p>
-              <p>
-                Current Turn: <span>{currentTurn}</span>
-              </p>
-            </>
-          ) : (
-            <>
-              <p>
-                Player turn: <span>{offlineTurn ? 'White' : 'Black'}</span>
-              </p>
-            </>
-          )}
+
+          {renderStatus()}
+
           <button className="reset-button" onClick={handleReset}>
             Reset Game
           </button>

@@ -18,7 +18,7 @@ const Caro = () => {
     winner,
   } = useCaro()
 
-  const {playerSymbol, isXTurn, emitMove, emitReset, caroSocket, caroUser} =
+  const {playerSymbol, isXTurn, caroUser, emitMove, emitReset, caroSocket} =
     useCaroTurn(roomId)
 
   useEffect(() => {

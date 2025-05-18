@@ -6,7 +6,6 @@ const caroSocket = io => {
     socket.on('joinRoom', ({roomId, user}) => {
       socket.join(roomId)
       if (!caroRooms[roomId]) caroRooms[roomId] = []
-      // if (!caroRooms[roomId].includes(socket.id)) {
       if (!caroRooms[roomId].some(u => u.id === socket.id)) {
         caroRooms[roomId].push({id: socket.id, user})
       }

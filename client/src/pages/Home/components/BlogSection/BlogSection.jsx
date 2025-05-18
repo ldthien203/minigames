@@ -7,6 +7,7 @@ import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget
 import Category from '../../../../components/Category/Category'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
+import Loading from '../../../../components/Loading/Loading'
 import useFetchData from '../../../../hooks/useFetchData'
 import updateQueryParams from '../../../../utils/queryUtils'
 import './BlogSection.css'
@@ -50,7 +51,7 @@ const BlogSection = () => {
             <div className="section-title">
               <h2>Lastest Games</h2>
             </div>
-            {genreLoading && <p>Loading games...</p>}
+            {genreLoading && <Loading />}
             {genreError && <p>{genreError.message}</p>}
             {genre && (
               <BlogFilter
@@ -60,7 +61,7 @@ const BlogSection = () => {
                 idKey="genre_id"
               />
             )}
-            {loading && <p>Loading games...</p>}
+            {loading && <Loading />}
             {error && <p>{error.message}</p>}
             {games && (
               <PaginationWrapper data={games} pageSize={4}>
@@ -93,7 +94,7 @@ const BlogSection = () => {
                 <TrendingWidget />
               </WidgetItem>
               <WidgetItem>
-                {platformLoading && <p>Loading games...</p>}
+                {platformLoading && <Loading />}
                 {platformError && <p>{platformError.message}</p>}
                 {platform && (
                   <Category

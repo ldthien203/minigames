@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import useFetchData from '../../hooks/useFetchData'
 import GamesSinglePage from './components/GamesSinglePage/GamesSinglePage'
 import GameAuthorSection from './components/GameAuthorSection/GameAuthorSection'
+import Loading from '../../components/Loading/Loading'
 
 const GameDetail = () => {
   const {id} = useParams()
@@ -11,7 +12,7 @@ const GameDetail = () => {
     `http://localhost:4000/games/${id}`,
   )
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading />
   if (error) return <p>{error}</p>
 
   return (

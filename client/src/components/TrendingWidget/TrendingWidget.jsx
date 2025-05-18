@@ -1,5 +1,6 @@
 import MiniCard from './components/MiniCard/MiniCard'
 import useFetchData from '../../hooks/useFetchData'
+import Loading from '../Loading/Loading'
 import './TrendingWidget.css'
 
 const TrendingWidget = () => {
@@ -9,7 +10,7 @@ const TrendingWidget = () => {
 
   return (
     <div className="trending-widget">
-      {loading && <p>Loading news...</p>}
+      {loading && <Loading />}
       {error && <p>{error}</p>}
       {data &&
         data.map(news => (

@@ -3,6 +3,7 @@ import React from 'react'
 import useDropdown from '../../hooks/useDropDown'
 import useAuth from '../../hooks/useAuth'
 import MainMenu from '../MainMenu/MainMenu'
+import Loading from '../Loading/Loading'
 import './Navbar.css'
 
 const Navbar = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
         </div>
         <div className="user-panel">
           {loading ? (
-            <p>Loading</p>
+            <Loading />
           ) : user ? (
             <>
               <span className="username" onClick={toggleDropDown}>

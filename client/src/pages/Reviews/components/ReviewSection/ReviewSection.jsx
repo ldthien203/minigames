@@ -3,6 +3,7 @@ import {useSearchParams} from 'react-router-dom'
 import useFetchData from '../../../../hooks/useFetchData'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
+import Loading from '../../../../components/Loading/Loading'
 import './ReviewSection.css'
 
 const ReviewSection = () => {
@@ -25,7 +26,7 @@ const ReviewSection = () => {
     <Fragment>
       <section className="review-section">
         <div className="container">
-          {loading && <p>Loading reviews...</p>}
+          {loading && <Loading />}
           {error && <p>{error}</p>}
           {reviews && (
             <PaginationWrapper data={reviews} pageSize={8}>

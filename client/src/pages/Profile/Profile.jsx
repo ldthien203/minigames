@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import useAuth from '../../hooks/useAuth'
+import Loading from '../../components/Loading/Loading'
 import './Profile.css'
 
 const Profile = () => {
@@ -44,7 +45,7 @@ const Profile = () => {
     }
   }
 
-  if (loading) return <p>Loading ...</p>
+  if (loading) return <Loading />
   if (error) return <p>Error: {error}</p>
 
   return (

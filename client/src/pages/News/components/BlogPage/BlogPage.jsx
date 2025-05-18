@@ -6,6 +6,7 @@ import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import LatestComment from '../../../../components/LatestComment/LatestComment'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
+import Loading from '../../../../components/Loading/Loading'
 import BlogContent from '../BlogContent/BlogContent'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogPage.css'
@@ -38,7 +39,7 @@ const BlogPage = () => {
       <div className="container">
         <div className="row">
           <div className="col-1">
-            {loadingNewsType && <p>Loading games...</p>}
+            {loadingNewsType && <Loading />}
             {errorNewsType && <p>{errorNewsType}</p>}
             {newsType && (
               <BlogFilter
@@ -48,7 +49,7 @@ const BlogPage = () => {
                 idKey="news_type_id"
               />
             )}
-            {loading && <p>Loading games...</p>}
+            {loading && <Loading />}
             {error && <p>{error}</p>}
             {news && (
               <PaginationWrapper data={news}>

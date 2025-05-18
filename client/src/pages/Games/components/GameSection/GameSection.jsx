@@ -4,6 +4,7 @@ import Category from '../../../../components/Category/Category'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
+import Loading from '../../../../components/Loading/Loading'
 import GameItem from '../GameItem/GameItem'
 import useFetchData from '../../../../hooks/useFetchData'
 import updateQueryParams from '../../../../utils/queryUtils'
@@ -37,7 +38,7 @@ const GameSection = () => {
         <div className="container">
           <div className="row">
             <div className="col-1">
-              {loading && <p>Loading games...</p>}
+              {loading && <Loading />}
               {error && <p>{error}</p>}
               {games && (
                 <PaginationWrapper data={games} pageSize={9}>

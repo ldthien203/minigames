@@ -3,6 +3,7 @@ import useFetchData from '../../hooks/useFetchData'
 import StickSidebar from '../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../components/WidgetItem/WidgetItem'
 import TrendingWidget from '../../components/TrendingWidget/TrendingWidget'
+import Loading from '../../components/Loading/Loading'
 import './NewsDetail.css'
 
 const NewsDetail = () => {
@@ -16,7 +17,7 @@ const NewsDetail = () => {
       <div className="container">
         <div className="row">
           <div className="col-1">
-            {loading && <p>Loading news...</p>}
+            {loading && <Loading />}
             {error && <p>{error}</p>}
             {data && (
               <>

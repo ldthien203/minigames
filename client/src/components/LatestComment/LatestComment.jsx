@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import useFetchData from '../../hooks/useFetchData'
+import Loading from '../Loading/Loading'
 import './LatestComment.css'
 
 const LatestComment = () => {
@@ -7,7 +8,7 @@ const LatestComment = () => {
     'http://localhost:4000/news/latest',
   )
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading />
   if (error) return <p>Error: {error.message}</p>
 
   return (

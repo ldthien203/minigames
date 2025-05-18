@@ -140,11 +140,19 @@ const Caro = () => {
                 className="board-size-input"
               />
             </label>
-            <p>
+            <p className="message-status">
               Current size: {boardSize} x {boardSize}
             </p>
-            <h2 className="message-status">Current turn: {currentTurn}</h2>
-            <h2 className="message-status">Your symbol: {playerSymbol}</h2>
+            {mode === 'online' ? (
+              <>
+                <p className="message-status">Current turn: {currentTurn}</p>
+                <p className="message-status">Your symbol: {playerSymbol}</p>
+              </>
+            ) : (
+              <p className="message-status">
+                Player turn: {offlineTurn ? 'X' : 'O'}
+              </p>
+            )}
             <button className="reset-button" onClick={handleReset}>
               Reset Game
             </button>

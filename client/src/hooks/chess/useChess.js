@@ -14,6 +14,18 @@ const useChess = (playerColor, onMove) => {
   const [kingInCheck, setKingInCheck] = useState(null)
   const [winner, setWinner] = useState(null)
 
+  useEffect(() => {
+    if (!playerColor) return
+    const opponentColor = playerColor === 'white' ? 'black' : 'white'
+
+    const myKingCheck = checkKingStatus(board, playerColor)
+    const opponentKingCheck = checkKingStatus(board, opponentColor)
+
+    if (myKingCheck) setKingInCheck(myKingCheck)
+    else if (opponentKingCheck) setKingInCheck(opponentKingCheck)
+    else setKingInCheck(null)
+  }, [board, playerColor])
+
   const clearSelection = () => {
     setSelectedSquare(null)
     setValidMoves([])
@@ -64,18 +76,6 @@ const useChess = (playerColor, onMove) => {
   //   const isInCheck = checkKingStatus(board, opponentColor)
   //   setKingInCheck(isInCheck)
   // }
-
-  useEffect(() => {
-    if (!playerColor) return
-    const opponentColor = playerColor === 'white' ? 'black' : 'white'
-
-    const myKingCheck = checkKingStatus(board, playerColor)
-    const opponentKingCheck = checkKingStatus(board, opponentColor)
-
-    if (myKingCheck) setKingInCheck(myKingCheck)
-    else if (opponentKingCheck) setKingInCheck(opponentKingCheck)
-    else setKingInCheck(null)
-  }, [board, playerColor])
 
   return {
     board,

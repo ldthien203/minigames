@@ -13,8 +13,15 @@ const Chess = () => {
   const {playerColor, isMyTurn, chessSocket, emitMove, emitReset} =
     useChessTurn(roomId)
 
+  const handleOfflineMoveSuccess = () => {
+    setOfflineTurn(t => !t)
+  }
+
   const onMove = ({from, to, board}) => {
     emitMove(from, to, board)
+    if (mode === 'offline') {
+      handleOfflineMoveSuccess()
+    }
   }
 
   const {
@@ -50,11 +57,9 @@ const Chess = () => {
 
   const handleClick = (row, col) => {
     if (mode === 'offline') {
-      handleClick(row, col, offlineTurn ? 'white' : 'black')
-      setOfflineTurn(t => !t)
+      handleSquareClick(row, col, offlineTurn ? 'white' : 'black')
     } else {
       if (!playerColor || !isMyTurn) return
-      console.log('Player color: ', playerColor)
       handleSquareClick(row, col, playerColor)
     }
   }
@@ -116,13 +121,23 @@ const Chess = () => {
               Online
             </button>
           </div>
-          <h2>Game Info</h2>
-          <p>
-            Your color: <span>{playerColor}</span>
-          </p>
-          <p>
-            Current Turn: <span>{currentTurn}</span>
-          </p>
+          <h2>Chess ({mode === 'offline' ? 'offline' : 'online'})</h2>
+          {mode === 'online' ? (
+            <>
+              <p>
+                Your color: <span>{playerColor}</span>
+              </p>
+              <p>
+                Current Turn: <span>{currentTurn}</span>
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                Player turn: <span>{offlineTurn ? 'White' : 'Black'}</span>
+              </p>
+            </>
+          )}
           <button className="reset-button" onClick={handleReset}>
             Reset Game
           </button>

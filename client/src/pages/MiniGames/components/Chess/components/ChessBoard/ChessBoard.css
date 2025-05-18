@@ -52,3 +52,17 @@
   background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
 }
+
+@media (max-width: 1024px) {
+  .chess-board {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .chess-board {
+    width: 500px;
+    height: 500px;
+  }
+}

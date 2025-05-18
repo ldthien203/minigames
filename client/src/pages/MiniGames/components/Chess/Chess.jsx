@@ -89,10 +89,10 @@ const Chess = () => {
 
     return (
       <>
-        <p>
+        <p className="message-status">
           Your color: <span>{playerColor}</span>
         </p>
-        <p>
+        <p className="message-status">
           Current Turn: <span>{currentTurn}</span>
         </p>
       </>

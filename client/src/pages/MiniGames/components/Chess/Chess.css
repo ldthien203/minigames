@@ -46,17 +46,21 @@
 }
 
 .chess-section .game-info {
-  background-color: #f2f2f2;
-  padding: 16px;
-  margin-left: 24px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-left: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .chess-section .mode-toggle-btn {
   padding: 6px 18px;
-  margin-right: 10px;
+  margin: 10px 10px 0 0;
   border: none;
   border-radius: 6px;
   background: #eee;
@@ -80,14 +84,27 @@
 }
 
 .chess-section .game-info h2 {
-  font-size: 20px;
-  margin-bottom: 12px;
-  text-transform: uppercase;
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: #333;
+  font-weight: bold;
 }
 
 .chess-section .game-info p {
   font-size: 16px;
   margin-bottom: 12px;
+  color: #555;
+}
+
+.chess-section .game-info .message-status span {
+  font-weight: bold;
+  color: #fe4f2d;
+}
+
+.chess-section .game-info .reset-button {
+  margin-top: 16px;
+  width: 100%;
+  font-size: 16px;
 }
 
 .chess-section .reset-button {
@@ -107,14 +124,24 @@
 
 @media (max-width: 767px) {
   .chess-section .container {
-    max-width: 720px;
-    margin: 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chess-section .game-info {
+    margin-left: 0;
+    margin-top: 20px;
+    width: 300px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .chess-section .container {
-    max-width: 720px;
+    max-width: 960px;
+  }
+
+  .chess-section .game-info {
+    width: 220px;
   }
 }
 

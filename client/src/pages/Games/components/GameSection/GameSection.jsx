@@ -6,6 +6,7 @@ import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import GameItem from '../GameItem/GameItem'
 import useFetchData from '../../../../hooks/useFetchData'
+import updateQueryParams from '../../../../utils/queryUtils'
 import './GameSection.css'
 
 const GameSection = () => {
@@ -29,17 +30,6 @@ const GameSection = () => {
 
   const {data: genres} = useFetchData('http://localhost:4000/genre')
   const {data: platform} = useFetchData('http://localhost:4000/platform')
-
-  const updateQueryParams = (key, value) => {
-    const newParams = new URLSearchParams(searchParams)
-    if (value) {
-      newParams.set(key, value)
-    } else {
-      newParams.delete(key)
-    }
-
-    setSearchParams(newParams)
-  }
 
   return (
     <Fragment>
@@ -75,7 +65,14 @@ const GameSection = () => {
                       title="Genres"
                       items={genres.map(c => c.name)}
                       queryKey="genre"
-                      onSelect={genre => updateQueryParams('genre', genre)}
+                      onSelect={genre =>
+                        updateQueryParams(
+                          'genre',
+                          genre,
+                          searchParams,
+                          setSearchParams,
+                        )
+                      }
                     />
                   )}
                 </WidgetItem>
@@ -87,7 +84,12 @@ const GameSection = () => {
                       items={platform.map(p => p.name)}
                       queryKey="platform"
                       onSelect={platform =>
-                        updateQueryParams('platform', platform)
+                        updateQueryParams(
+                          'platform',
+                          platform,
+                          searchParams,
+                          setSearchParams,
+                        )
                       }
                     />
                   )}

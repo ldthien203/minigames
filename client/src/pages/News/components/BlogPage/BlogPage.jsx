@@ -3,22 +3,12 @@ import {Link, useSearchParams} from 'react-router-dom'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
-import Category from '../../../../components/Category/Category'
 import TrendingWidget from '../../../../components/TrendingWidget/TrendingWidget'
 import LatestComment from '../../../../components/LatestComment/LatestComment'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import BlogContent from '../BlogContent/BlogContent'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogPage.css'
-
-const itemInCategory = [
-  'Games',
-  'Gaming Tips & Tricks',
-  'Online Games',
-  'Team Games',
-  'Community',
-  'Uncategorized',
-]
 
 const BlogPage = () => {
   const [searchParams] = useSearchParams()
@@ -82,9 +72,6 @@ const BlogPage = () => {
             <StickSidebar>
               <WidgetItem isShowTitle={true} title="Trending News">
                 <TrendingWidget />
-              </WidgetItem>
-              <WidgetItem>
-                <Category title="Category" items={itemInCategory} />
               </WidgetItem>
               <WidgetItem isShowTitle={true} title="Latest comment">
                 <LatestComment />

@@ -8,26 +8,20 @@ import Category from '../../../../components/Category/Category'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import useFetchData from '../../../../hooks/useFetchData'
+import updateQueryParams from '../../../../utils/queryUtils'
 import './BlogSection.css'
 
-const itemInCategory = [
-  'Games',
-  'Gaming Tips & Tricks',
-  'Online Games',
-  'Team Games',
-  'Community',
-  'Uncategorized',
-]
-
 const BlogSection = () => {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const selectedGenre = searchParams.get('genre') || null
+  const selectedPlatform = searchParams.get('platform') || null
 
   const param = useMemo(
     () => ({
       genre: selectedGenre,
+      platform: selectedPlatform,
     }),
-    [selectedGenre],
+    [selectedGenre, selectedPlatform],
   )
 
   const {
@@ -42,6 +36,12 @@ const BlogSection = () => {
     error: genreError,
   } = useFetchData('http://localhost:4000/genre')
 
+  const {
+    data: platform,
+    loading: platformLoading,
+    error: platformError,
+  } = useFetchData('http://localhost:4000/platform')
+
   return (
     <section className="blog-section">
       <div className="container">
@@ -51,7 +51,7 @@ const BlogSection = () => {
               <h2>Lastest Games</h2>
             </div>
             {genreLoading && <p>Loading games...</p>}
-            {genreError && <p>{genreError}</p>}
+            {genreError && <p>{genreError.message}</p>}
             {genre && (
               <BlogFilter
                 filters={genre}
@@ -61,7 +61,7 @@ const BlogSection = () => {
               />
             )}
             {loading && <p>Loading games...</p>}
-            {error && <p>{error}</p>}
+            {error && <p>{error.message}</p>}
             {games && (
               <PaginationWrapper data={games} pageSize={4}>
                 {currentTableData =>
@@ -93,7 +93,23 @@ const BlogSection = () => {
                 <TrendingWidget />
               </WidgetItem>
               <WidgetItem>
-                <Category title="Categories" items={itemInCategory} />
+                {platformLoading && <p>Loading games...</p>}
+                {platformError && <p>{platformError.message}</p>}
+                {platform && (
+                  <Category
+                    title="Platform"
+                    items={platform.map(p => p.name)}
+                    queryKey="platform"
+                    onSelect={platform =>
+                      updateQueryParams(
+                        'platform',
+                        platform,
+                        searchParams,
+                        setSearchParams,
+                      )
+                    }
+                  />
+                )}
               </WidgetItem>
               <WidgetItem>
                 <Link to="#" className="add">

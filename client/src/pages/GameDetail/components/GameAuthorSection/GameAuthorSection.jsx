@@ -1,5 +1,4 @@
 import './GameAuthorSection.css'
-import authorImg from '../../../../assets/img/author.jpg'
 
 const GameAuthorSection = ({
   userName = 'Admin',
@@ -9,7 +8,7 @@ const GameAuthorSection = ({
     <section className="game-author-section">
       <div className="container">
         <div className="game-author-pic">
-          <img src={authorImg} alt="author avatar" />
+          <img src="./assets/img/author.jpg" alt="author avatar" />
         </div>
         <div className="game-author-info">
           <h4>Written by: {userName}</h4>

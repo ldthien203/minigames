@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import './IntroVideoSection.css'
-import solidRightArrow from '../../../../assets/img/icons/solid-right-arrow.png'
 
 const IntroVideoSection = () => {
   const [isShowVid, setIsShowVid] = useState(false)
@@ -10,9 +9,17 @@ const IntroVideoSection = () => {
   }
 
   return (
-    <section className="intro-video-section">
+    <section
+      className="intro-video-section"
+      style={{
+        backgroundImage: `url('/assets/img/promo-bg.jpg')`,
+      }}
+    >
       <button className="video-play-btn" onClick={handleShowVideo}>
-        <img src={solidRightArrow} alt="right arrow icon" />
+        <img
+          src="/assets/img/icons/solid-right-arrow.png"
+          alt="right arrow icon"
+        />
       </button>
       {isShowVid && (
         <div className="overlay-part">

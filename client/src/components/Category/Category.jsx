@@ -15,7 +15,13 @@ const Category = ({
           const query = `${queryKey}=${encodeURIComponent(item.toLowerCase())}`
           return (
             <li key={item} onClick={() => onSelect(item)}>
-              <Link to={`/games?${query}`}>{item}</Link>
+              <Link to={`/games?${query}`}>
+                {item}
+                <img
+                  src="/assets/img/icons/double-arrow.png"
+                  alt="Double Arrow"
+                />
+              </Link>
             </li>
           )
         })}

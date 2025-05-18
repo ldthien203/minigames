@@ -4,7 +4,6 @@ import useDropdown from '../../hooks/useDropDown'
 import useAuth from '../../hooks/useAuth'
 import MainMenu from '../MainMenu/MainMenu'
 import './Navbar.css'
-import siteLogo from '../../assets/img/logo.png'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -15,7 +14,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <Link to="/" className="site-logo">
-        <img src={siteLogo} alt="Site Logo" />
+        <img src="/assets/img/logo.png" alt="Site Logo" />
       </Link>
 
       <nav className="top-nav-area">

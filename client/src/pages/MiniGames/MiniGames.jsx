@@ -2,14 +2,32 @@ import {Fragment, useState} from 'react'
 import ListMiniGame from './components/ListMiniGame/ListMiniGame'
 import Caro from './components/Caro/Caro'
 import Chess from './components/Chess/Chess'
-import caroImg from '../../assets/img/minigames/caro.png'
-import chessImg from '../../assets/img/minigames/chess.png'
 
 const games = [
-  {id: 'caro', name: 'Caro', image: caroImg, component: <Caro />},
-  {id: 'chess', name: 'Chess', image: chessImg, component: <Chess />},
-  {id: 'caro-1', name: 'Caro-1', image: caroImg, component: <Caro />},
-  {id: 'chess-1', name: 'Chess-1', image: chessImg, component: <Chess />},
+  {
+    id: 'caro',
+    name: 'Caro',
+    image: '/assets/img/minigames/caro.png',
+    component: <Caro />,
+  },
+  {
+    id: 'chess',
+    name: 'Chess',
+    image: '/assets/img/minigames/chess.png',
+    component: <Chess />,
+  },
+  {
+    id: 'caro-1',
+    name: 'Caro-1',
+    image: '/assets/img/minigames/caro.png',
+    component: <Caro />,
+  },
+  {
+    id: 'chess-1',
+    name: 'Chess-1',
+    image: '/assets/img/minigames/chess.png',
+    component: <Chess />,
+  },
 ]
 
 const MiniGames = () => {

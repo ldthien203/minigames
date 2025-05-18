@@ -1,6 +1,5 @@
 import {Link} from 'react-router'
 import './NewsLetter.css'
-import doubleArrow from '../../assets/img/icons/double-arrow.png'
 
 const NewsLetter = () => {
   return (
@@ -10,7 +9,7 @@ const NewsLetter = () => {
         <form className="newsletter-form">
           <input type="text" placeholder="ENTER YOUR E-MAIL"></input>
           <Link to="#" className="site-button">
-            subscribe <img src={doubleArrow} alt="#" />
+            subscribe <img src="/assets/img/icons/double-arrow.png" alt="#" />
           </Link>
         </form>
       </div>

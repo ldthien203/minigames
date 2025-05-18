@@ -10,10 +10,6 @@ import PaginationWrapper from '../../../../components/PaginationWrapper/Paginati
 import BlogContent from '../BlogContent/BlogContent'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogPage.css'
-import blogBig1 from '../../../../assets/img/blog-big/1.jpg'
-import blogBig2 from '../../../../assets/img/blog-big/2.jpg'
-import blogBig3 from '../../../../assets/img/blog-big/3.jpg'
-import add from '../../../../assets/img/add.jpg'
 
 const itemInCategory = [
   'Games',
@@ -72,7 +68,7 @@ const BlogPage = () => {
                       key={blog.news_id}
                       id={blog.news_id}
                       title={blog.title}
-                      img={blogBig1}
+                      img={'/assets/img/blog-big/1.jpg'}
                       content={blog.content}
                       date={blog.publish_date}
                       category={blog.category_name}
@@ -95,7 +91,7 @@ const BlogPage = () => {
               </WidgetItem>
               <WidgetItem>
                 <Link to="#" className="add">
-                  <img src={add} alt="add" />
+                  <img src="/assets/img/add.jpg" alt="add" />
                 </Link>
               </WidgetItem>
             </StickSidebar>

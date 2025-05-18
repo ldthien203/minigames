@@ -4,11 +4,10 @@ import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import Category from '../../../../components/Category/Category'
 import './GamesSinglePage.css'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
-import image from '../../../../assets/img/games/1.jpg'
 
 const GamesSinglePage = ({
   game = {
-    screenshot: image,
+    screenshot: '/assets/img/games/1.jpg',
     release_date: '01.05.2025',
     name: 'New game',
     summary: 'Summary',

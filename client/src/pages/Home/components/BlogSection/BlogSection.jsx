@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import {Link, useSearchParams} from 'react-router-dom'
 import IntroCard from '../../../../components/IntroCard/IntroCard'
 import BlogFilter from '../../../../components/BlogFilter/BlogFilter'
@@ -8,8 +9,6 @@ import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
 import PaginationWrapper from '../../../../components/PaginationWrapper/PaginationWrapper'
 import useFetchData from '../../../../hooks/useFetchData'
 import './BlogSection.css'
-import add from '../../../../assets/img/add.jpg'
-import {useMemo} from 'react'
 
 const itemInCategory = [
   'Games',
@@ -98,7 +97,7 @@ const BlogSection = () => {
               </WidgetItem>
               <WidgetItem>
                 <Link to="#" className="add">
-                  <img src={add} alt="add" />
+                  <img src="/assets/img/add.jpg" alt="add" />
                 </Link>
               </WidgetItem>
             </StickSidebar>

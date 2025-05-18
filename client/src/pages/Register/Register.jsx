@@ -40,7 +40,10 @@ const Register = () => {
   }
 
   return (
-    <div className="register-container">
+    <div
+      className="register-container"
+      style={{backgroundImage: `url('/assets/img/login_background.png')`}}
+    >
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
 

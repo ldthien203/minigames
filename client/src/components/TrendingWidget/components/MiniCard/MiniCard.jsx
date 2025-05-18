@@ -1,6 +1,5 @@
 import {Link} from 'react-router'
 import './MiniCard.css'
-import viewIcon from '../../../../assets/img/icons/viewer.png'
 
 const MiniCard = ({
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
@@ -8,13 +7,10 @@ const MiniCard = ({
   category = 'news',
   title,
   viewCount = 1,
-  img = '../../../../assets/img/blog-widget/1.jpg',
+  img = '/assets/img/blog-widget/1.jpg',
 }) => {
   return (
     <div className="tw-item">
-      {/* <div className="tw-thumb">
-        <img src={img} alt="widget-thumb" />
-      </div> */}
       <div className="tw-text">
         <div className="tw-meta">
           <div className="left-meta">
@@ -22,7 +18,7 @@ const MiniCard = ({
             <Link to={`/${category.toLowerCase()}`}>{' ' + category}</Link>
           </div>
           <div className="right-meta">
-            <img src={viewIcon} alt="view" />
+            <img src="/assets/img/icons/viewer.png" alt="view" />
             <span className="view-count">{viewCount} views</span>
           </div>
         </div>

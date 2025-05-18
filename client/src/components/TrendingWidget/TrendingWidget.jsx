@@ -1,7 +1,6 @@
 import MiniCard from './components/MiniCard/MiniCard'
 import useFetchData from '../../hooks/useFetchData'
 import './TrendingWidget.css'
-import img from '../../assets/img/blog-widget/1.jpg'
 
 const TrendingWidget = () => {
   const {data, loading, error} = useFetchData(
@@ -21,7 +20,7 @@ const TrendingWidget = () => {
             category={news.category_name}
             date={news.publish_date}
             viewCount={news.view_count}
-            img={img}
+            img="/assets/img/blog-widget/1.jpg"
           />
         ))}
     </div>

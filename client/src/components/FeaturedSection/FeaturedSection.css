@@ -4,7 +4,6 @@
 }
 
 .featured-section .featured-bg {
-  background-image: url('../../assets/img/featured-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;

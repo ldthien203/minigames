@@ -1,6 +1,5 @@
 import {Link} from 'react-router'
 import './FeaturedSection.css'
-import doubleArrow from '../../assets/img/icons/double-arrow.png'
 import {useEffect, useState} from 'react'
 
 const FeaturedSection = () => {
@@ -21,7 +20,10 @@ const FeaturedSection = () => {
 
   return (
     <section className="featured-section">
-      <div className="featured-bg"></div>
+      <div
+        className="featured-bg"
+        style={{backgroundImage: `url('/assets/img/featured-bg.jpg')`}}
+      ></div>
       <div className="featured-box">
         <div className="text-box">
           {newGame && (
@@ -34,7 +36,11 @@ const FeaturedSection = () => {
               <h4>{newGame.name}</h4>
               <p>{newGame.summary}</p>
               <Link to={`/games/${newGame.game_id}`} className="read-more">
-                Read more <img src={doubleArrow} alt="arrow icon" />
+                Read more{' '}
+                <img
+                  src="/assets/img/icons/double-arrow.png"
+                  alt="arrow icon"
+                />
               </Link>
             </>
           )}

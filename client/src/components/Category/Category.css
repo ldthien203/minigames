@@ -29,14 +29,19 @@
   color: #68647d;
   margin-bottom: 15px;
   padding-right: 19px;
-  transition: all 0.2s;
-  background-image: url('../../assets/img/icons/double-arrow.png');
-  background-repeat: no-repeat;
-  background-position: right -120% center;
-  background-size: 11px;
 }
 
 .categories-widget ul li a:hover {
   color: #b01ba5;
   background-position: right center;
+}
+
+.categories-widget ul li a img {
+  display: none;
+  margin-left: 10px;
+  transition: all 0.2s;
+}
+
+.categories-widget ul li a:hover img {
+  display: inline-block;
 }

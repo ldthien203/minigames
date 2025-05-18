@@ -1,4 +1,4 @@
-import pieceMap from '../../assets/img/chess/piece'
+import pieceMap from './piece'
 
 const BOARD_SIZE = 8
 

@@ -32,13 +32,13 @@
   height: 20px;
   right: 0;
   top: 7px;
-  background-image: url('../../assets/img/icons/arrow-down.png');
+  /* background-image: url('/assets/img/icons/arrow-down.png'); */
   background-repeat: no-repeat;
   background-position: right 1px bottom 0;
 }
 
 .main-menu .show-arrow a:hover::after {
-  background-image: url('../../assets/img/icons/arrow-down-color.png');
+  /* background-image: url('/assets/img/icons/arrow-down-color.png'); */
 }
 
 .main-menu .main-list:hover > a {

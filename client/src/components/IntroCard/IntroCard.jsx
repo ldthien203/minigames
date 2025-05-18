@@ -1,6 +1,5 @@
 import {Link} from 'react-router'
 import './IntroCard.css'
-import doubleArrow from '../../assets/img/icons/double-arrow.png'
 
 const IntroCard = ({
   date = new Date().toLocaleDateString().replaceAll('/', '.'),
@@ -42,7 +41,7 @@ const IntroCard = ({
         {isShowLink && (
           <Link to={`${readMoreLink}`} className="read-more">
             Read more
-            <img src={doubleArrow} alt="double arrow" />
+            <img src="/assets/img/icons/double-arrow.png" alt="double arrow" />
           </Link>
         )}
       </div>

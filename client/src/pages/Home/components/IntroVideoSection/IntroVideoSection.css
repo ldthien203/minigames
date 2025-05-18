@@ -1,7 +1,7 @@
 .intro-video-section {
   display: flex;
   align-items: flex-end;
-  background-image: url('../../../../assets/img/promo-bg.jpg');
+  /* background-image: url('/assets/img/promo-bg.jpg'); */
   height: 757px;
   background-repeat: no-repeat;
   background-size: cover;

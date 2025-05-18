@@ -1,7 +1,6 @@
 import {useState} from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import useAuth from '../../hooks/useAuth'
-import avatarDefault from '../../assets/img/avatar.png'
 import './Profile.css'
 
 const Profile = () => {
@@ -55,7 +54,7 @@ const Profile = () => {
           <>
             <div className="profile-avatar">
               <img
-                src={data.avatar || avatarDefault}
+                src={data.avatar || '/assets/img/avatar.png'}
                 alt="avatar"
                 className="avatar"
               />

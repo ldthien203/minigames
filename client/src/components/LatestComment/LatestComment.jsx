@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom'
 import useFetchData from '../../hooks/useFetchData'
 import './LatestComment.css'
-import avatarDefault from '../../assets/img/avatar.png'
 
 const LatestComment = () => {
   const {data, loading, error} = useFetchData(
@@ -17,7 +16,7 @@ const LatestComment = () => {
         data.map(cmt => (
           <div key={cmt.username} className="lc-item">
             <img
-              src={cmt?.avatar || avatarDefault}
+              src={cmt?.avatar || '/assets/img/avatar.png'}
               alt="lc-avatar"
               className="lc-avatar"
             />

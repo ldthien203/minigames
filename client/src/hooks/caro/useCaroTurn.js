@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth'
 
 const useCaroTurn = roomId => {
   const [playerSymbol, setPlayerSymbol] = useState(null)
-  const [isMyTurn, setIsMyTurn] = useState(false)
+  const [isXTurn, setIsXTurn] = useState(false)
   const caroSocketRef = useRef(null)
   const {user} = useAuth()
   const [caroUser, setCaroUser] = useState(null)
@@ -19,11 +19,11 @@ const useCaroTurn = roomId => {
       console.log('Assigned symbol: ', symbol)
       setPlayerSymbol(symbol)
       setCaroUser({yourUser, opponent})
-      setIsMyTurn(symbol === 'X')
+      setIsXTurn(symbol === 'X')
     }
 
     const handleOpponentMove = () => {
-      setIsMyTurn(true)
+      setIsXTurn(prev => !prev)
     }
 
     caroSocket.on('assignSymbol', handleAssignSymbol)
@@ -38,7 +38,7 @@ const useCaroTurn = roomId => {
 
   const emitMove = index => {
     caroSocketRef.current.emit('makeMove', {roomId, move: index})
-    setIsMyTurn(false)
+    setIsXTurn(prev => !prev)
   }
 
   const emitReset = () => {
@@ -47,7 +47,7 @@ const useCaroTurn = roomId => {
 
   return {
     playerSymbol,
-    isMyTurn,
+    isXTurn,
     caroSocket: caroSocketRef.current,
     emitMove,
     emitReset,

@@ -38,4 +38,6 @@ const processGameData = game => {
   }
 }
 
-export {formatDate, calcAvgRating, processGameData}
+const capializeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1)
+
+export {formatDate, calcAvgRating, processGameData, capializeFirstLetter}

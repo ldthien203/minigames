@@ -18,7 +18,7 @@ const Caro = () => {
     winner,
   } = useCaro()
 
-  const {playerSymbol, isMyTurn, emitMove, emitReset, caroSocket, caroUser} =
+  const {playerSymbol, isXTurn, emitMove, emitReset, caroSocket, caroUser} =
     useCaroTurn(roomId)
 
   useEffect(() => {
@@ -29,13 +29,10 @@ const Caro = () => {
       handleLocalClick(index, opponentSymbol)
     }
 
-    const handleResetFromSocket = () => {
-      resetLocalGame()
-    }
+    const handleResetFromSocket = () => resetLocalGame()
 
-    const handleBoardSizeFromSocket = ({boardSize}) => {
+    const handleBoardSizeFromSocket = ({boardSize}) =>
       updateBoardSize(boardSize)
-    }
 
     caroSocket.on('opponentMove', handleOpponentMove)
     caroSocket.on('gameReset', handleResetFromSocket)
@@ -55,13 +52,12 @@ const Caro = () => {
   ])
 
   const handleClick = index => {
+    if (board[index]) return
     if (mode === 'offline') {
-      if (board[index]) return
       handleLocalClick(index, offlineTurn ? 'X' : 'O')
       setOfflineTurn(t => !t)
     } else {
-      if (!playerSymbol || !isMyTurn || board[index]) return
-      console.log('player symbol: ', playerSymbol)
+      if (!playerSymbol || !isXTurn || board[index]) return
       handleLocalClick(index, playerSymbol)
       emitMove(index)
     }
@@ -69,11 +65,7 @@ const Caro = () => {
 
   const handleReset = () => {
     resetLocalGame()
-    if (mode === 'offline') {
-      setOfflineTurn(true)
-    } else {
-      emitReset && emitReset()
-    }
+    mode === 'offline' ? setOfflineTurn(true) : emitReset && emitReset()
   }
 
   const handleBoardSizeChange = e => {
@@ -84,14 +76,41 @@ const Caro = () => {
     }
   }
 
-  const currentTurn = isMyTurn ? playerSymbol : playerSymbol === 'X' ? 'O' : 'X'
+  const renderStatus = () => {
+    if (mode === 'offline') {
+      return (
+        <p className="message-status">Player turn: {offlineTurn ? 'X' : 'O'}</p>
+      )
+    }
+
+    if (!caroUser)
+      return <p className="message-status">Waiting for opponent...</p>
+
+    const currentTurnUser = isXTurn ? caroUser.yourUser : caroUser.opponent
+
+    return (
+      <>
+        {!winner ? (
+          <p className="message-status">
+            Current turn: <strong>{currentTurnUser ?? ''}</strong>
+          </p>
+        ) : (
+          <p className="message-status">{winnerUsername} wins!</p>
+        )}
+        <p className="message-status">Your symbol: {playerSymbol}</p>
+      </>
+    )
+  }
+
+  const winnerUsername =
+    winner === playerSymbol ? caroUser?.yourUser : caroUser?.opponent
 
   return (
     <section className="caro-section">
       {winner && (
         <div className="caro-modal-overlay">
           <div className="caro-modal-box">
-            <h2>{winner === 'X' ? 'X' : 'O'} wins!</h2>
+            <h2>{winnerUsername} wins!</h2>
             <button className="reset-button" onClick={handleReset}>
               Reset game
             </button>
@@ -129,7 +148,7 @@ const Caro = () => {
                 Online
               </button>
             </div>
-            <h2>Game Caro ({mode === 'online' ? 'Online' : 'Offline'})</h2>
+            <h2>Game Caro ({mode})</h2>
             <label>
               Board Size:
               <input
@@ -142,23 +161,9 @@ const Caro = () => {
             <p className="message-status">
               Current size: {boardSize} x {boardSize}
             </p>
-            {mode === 'online' ? (
-              <>
-                {caroUser ? (
-                  <p className="message-status">
-                    {isMyTurn ? caroUser.yourUser : caroUser.opponent}'s turn
-                  </p>
-                ) : (
-                  <p className="message-status">Wating for opponent...</p>
-                )}
 
-                <p className="message-status">Your symbol: {playerSymbol}</p>
-              </>
-            ) : (
-              <p className="message-status">
-                Player turn: {offlineTurn ? 'X' : 'O'}
-              </p>
-            )}
+            {renderStatus()}
+
             <button className="reset-button" onClick={handleReset}>
               Reset Game
             </button>

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import {getUserByUsername, insertUser} from '../models/userModel.js'
+import {capializeFirstLetter} from '../utils/dataFormat.js'
 
 const login = async (req, res) => {
   const {username, password} = req.body
@@ -27,7 +28,7 @@ const login = async (req, res) => {
       token,
       user: {
         id: user.user_id,
-        username: username,
+        username: capializeFirstLetter(username),
         email: user.email,
       },
     })

@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react'
-import {initialBoard} from '../../utils/chessUtils/boardInit'
 import {
+  initialBoard,
   isPlayerTurn,
   isValidMove,
   getValidMoves,
   checkKingStatus,
-} from '../../utils/chessUtils/chessLogic'
+} from '../../utils/chessUtils'
 
 const useChess = (playerColor = 'white', onMove) => {
   const [board, setBoard] = useState(initialBoard)

@@ -59,7 +59,6 @@ const BlogPage = () => {
                       key={blog.news_id}
                       id={blog.news_id}
                       title={blog.title}
-                      img={'/assets/img/blog-big/1.jpg'}
                       content={blog.content}
                       date={blog.publish_date}
                       category={blog.category_name}

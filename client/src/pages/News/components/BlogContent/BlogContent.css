@@ -1,11 +1,6 @@
 .big-blog-item {
-  margin-bottom: 60px;
+  margin: 60px 0;
   padding-right: 30px;
-}
-
-.big-blog-item .blog-thumbnail {
-  margin-bottom: 30px;
-  user-select: none;
 }
 
 .big-blog-item img {
@@ -16,6 +11,8 @@
 
 .big-blog-item .blog-content {
   color: #fff;
+  border-bottom: 3px solid rgba(226, 30, 228, 0.24);
+  padding-bottom: 60px;
 }
 
 .big-blog-item .blog-content .top-meta {

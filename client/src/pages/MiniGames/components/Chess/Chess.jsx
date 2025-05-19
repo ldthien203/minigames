@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import ChessBoard from './components/ChessBoard/ChessBoard'
 import useChess from '../../../../hooks/chess/useChess'
 import useChessTurn from '../../../../hooks/chess/useChessTurn'
+import Loading from '../../../../components/Loading/Loading'
 import './Chess.css'
 
 const Chess = () => {
@@ -83,7 +84,7 @@ const Chess = () => {
       )
     }
 
-    if (!chessUser) return <p>Wating for opponent ...</p>
+    if (!chessUser) return <Loading message="Waiting for opponent..." />
 
     const currentTurn = isMyTurn ? chessUser?.yourUser : chessUser?.opponent
 

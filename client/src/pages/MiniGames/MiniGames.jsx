@@ -16,18 +16,6 @@ const games = [
     image: '/assets/img/minigames/chess.png',
     component: <Chess />,
   },
-  {
-    id: 'caro-1',
-    name: 'Caro-1',
-    image: '/assets/img/minigames/caro.png',
-    component: <Caro />,
-  },
-  {
-    id: 'chess-1',
-    name: 'Chess-1',
-    image: '/assets/img/minigames/chess.png',
-    component: <Chess />,
-  },
 ]
 
 const MiniGames = () => {

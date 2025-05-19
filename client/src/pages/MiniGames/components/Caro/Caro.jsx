@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import CaroBoard from './components/CaroBoard/CaroBoard'
 import useCaro from '../../../../hooks/caro/useCaro'
 import useCaroTurn from '../../../../hooks/caro/useCaroTurn'
+import Loading from '../../../../components/Loading/Loading'
 import './Caro.css'
 
 const Caro = () => {
@@ -83,8 +84,7 @@ const Caro = () => {
       )
     }
 
-    if (!caroUser)
-      return <p className="message-status">Waiting for opponent...</p>
+    if (!caroUser) return <Loading message="Waiting for opponent..." />
 
     const currentTurnUser = isXTurn ? caroUser.yourUser : caroUser.opponent
 

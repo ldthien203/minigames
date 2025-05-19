@@ -1,4 +1,12 @@
 import {Link} from 'react-router'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+  faYoutube,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons'
 import './IconLink.css'
 
 const IconLink = ({showText = true, text = 'Follow us:', align = 'right'}) => {
@@ -6,19 +14,19 @@ const IconLink = ({showText = true, text = 'Follow us:', align = 'right'}) => {
     <div className={`social-icon ${align}`}>
       {showText && <p>{text}</p>}
       <Link className="icon" to="#">
-        <i className="fa fa-pinterest"></i>
+        <FontAwesomeIcon icon={faFacebook} />
       </Link>
       <Link className="icon" to="#">
-        <i className="fa fa-facebook"></i>
+        <FontAwesomeIcon icon={faTwitter} />
       </Link>
       <Link className="icon" to="#">
-        <i className="fa fa-twitter"></i>
+        <FontAwesomeIcon icon={faInstagram} />
       </Link>
       <Link className="icon" to="#">
-        <i className="fa fa-dribbble"></i>
+        <FontAwesomeIcon icon={faYoutube} />
       </Link>
       <Link className="icon" to="#">
-        <i className="fa fa-behance"></i>
+        <FontAwesomeIcon icon={faLinkedin} />
       </Link>
     </div>
   )

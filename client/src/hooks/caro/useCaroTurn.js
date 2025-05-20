@@ -48,6 +48,7 @@ const useCaroTurn = roomId => {
   return {
     playerSymbol,
     isXTurn,
+    currentUser: user,
     caroUser,
     caroSocket: caroSocketRef.current,
     emitMove,

@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react'
 import ChessBoard from './components/ChessBoard/ChessBoard'
+import GameLoginWarning from '../GameLoginWarning/GameLoginWarning'
+import Loading from '../../../../components/Loading/Loading'
 import useChess from '../../../../hooks/chess/useChess'
 import useChessTurn from '../../../../hooks/chess/useChessTurn'
-import Loading from '../../../../components/Loading/Loading'
 import './Chess.css'
 
 const Chess = () => {
@@ -11,8 +12,15 @@ const Chess = () => {
 
   const roomId = 'room2'
 
-  const {playerColor, isMyTurn, chessUser, chessSocket, emitMove, emitReset} =
-    useChessTurn(roomId)
+  const {
+    playerColor,
+    isMyTurn,
+    chessUser,
+    currentUser,
+    chessSocket,
+    emitMove,
+    emitReset,
+  } = useChessTurn(roomId)
 
   const handleOfflineMoveSuccess = () => {
     setOfflineTurn(t => !t)
@@ -105,6 +113,7 @@ const Chess = () => {
 
   return (
     <section className="chess-section">
+      <GameLoginWarning user={currentUser} />
       {winner && (
         <div className="chess-modal-overlay">
           <div className="chess-modal-box">

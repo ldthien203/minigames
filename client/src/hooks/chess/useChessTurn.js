@@ -51,6 +51,7 @@ const useChessTurn = roomId => {
     playerColor,
     isMyTurn,
     chessUser,
+    currentUser: user,
     chessSocket: chessSocketRef.current,
     emitMove,
     emitReset,

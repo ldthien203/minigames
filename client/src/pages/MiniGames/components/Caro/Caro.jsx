@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react'
 import CaroBoard from './components/CaroBoard/CaroBoard'
+import GameLoginWarning from '../GameLoginWarning/GameLoginWarning'
+import Loading from '../../../../components/Loading/Loading'
 import useCaro from '../../../../hooks/caro/useCaro'
 import useCaroTurn from '../../../../hooks/caro/useCaroTurn'
-import Loading from '../../../../components/Loading/Loading'
 import './Caro.css'
 
 const Caro = () => {
@@ -19,8 +20,15 @@ const Caro = () => {
     winner,
   } = useCaro()
 
-  const {playerSymbol, isXTurn, caroUser, emitMove, emitReset, caroSocket} =
-    useCaroTurn(roomId)
+  const {
+    playerSymbol,
+    isXTurn,
+    currentUser,
+    caroUser,
+    emitMove,
+    emitReset,
+    caroSocket,
+  } = useCaroTurn(roomId)
 
   useEffect(() => {
     if (!playerSymbol || !caroSocket) return
@@ -107,6 +115,7 @@ const Caro = () => {
 
   return (
     <section className="caro-section">
+      <GameLoginWarning user={currentUser} />
       {winner && (
         <div className="caro-modal-overlay">
           <div className="caro-modal-box">

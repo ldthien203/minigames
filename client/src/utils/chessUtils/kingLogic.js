@@ -1,4 +1,4 @@
-import {isPlayerTurn} from './gameStatus'
+import {isPlayerTurn, isSameColor} from './gameStatus'
 import {isValidMove, simulateMove} from './movementLogic'
 
 const findAttackers = (board, kingPos, color) => {
@@ -57,13 +57,20 @@ const getKingValidMoves = (board, kingPos, color) => {
     [kingX + 1, kingY + 1],
   ]
 
-  return moves.filter(([x, y]) => {
-    if (x < 0 || y < 0 || x >= board.length || y >= board[0].length)
-      return false
+  return moves
+    .filter(([x, y]) => {
+      if (x < 0 || y < 0 || x >= board.length || y >= board[0].length) {
+        return false
+      }
 
-    const newBoard = simulateMove(board, kingX, kingY, x, y)
-    return !isKingInCheck(newBoard, color)
-  })
+      if (board[x][y] && isSameColor(board[kingX][kingY], board[x][y])) {
+        return false
+      }
+
+      const newBoard = simulateMove(board, kingX, kingY, x, y)
+      return !isKingInCheck(newBoard, color)
+    })
+    .map(([x, y]) => [kingX, kingY, x, y])
 }
 
 const getBlockingMoves = (board, attackerPos, kingPos, color) => {
@@ -80,35 +87,52 @@ const getBlockingMoves = (board, attackerPos, kingPos, color) => {
   const stepY =
     kingY === attackerY ? 0 : (kingY - attackerY) / Math.abs(kingY - attackerY)
 
-  while (x !== kingX && y !== kingY) {
+  while (x !== kingX || y !== kingY) {
     x += stepX
     y += stepY
     path.push([x, y])
   }
 
-  return path.filter(([x, y]) => {
-    return board.some((row, i) =>
-      row.some((_, j) => isValidMove(board[i][j], i, j, x, y, board)),
-    )
+  const blockingMoves = []
+
+  path.forEach(([toX, toY]) => {
+    board.forEach((row, fromX) => {
+      row.forEach((piece, fromY) => {
+        if (
+          piece &&
+          isPlayerTurn(piece, color) &&
+          isValidMove(piece, fromX, fromY, toX, toY, board)
+        ) {
+          blockingMoves.push([fromX, fromY, toX, toY])
+        }
+      })
+    })
   })
+
+  return blockingMoves
 }
 
 const getCaptureMoves = (board, attackerPos, color) => {
   const [attackerX, attackerY] = attackerPos
 
-  return board
-    .flatMap((row, x) =>
-      row.map((_, y) => {
-        if (isValidMove(board[x][y], x, y, attackerX, attackerY, board)) {
-          return [x, y]
-        }
-        return null
-      }),
-    )
-    .filter(Boolean)
+  const captures = []
+
+  board.forEach((row, fromX) => {
+    row.forEach((piece, fromY) => {
+      if (
+        piece &&
+        isPlayerTurn(piece, color) &&
+        isValidMove(piece, fromX, fromY, attackerX, attackerY, board)
+      ) {
+        captures.push([fromX, fromY, attackerX, attackerY])
+      }
+    })
+  })
+
+  return captures
 }
 
-const getAllKingValidMoves = (board, color) => {
+const getAllValidMovesWhenChecked = (board, color) => {
   const kingPos = findKing(board, color)
   if (!kingPos) return []
 
@@ -118,14 +142,18 @@ const getAllKingValidMoves = (board, color) => {
   const validMoves = []
 
   validMoves.push(...getKingValidMoves(board, kingPos, color))
+  const attackerPos = attackers[0]
 
-  if (attackers.length === 1) {
-    const attackerPos = attackers[0]
-    validMoves.push(...getBlockingMoves(board, attackerPos, kingPos, color))
-    validMoves.push(...getCaptureMoves(board, attackerPos, kingPos, color))
-  }
+  const blockingMoves = getBlockingMoves(board, attackerPos, kingPos, color)
+  validMoves.push(...blockingMoves)
 
-  return validMoves
+  const captureMoves = getCaptureMoves(board, attackerPos, color)
+  validMoves.push(...captureMoves)
+
+  return validMoves.filter(([fromX, fromY, toX, toY]) => {
+    const simulatedBoard = simulateMove(board, fromX, fromY, toX, toY)
+    return !isKingInCheck(simulatedBoard, color)
+  })
 }
 
-export {findKing, isKingInCheck, getAllKingValidMoves}
+export {findKing, isKingInCheck, getAllValidMovesWhenChecked}

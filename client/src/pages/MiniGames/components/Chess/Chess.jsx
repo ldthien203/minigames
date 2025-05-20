@@ -100,12 +100,19 @@ const Chess = () => {
     )
   }
 
+  const winnerUsername =
+    winner === playerColor ? chessUser?.yourUser : chessUser?.opponent
+
   return (
     <section className="chess-section">
       {winner && (
         <div className="chess-modal-overlay">
           <div className="chess-modal-box">
-            <h2>{winner === 'black' ? 'black' : 'white'} wins!</h2>
+            {mode === 'offline' ? (
+              <h2>{winner === 'black' ? 'Black' : 'White'} wins!</h2>
+            ) : (
+              <h2>{winnerUsername} wins!</h2>
+            )}
             <button className="reset-button" onClick={handleReset}>
               Reset game
             </button>
@@ -117,7 +124,7 @@ const Chess = () => {
           <ChessBoard
             board={board}
             validMoves={validMoves}
-            kingInCheck={kingInCheck}
+            kingInCheck={kingInCheck?.position}
             selectedSquare={selectedSquare}
             handleSquareClick={handleClick}
           />

@@ -6,7 +6,7 @@ import {
   isCheckmate,
   checkKingStatus,
 } from './gameStatus'
-import {findKing, isKingInCheck, getAllKingValidMoves} from './kingLogic'
+import {findKing, isKingInCheck, getAllValidMovesWhenChecked} from './kingLogic'
 import {isValidMove, getValidMoves, simulateMove} from './movementLogic'
 
 export {
@@ -18,7 +18,7 @@ export {
   checkKingStatus,
   findKing,
   isKingInCheck,
-  getAllKingValidMoves,
+  getAllValidMovesWhenChecked,
   isValidMove,
   getValidMoves,
   simulateMove,

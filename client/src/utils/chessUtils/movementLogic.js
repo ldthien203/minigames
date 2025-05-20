@@ -107,11 +107,21 @@ const getValidMoves = (x, y, piece, board) => {
 }
 
 const simulateMove = (board, fromX, fromY, toX, toY) => {
-  const newBoard = [...board]
-  newBoard[fromX] = [...board[fromX]]
-  newBoard[toX] = [...board][toX]
+  const newBoard = board.map(row => [...row])
+  console.log(newBoard)
+
+  if (toX < 0 || toY < 0 || toX >= board.length || toY >= board[0].length) {
+    throw new Error(
+      `Invalid move: target position (${toX}, ${toY}) is out of bounds.`,
+    )
+  }
+
+  if (!newBoard[toX]) {
+    throw new Error(`Invalid move: target row ${toX} is out of bounds.`)
+  }
   newBoard[toX][toY] = newBoard[fromX][fromY]
   newBoard[fromX][fromY] = null
+
   return newBoard
 }
 

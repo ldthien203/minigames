@@ -2,25 +2,61 @@ import {useEffect, useState} from 'react'
 import {
   initialBoard,
   isPlayerTurn,
-  isValidMove,
   getValidMoves,
   checkKingStatus,
+  getAllValidMovesWhenChecked,
+  isCheckmate,
 } from '../../utils/chessUtils'
 
 const useChess = (playerColor = 'white', onMove) => {
   const [board, setBoard] = useState(initialBoard)
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [validMoves, setValidMoves] = useState([])
+  const [escapeMoves, setEscapeMoves] = useState([])
   const [kingInCheck, setKingInCheck] = useState(null)
+  const [checkmate, setCheckmate] = useState(null)
   const [winner, setWinner] = useState(null)
 
   useEffect(() => {
     const kingWhiteInCheck = checkKingStatus(board, 'white')
     const kingBlackInCheck = checkKingStatus(board, 'black')
 
-    if (kingWhiteInCheck) setKingInCheck(kingWhiteInCheck)
-    else if (kingBlackInCheck) setKingInCheck(kingBlackInCheck)
-    else setKingInCheck(null)
+    if (kingWhiteInCheck) {
+      setKingInCheck({position: kingWhiteInCheck, color: 'white'})
+
+      const validsEscape = getAllValidMovesWhenChecked(board, 'white')
+      setEscapeMoves(validsEscape)
+
+      if (validsEscape.length === 0) {
+        if (isCheckmate(board, 'white')) {
+          setCheckmate('black')
+          setWinner('black')
+        }
+      } else {
+        setValidMoves(validsEscape)
+        setCheckmate(null)
+      }
+    } else if (kingBlackInCheck) {
+      setKingInCheck({position: kingBlackInCheck, color: 'black'})
+
+      const validsEscape = getAllValidMovesWhenChecked(board, 'black') || 1
+      setEscapeMoves(validsEscape)
+
+      if (validsEscape.length === 0) {
+        if (isCheckmate(board, 'black')) {
+          setCheckmate('white')
+          setWinner('white')
+        }
+      } else {
+        setCheckmate(null)
+      }
+    } else {
+      setKingInCheck(null)
+      setCheckmate(null)
+      setValidMoves([])
+    }
+
+    setValidMoves([])
   }, [board])
 
   const clearSelection = () => {
@@ -34,7 +70,15 @@ const useChess = (playerColor = 'white', onMove) => {
     if (!selectedSquare) {
       if (piece && isPlayerTurn(piece, color)) {
         setSelectedSquare([row, col])
-        setValidMoves(getValidMoves(row, col, piece, board))
+
+        if (kingInCheck?.color === color) {
+          const movesFromPiece = escapeMoves
+            .filter(([fromX, fromY]) => fromX === row && fromY === col)
+            .map(([_, __, toX, toY]) => [toX, toY])
+          setValidMoves(movesFromPiece)
+        } else {
+          setValidMoves(getValidMoves(row, col, piece, board))
+        }
       }
       return
     }
@@ -47,7 +91,11 @@ const useChess = (playerColor = 'white', onMove) => {
       return
     }
 
-    if (isValidMove(selectedPiece, fromX, fromY, row, col, board)) {
+    const isLegalMove = validMoves.some(
+      ([toX, toY]) => toX === row && toY === col,
+    )
+
+    if (isLegalMove) {
       const newBoard = board.map(row => [...row])
       newBoard[row][col] = selectedPiece
       newBoard[fromX][fromY] = null
@@ -65,14 +113,9 @@ const useChess = (playerColor = 'white', onMove) => {
     setBoard(initialBoard)
     setKingInCheck(null)
     setWinner(null)
+    setEscapeMoves([])
     clearSelection()
   }
-
-  // const updateKingCheckStatus = (board, currentColor) => {
-  //   const opponentColor = currentColor === 'white' ? 'black' : 'white'
-  //   const isInCheck = checkKingStatus(board, opponentColor)
-  //   setKingInCheck(isInCheck)
-  // }
 
   return {
     board,
@@ -82,6 +125,7 @@ const useChess = (playerColor = 'white', onMove) => {
     kingInCheck,
     setKingInCheck,
     handleSquareClick,
+    checkmate,
     winner,
     resetBoard,
     checkKingStatus,

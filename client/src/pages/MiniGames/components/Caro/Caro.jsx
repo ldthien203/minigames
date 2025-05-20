@@ -110,7 +110,11 @@ const Caro = () => {
       {winner && (
         <div className="caro-modal-overlay">
           <div className="caro-modal-box">
-            <h2>{winnerUsername} wins!</h2>
+            {mode === 'offline' ? (
+              <h2>{winner} wins!</h2>
+            ) : (
+              <h2>{winnerUsername} wins!</h2>
+            )}
             <button className="reset-button" onClick={handleReset}>
               Reset game
             </button>

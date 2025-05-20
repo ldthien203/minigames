@@ -1,4 +1,4 @@
-import {findKing, isKingInCheck, getAllKingValidMoves} from './kingLogic'
+import {findKing, isKingInCheck, getAllValidMovesWhenChecked} from './kingLogic'
 
 const isPlayerTurn = (piece, turn) => {
   if (!piece) return false
@@ -15,7 +15,7 @@ const isSameColor = (piece1, piece2) => {
 }
 
 const isCheckmate = (board, color) => {
-  const validMoves = getAllKingValidMoves(board, color)
+  const validMoves = getAllValidMovesWhenChecked(board, color)
   return validMoves.length === 0
 }
 

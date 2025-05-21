@@ -172,7 +172,7 @@ const Caro = () => {
               />
             </label>
             <p className="message-status">
-              Current size: {boardSize} x {boardSize}
+              Size: {boardSize} x {boardSize}
             </p>
 
             {renderStatus()}

@@ -1,4 +1,5 @@
 import {useEffect, useMemo, useState} from 'react'
+import Cookies from 'js-cookie'
 
 const useFetchData = (
   url,
@@ -26,7 +27,7 @@ const useFetchData = (
         const queryString = new URLSearchParams(stableQueryParams).toString()
         const fullUrl = queryString ? `${url}?${queryString}` : url
 
-        const token = localStorage.getItem('token')
+        const token = Cookies.get('token')
         const response = await fetch(fullUrl, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -34,7 +35,7 @@ const useFetchData = (
         })
 
         if (!response.ok) {
-          localStorage.removeItem('token')
+          Cookies.remove('token')
           throw new Error(`HTTP error! status: ${response.status}`)
         }
 

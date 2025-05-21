@@ -1,5 +1,6 @@
 import {useEffect, useState, createContext, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const AuthContext = createContext({})
 
@@ -14,8 +15,8 @@ export const AuthContextProvider = ({children}) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'))
-    if (storedUser) setUser(storedUser)
+    const storedUser = Cookies.get('user')
+    if (storedUser) setUser(JSON.parse(storedUser))
   }, [])
 
   const login = async (username, password) => {
@@ -36,8 +37,8 @@ export const AuthContextProvider = ({children}) => {
       }
 
       const {user, token} = await response.json()
-      localStorage.setItem('user', JSON.stringify(user))
-      localStorage.setItem('token', token)
+      Cookies.set('user', JSON.stringify(user), {expires: 1})
+      Cookies.set('token', token, {expires: 1})
       setUser(user)
       return true
     } catch (error) {
@@ -50,8 +51,8 @@ export const AuthContextProvider = ({children}) => {
 
   const logout = () => {
     navigate('/sign-in')
-    localStorage.removeItem('user')
-    localStorage.removeItem('token')
+    Cookies.remove('user')
+    Cookies.remove('token')
     setUser(null)
   }
 

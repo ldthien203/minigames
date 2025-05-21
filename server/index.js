@@ -1,48 +1,31 @@
+import './config/env.js'
 import express from 'express'
-import cors from 'cors'
-import bodyParser from 'body-parser'
-import './config/config.js'
-import {createServer} from 'http'
-import {Server} from 'socket.io'
-import authRoutes from './routes/authRoutes.js'
-import gameRoutes from './routes/gameRoutes.js'
-import genreRoutes from './routes/genreRoutes.js'
-import platfromRoutes from './routes/platformRoutes.js'
-import newsRoutes from './routes/newsRoutes.js'
-import userRoutes from './routes/userRoutes.js'
-import chessSocket from './sockets/chessSocket.js'
-import caroSocket from './sockets/caroSocket.js'
+import path from 'path'
+import fs from 'fs'
+import {fileURLToPath} from 'url'
+import setupRoutes from './routes/index.js'
+import setupSockets from './sockets/index.js'
+import setupMiddleware from './middleware/index.js'
+import setupUploads from './utils/setupUploads.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const app = express()
 const port = process.env.PORT || 4000
 
-const httpServer = createServer(app)
-const io = new Server(httpServer, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
-})
-
 // Middleware
-app.use(cors())
-app.use(express.json())
-app.use(bodyParser.urlencoded({extended: true}))
-
+setupMiddleware(app, path, __dirname)
 // Routes
-app.use('/auth', authRoutes)
-app.use('/games', gameRoutes)
-app.use('/genre', genreRoutes)
-app.use('/platform', platfromRoutes)
-app.use('/news', newsRoutes)
-app.use('/users', userRoutes)
+setupRoutes(app)
+// Socket
+const httpServer = setupSockets(app)
+
+setupUploads(fs, path, __dirname)
 
 app.get('/', async (req, res) => {
   res.send('Welcome to the Minigames API!')
 })
-
-chessSocket(io)
-caroSocket(io)
 
 httpServer.listen(port, () => {
   console.log(`Server is running on port ${port}`)

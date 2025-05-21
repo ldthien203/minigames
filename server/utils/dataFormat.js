@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 const formatDate = date => {
   return new Date(date)
     .toLocaleDateString('en-GB', {
@@ -40,4 +43,21 @@ const processGameData = game => {
 
 const capializeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1)
 
-export {formatDate, calcAvgRating, processGameData, capializeFirstLetter}
+const deleteFile = filePath => {
+  try {
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath)
+      console.log(`Deleted file: ${filePath}`)
+    }
+  } catch (error) {
+    console.log(`Error deleting file: ${filePath}`, error.message)
+  }
+}
+
+export {
+  formatDate,
+  calcAvgRating,
+  processGameData,
+  capializeFirstLetter,
+  deleteFile,
+}

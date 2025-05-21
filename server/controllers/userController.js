@@ -32,7 +32,8 @@ const fetchUserById = async (req, res) => {
 }
 
 const updateUserById = async (req, res) => {
-  const {user_id, username, fullname, age, email, avatar} = req.body
+  const {user_id, username, fullname, age, email} = req.body
+  const avatar = req.file ? `/uploads/${req.file.filename}` : null
   try {
     const updatedUser = await updateUser({
       user_id,

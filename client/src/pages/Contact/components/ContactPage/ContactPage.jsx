@@ -25,31 +25,29 @@ const ContactPage = () => {
             </form>
           </div>
           <div className="col-2 text-white">
-            <h3>{user.name}! Say hello</h3>
+            <h3>Hello, {user?.username ? user?.username : 'Friends'}!</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua.....
+              If you have any questions, suggestions or would like to
+              collaborate, please send me a message! I am always ready to listen
+              and respond as soon as possible.
             </p>
             <div className="cont-info">
               <div className="ci-icon">
                 <img src="/assets/img/icons/location.png" alt="icon location" />
               </div>
-              <div className="ci-text">Main Str, no 23, New York</div>
+              <div className="ci-text">Tan Phu District, Ho Chi Minh City</div>
             </div>
             <div className="cont-info">
               <div className="ci-icon">
                 <img src="/assets/img/icons/phone.png" alt="icon phone" />
               </div>
-              <div className="ci-text">+546 990221 123</div>
+              <div className="ci-text">+0932083213</div>
             </div>
             <div className="cont-info">
               <div className="ci-icon">
                 <img src="/assets/img/icons/mail.png" alt="icon mail" />
               </div>
-              <div className="ci-text">hosting@contact.com</div>
+              <div className="ci-text">ldthien203@gmail.com</div>
             </div>
           </div>
         </div>

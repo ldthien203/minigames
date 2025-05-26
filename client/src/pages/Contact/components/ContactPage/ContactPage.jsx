@@ -1,8 +1,41 @@
+import {useState} from 'react'
 import useAuth from '../../../../hooks/useAuth'
 import './ContactPage.css'
 
 const ContactPage = () => {
   const {user} = useAuth()
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  })
+  const [successMessage, setSuccessMessage] = useState('')
+
+  const handleChange = e => {
+    setFormData({...formData, [e.target.name]: e.target.value})
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    try {
+      const response = await fetch('http://localhost:4000/send-email', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error(`Sending email failed`)
+      }
+      setFormData({name: '', email: '', subject: '', message: ''})
+      setSuccessMessage('Sent successfully! Thank you for contacting us.')
+      setTimeout(() => setSuccessMessage(''), 1000)
+    } catch (error) {
+      console.error('Error sening email: ', error.message)
+    }
+  }
 
   return (
     <section className="contact-page">
@@ -10,11 +43,34 @@ const ContactPage = () => {
         <div className="map"></div>
         <div className="row">
           <div className="col-1">
-            <form className="contact-form">
-              <input type="text" placeholder="Your name" />
-              <input type="text" placeholder="Your email" />
-              <input type="text" placeholder="Subject" />
-              <textarea placeholder="Message"></textarea>
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Your name"
+              />
+              <input
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Your email"
+              />
+              <input
+                type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="Subject"
+              />
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Message"
+              ></textarea>
               <button className="site-btn">
                 Send message
                 <img
@@ -22,6 +78,14 @@ const ContactPage = () => {
                   alt="Send message button"
                 />
               </button>
+              {successMessage && (
+                <div
+                  className="success-message"
+                  style={{color: 'green', marginTop: 10}}
+                >
+                  {successMessage}
+                </div>
+              )}
             </form>
           </div>
           <div className="col-2 text-white">

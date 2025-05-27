@@ -38,7 +38,7 @@ yarn-error.log*
 
 # Build output
 dist/
-build/
+# build/
 
 # OS-specific files
 .DS_Store

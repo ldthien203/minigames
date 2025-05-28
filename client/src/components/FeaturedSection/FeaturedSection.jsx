@@ -8,7 +8,13 @@ const FeaturedSection = () => {
   useEffect(() => {
     const fetchNewGame = async () => {
       try {
+<<<<<<< HEAD
         const response = await fetch(`${process.env.REACT_APP_API_URL}/games/newest`)
+=======
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/games/newest`,
+        )
+>>>>>>> 8c179ab0e066eaa028ccd9dd75db7f205138abcc
         const data = await response.json()
         setNewGame(data)
       } catch (error) {

@@ -20,7 +20,7 @@ const ReviewSection = () => {
     data: reviews,
     loading,
     error,
-  } = useFetchData('http://localhost:4000/games', params)
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/games`, params)
 
   return (
     <Fragment>

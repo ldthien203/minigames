@@ -9,7 +9,7 @@ const GameDetail = () => {
   const {id} = useParams()
 
   const {data, loading, error} = useFetchData(
-    `http://localhost:4000/games/${id}`,
+    `${process.env.REACT_APP_API_URL}/games/${id}`,
   )
 
   if (loading) return <Loading />

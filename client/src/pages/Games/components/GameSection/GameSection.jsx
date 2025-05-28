@@ -27,10 +27,12 @@ const GameSection = () => {
     data: games,
     loading,
     error,
-  } = useFetchData('http://localhost:4000/games', params)
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/games`, params)
 
-  const {data: genres} = useFetchData('http://localhost:4000/genre')
-  const {data: platform} = useFetchData('http://localhost:4000/platform')
+  const {data: genres} = useFetchData(`${process.env.REACT_APP_API_URL}/genre`)
+  const {data: platform} = useFetchData(
+    `${process.env.REACT_APP_API_URL}/platform`,
+  )
 
   return (
     <Fragment>

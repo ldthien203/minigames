@@ -5,7 +5,7 @@ import './TrendingWidget.css'
 
 const TrendingWidget = () => {
   const {data, loading, error} = useFetchData(
-    'http://localhost:4000/news/trending?limit=4',
+    `${process.env.REACT_APP_API_URL}/news/trending?limit=4`,
   )
 
   return (

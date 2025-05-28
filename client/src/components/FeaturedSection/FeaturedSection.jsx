@@ -8,7 +8,9 @@ const FeaturedSection = () => {
   useEffect(() => {
     const fetchNewGame = async () => {
       try {
-        const response = await fetch('http://localhost:4000/games/newest')
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/games/newest`,
+        )
         const data = await response.json()
         setNewGame(data)
       } catch (error) {

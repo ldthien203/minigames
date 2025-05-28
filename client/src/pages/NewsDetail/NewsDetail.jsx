@@ -9,7 +9,7 @@ import './NewsDetail.css'
 const NewsDetail = () => {
   const {id} = useParams()
   const {data, loading, error} = useFetchData(
-    `http://localhost:4000/news/${id}`,
+    `${process.env.REACT_APP_API_URL}/news/${id}`,
   )
 
   return (

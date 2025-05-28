@@ -26,13 +26,13 @@ const BlogPage = () => {
     data: news,
     loading,
     error,
-  } = useFetchData('http://localhost:4000/news', params)
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/news`, params)
 
   const {
     data: newsType,
     loading: loadingNewsType,
     error: errorNewsType,
-  } = useFetchData('http://localhost:4000/news/type')
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/news/type`)
 
   return (
     <section className="blog-page">

@@ -5,7 +5,7 @@ import './LatestComment.css'
 
 const LatestComment = () => {
   const {data, loading, error} = useFetchData(
-    'http://localhost:4000/news/latest',
+    `${process.env.REACT_APP_API_URL}/news/latest`,
   )
 
   if (loading) return <Loading />

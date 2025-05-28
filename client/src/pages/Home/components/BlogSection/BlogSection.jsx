@@ -29,19 +29,19 @@ const BlogSection = () => {
     data: games,
     loading,
     error,
-  } = useFetchData('http://localhost:4000/games', param)
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/games`, param)
 
   const {
     data: genre,
     loading: genreLoading,
     error: genreError,
-  } = useFetchData('http://localhost:4000/genre')
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/genre`)
 
   const {
     data: platform,
     loading: platformLoading,
     error: platformError,
-  } = useFetchData('http://localhost:4000/platform')
+  } = useFetchData(`${process.env.REACT_APP_API_URL}/platform`)
 
   return (
     <section className="blog-section">

@@ -10,7 +10,7 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false)
 
   const {data, setData, loading, error} = useFetchData(
-    user ? `http://localhost:4000/users/${user.id}` : null,
+    user ? `${process.env.REACT_APP_API_URL}/users/${user.id}` : null,
   )
 
   const handleChange = e => {
@@ -46,14 +46,17 @@ const Profile = () => {
         formData.append(key, data[key])
       })
 
-      const response = await fetch(`http://localhost:4000/users/${user.id}`, {
-        method: 'PUT',
-        headers: {
-          // 'Content-type': 'application/json',
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/users/${user.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            // 'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
         },
-        body: formData,
-      })
+      )
 
       if (!response.ok) {
         throw new Error('Failed to save profile')
@@ -81,7 +84,7 @@ const Profile = () => {
                   data.preview
                     ? data.preview
                     : data.avatar
-                    ? `http://localhost:4000${data.avatar}`
+                    ? `${process.env.REACT_APP_API_URL}${data.avatar}`
                     : '/assets/img/avatar.png'
                 }
                 alt="avatar"

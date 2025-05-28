@@ -20,11 +20,14 @@ const ContactPage = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:4000/send-email', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData),
-      })
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/send-email`,
+        {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(formData),
+        },
+      )
 
       if (!response.ok) {
         throw new Error(`Sending email failed`)

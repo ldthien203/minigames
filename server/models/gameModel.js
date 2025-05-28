@@ -95,7 +95,7 @@ const getGameCommentAuthor = async id => {
     const result = await db.query(
       `
       SELECT 
-        u.name as user_name,
+        u.username as user_username,
         u.avatar as user_avatar,
         uc.content as user_comment
       from user_comment uc

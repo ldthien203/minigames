@@ -1,4 +1,6 @@
+import {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import useFetchData from '../../hooks/useFetchData'
 import StickSidebar from '../../components/StickSidebar/StickSidebar'
 import WidgetItem from '../../components/WidgetItem/WidgetItem'
@@ -6,11 +8,36 @@ import TrendingWidget from '../../components/TrendingWidget/TrendingWidget'
 import Loading from '../../components/Loading/Loading'
 import './NewsDetail.css'
 
+const VIEW_TIMEOUT = 3600
+
 const NewsDetail = () => {
   const {id} = useParams()
   const {data, loading, error} = useFetchData(
     `${process.env.REACT_APP_API_URL}/news/${id}`,
   )
+
+  useEffect(() => {
+    const news_id = id
+    const now = Math.floor(Date.now() / 1000)
+
+    let viewedNews = {}
+    try {
+      viewedNews = JSON.parse(Cookies.get('viewedNews') || '{}')
+    } catch {
+      viewedNews = {}
+    }
+
+    const lastViewed = viewedNews[news_id]
+    if (!lastViewed || now - lastViewed > VIEW_TIMEOUT) {
+      const timer = setTimeout(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/news/${news_id}/view`, {
+          method: 'POST',
+        })
+      }, 5000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [id])
 
   return (
     <section className="news-detail">

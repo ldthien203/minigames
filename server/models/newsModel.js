@@ -125,10 +125,24 @@ const getLatestComment = async () => {
   }
 }
 
+const updateViewCount = async id => {
+  try {
+    const query = `
+      UPDATE news
+      SET view_count = view_count + 1
+      WHERE news_id = $1 
+    `
+    await db.query(query, [id])
+  } catch (error) {
+    console.error('Error updating view count')
+  }
+}
+
 export {
   getAllNews,
   getNewsById,
   getAllNewsType,
   getTrendingNews,
   getLatestComment,
+  updateViewCount,
 }

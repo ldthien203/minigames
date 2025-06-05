@@ -5,6 +5,7 @@ import {
   getAllNewsType,
   getTrendingNews,
   getLatestComment,
+  updateViewCount,
 } from '../models/newsModel.js'
 
 const fetchAllNews = async (req, res) => {
@@ -81,10 +82,22 @@ const fetchLatestComment = async (req, res) => {
   }
 }
 
+const fetchUpdateViewCount = async (req, res) => {
+  const id = req.params.id
+  try {
+    await updateViewCount(id)
+    res.status(200).json({success: true})
+  } catch (error) {
+    console.error('Error fetching update view count: ', error.message)
+    res.status(500).json({error: 'Failed to fetch update view count'})
+  }
+}
+
 export {
   fetchAllNews,
   fetchNewsById,
   fetchAllNewsType,
   fetchTrendingNews,
   fetchLatestComment,
+  fetchUpdateViewCount,
 }

@@ -40,7 +40,7 @@ export const AuthContextProvider = ({children}) => {
       }
 
       const {user, token} = await response.json()
-      Cookies.set('user', JSON.stringify(user), {expires: 1})
+      Cookies.set('user', JSON.stringify(user), {expires: 7})
       Cookies.set('token', token, {expires: 1})
       setUser(user)
       return true

@@ -91,7 +91,7 @@ const updateUser = async ({
       UPDATE "user"
       SET username = $1, full_name = $2, age = $3, email = $4, avatar = $5
       WHERE user_id = $6
-      RETURNING username, full_name, age, email, avatar, user_id
+      RETURNING username, full_name, age, email, avatar, user_id, created_at
     `
 
     const values = [username, fullname, age, email, avatar, user_id]

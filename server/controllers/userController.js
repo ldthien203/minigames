@@ -35,7 +35,7 @@ const updateUserById = async (req, res) => {
   const {user_id, username, fullname, age, email} = req.body
   const avatar = req.file ? req.file.path : null
   try {
-    const updatedUser = await updateUser({
+    const user = await updateUser({
       user_id,
       username,
       fullname,
@@ -43,6 +43,11 @@ const updateUserById = async (req, res) => {
       email,
       avatar,
     })
+
+    const updatedUser = {
+      ...user,
+      created_at: formatDate(user.created_at),
+    }
 
     res.json(updatedUser)
   } catch (error) {

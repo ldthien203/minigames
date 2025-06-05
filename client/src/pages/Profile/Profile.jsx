@@ -84,7 +84,7 @@ const Profile = () => {
                   data.preview
                     ? data.preview
                     : data.avatar
-                    ? `${process.env.REACT_APP_API_URL}${data.avatar}`
+                    ? data.avatar
                     : '/assets/img/avatar.png'
                 }
                 alt="avatar"

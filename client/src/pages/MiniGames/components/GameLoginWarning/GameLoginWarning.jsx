@@ -1,9 +1,10 @@
 import {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import './GameLoginWarning.css'
 
 const GameLoginWarning = ({user}) => {
   const navigate = useNavigate()
+  const location = useLocation()
   const [isVisible, setIsVisible] = useState(true)
 
   if (!isVisible) return null
@@ -18,7 +19,7 @@ const GameLoginWarning = ({user}) => {
         <button
           className="redirect-button"
           onClick={() => {
-            navigate('/sign-in')
+            navigate(`/sign-in?redirect=${location.pathname}`)
           }}
         >
           Go to Login

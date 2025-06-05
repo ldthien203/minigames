@@ -1,14 +1,17 @@
 import './Login.css'
 import React from 'react'
-import {useNavigate} from 'react-router'
+import {useNavigate, useLocation} from 'react-router'
 import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [message, setMessage] = React.useState('')
-  const navigate = useNavigate()
   const {login} = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const params = new URLSearchParams(location.search)
+  const redirectPath = params.get('redirect') || '/'
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -16,7 +19,7 @@ const Login = () => {
     const success = await login(username, password)
     if (success) {
       setMessage('Login successful! Redirecting...')
-      setTimeout(() => navigate('/'), 1000)
+      setTimeout(() => navigate(redirectPath), 1000)
     } else {
       setMessage('Something wrong, try again!')
     }

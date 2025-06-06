@@ -2,11 +2,10 @@ import {formatDate, processGameData} from '../utils/dataFormat.js'
 import {
   getAllGames,
   getGameById,
-  getGameCommentAuthor,
   getNewestReleaseGame,
 } from '../models/gameModel.js'
 
-const fetchAllGames = async (req, res) => {
+const fetchGetAllGames = async (req, res) => {
   try {
     const {genre, platform, sort, order} = req.query
     const gamesQueried = await getAllGames({genre, platform, sort, order})
@@ -18,21 +17,19 @@ const fetchAllGames = async (req, res) => {
   }
 }
 
-const fetchGameById = async (req, res) => {
+const fetchGetGameById = async (req, res) => {
   const id = req.params.id
   try {
     const gameQueried = await getGameById(id)
-    const comment = await getGameCommentAuthor(id)
-
     const game = processGameData(gameQueried)
-    res.json({...game, ...comment})
+    res.json(game)
   } catch (error) {
     console.error('Error fetching games:', error.message)
     res.status(500).json({error: 'Failed to fetch games'})
   }
 }
 
-const fetchNewestReleaseGame = async (req, res) => {
+const fetchGetNewestReleaseGame = async (req, res) => {
   try {
     const newestGameQueried = await getNewestReleaseGame()
     const newestGame = {
@@ -47,4 +44,4 @@ const fetchNewestReleaseGame = async (req, res) => {
   }
 }
 
-export {fetchAllGames, fetchGameById, fetchNewestReleaseGame}
+export {fetchGetAllGames, fetchGetGameById, fetchGetNewestReleaseGame}

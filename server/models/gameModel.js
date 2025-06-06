@@ -63,9 +63,13 @@ const getAllGames = async ({genre, platform, sort, order}) => {
 
 const getGameById = async id => {
   try {
-    const result = await db.query(
-      `
-      SELECT g.*,
+    const query = `
+        SELECT 
+          g.game_id,
+          g.name,
+          g.release_date,
+          g.summary,
+          g.conclusion,
           gi.thumbnail,
           gi.screenshot,
           ARRAY_AGG(DISTINCT genre.short_name) AS genre_short_name,
@@ -73,41 +77,21 @@ const getGameById = async id => {
           ROUND(AVG(r.graphics), 1) AS avg_graphics,
           ROUND(AVG(r.levels), 1) AS avg_levels,
           ROUND(AVG(r.gameplay), 1) AS avg_gameplay,
-          ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack 
-      FROM games g
-      LEFT JOIN game_image gi ON g.game_id = gi.game_id
-      LEFT JOIN rating r ON g.game_id = r.game_id
-      LEFT JOIN game_genres gg ON gg.game_id = g.game_id
-      LEFT JOIN genre ON genre.genre_id = gg.genre_id 
-      WHERE g.game_id = $1 
-      GROUP BY g.game_id, g.name, g.release_date, g.summary, gi.thumbnail, gi.screenshot, genre.short_name
-      `,
-      [id],
-    )
+          ROUND(AVG(r.soundtrack), 1) AS avg_soundtrack
+        FROM games g
+        LEFT JOIN game_image gi ON g.game_id = gi.game_id
+        LEFT JOIN rating r ON g.game_id = r.game_id
+        LEFT JOIN game_genres gg ON gg.game_id = g.game_id
+        LEFT JOIN genre ON genre.genre_id = gg.genre_id 
+        WHERE g.game_id = $1 
+        GROUP BY g.game_id, g.name, g.release_date, g.summary, gi.thumbnail, gi.screenshot, 
+        genre.short_name
+    `
+
+    const result = await db.query(query, [id])
     return result.rows[0]
   } catch (error) {
     console.error('Error getting game:', error.message)
-  }
-}
-
-const getGameCommentAuthor = async id => {
-  try {
-    const result = await db.query(
-      `
-      SELECT 
-        u.username as user_username,
-        u.avatar as user_avatar,
-        uc.content as user_comment
-      from user_comment uc
-      JOIN "user" u ON uc.user_id = u.user_id
-      WHERE uc.game_id = $1
-      LIMIT 1
-    `,
-      [id],
-    )
-    return result.rows[0]
-  } catch (error) {
-    console.error('Error getting author comment:', error.message)
   }
 }
 
@@ -131,4 +115,4 @@ const getNewestReleaseGame = async () => {
   }
 }
 
-export {getAllGames, getGameById, getGameCommentAuthor, getNewestReleaseGame}
+export {getAllGames, getGameById, getNewestReleaseGame}

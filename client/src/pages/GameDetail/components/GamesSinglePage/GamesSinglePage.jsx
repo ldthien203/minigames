@@ -2,8 +2,9 @@ import {Link} from 'react-router-dom'
 import IconLink from '../../../../components/IconLink/IconLink'
 import StickSidebar from '../../../../components/StickSidebar/StickSidebar'
 import Category from '../../../../components/Category/Category'
-import './GamesSinglePage.css'
 import WidgetItem from '../../../../components/WidgetItem/WidgetItem'
+import Comment from '../../../../components/Comment/Comment'
+import './GamesSinglePage.css'
 
 const GamesSinglePage = ({
   game = {
@@ -25,20 +26,21 @@ const GamesSinglePage = ({
     <section className="games-single-page">
       <div className="container">
         <div className="game-single-preview">
-          <img src={game?.screenshot} alt="game" />
+          <img src={game.screenshot} alt="game" />
         </div>
         <div className="row">
           <div className="col-1 game-single-content">
             <div className="gs-meta">
-              {game?.release_date} / in
+              {game.release_date} / in
               <Link to="/games"> Games</Link>
             </div>
-            <h2 className="gs-title">{game?.name}</h2>
+            <h2 className="gs-title">{game.name}</h2>
             <h4>Gameplay</h4>
-            <p>{game?.summary}</p>
+            <p>{game.summary}</p>
             <h4>Conclusion</h4>
-            <p>{game?.conclusion}</p>
+            <p>{game.conclusion}</p>
             <IconLink text="Share: " align="left" />
+            <Comment type="game" id={game.game_id} />
           </div>
           <div className="col-2">
             <StickSidebar>

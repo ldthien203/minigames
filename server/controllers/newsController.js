@@ -6,10 +6,9 @@ import {
   getTrendingNews,
   getLatestComment,
   updateViewCount,
-  addNewsComment,
 } from '../models/newsModel.js'
 
-const fetchAllNews = async (req, res) => {
+const fetchGetAllNews = async (req, res) => {
   const type = req.query.type
   try {
     const newsQueried = await getAllNews({type})
@@ -25,7 +24,7 @@ const fetchAllNews = async (req, res) => {
   }
 }
 
-const fetchNewsById = async (req, res) => {
+const fetchGetNewsById = async (req, res) => {
   const id = req.params.id
   try {
     const queriedNews = await getNewsById(id)
@@ -41,7 +40,7 @@ const fetchNewsById = async (req, res) => {
   }
 }
 
-const fetchAllNewsType = async (req, res) => {
+const fetchGetAllNewsType = async (req, res) => {
   try {
     const queriedNewsType = await getAllNewsType()
 
@@ -52,7 +51,7 @@ const fetchAllNewsType = async (req, res) => {
   }
 }
 
-const fetchTrendingNews = async (req, res) => {
+const fetchGetTrendingNews = async (req, res) => {
   const limit = req.query.limit || 4
   try {
     const queriedTrendingNews = await getTrendingNews(limit)
@@ -68,7 +67,7 @@ const fetchTrendingNews = async (req, res) => {
   }
 }
 
-const fetchLatestComment = async (req, res) => {
+const fetchGetLatestComment = async (req, res) => {
   try {
     const queriedCmt = await getLatestComment()
     const comment = queriedCmt.map(cmt => ({
@@ -94,28 +93,11 @@ const fetchUpdateViewCount = async (req, res) => {
   }
 }
 
-const fetchAddNewsComment = async (req, res) => {
-  const {user_id, news_id, content} = req.body
-  try {
-    const queriedCmt = await addNewsComment(user_id, news_id, content)
-    const comment = queriedCmt.map(cmt => ({
-      ...cmt,
-      created_at: formatDate(cmt.created_at),
-    }))
-
-    res.status(200).json(comment)
-  } catch (error) {
-    console.error('Error fetching add news comment: ', error.message)
-    res.status(500).json({error: 'Failed to fetch add news comment'})
-  }
-}
-
 export {
-  fetchAllNews,
-  fetchNewsById,
-  fetchAllNewsType,
-  fetchTrendingNews,
-  fetchLatestComment,
+  fetchGetAllNews,
+  fetchGetNewsById,
+  fetchGetAllNewsType,
+  fetchGetTrendingNews,
+  fetchGetLatestComment,
   fetchUpdateViewCount,
-  fetchAddNewsComment,
 }

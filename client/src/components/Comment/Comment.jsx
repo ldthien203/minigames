@@ -1,10 +1,26 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import useAuth from '../../hooks/useAuth'
 import './Comment.css'
 
-const Comment = ({comments, news_id, reloadNews}) => {
+const Comment = ({type, id}) => {
   const [commentText, setCommentText] = useState('')
+  const [comments, setComments] = useState([])
   const {user} = useAuth()
+
+  const fetchComments = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/comment/${type}/${id}`,
+    )
+    if (!response.ok) return
+
+    const data = await response.json()
+    setComments(data)
+  }
+
+  useEffect(() => {
+    fetchComments()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, id])
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -12,7 +28,7 @@ const Comment = ({comments, news_id, reloadNews}) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/news/${news_id}/comment`,
+        `${process.env.REACT_APP_API_URL}/comment/${type}/${id}`,
         {
           method: 'POST',
           headers: {
@@ -21,7 +37,8 @@ const Comment = ({comments, news_id, reloadNews}) => {
           },
           body: JSON.stringify({
             user_id: user.id,
-            news_id,
+            target_id: id,
+            target_type: type,
             content: commentText,
           }),
         },
@@ -29,7 +46,7 @@ const Comment = ({comments, news_id, reloadNews}) => {
 
       if (response.ok) {
         setCommentText('')
-        reloadNews && reloadNews()
+        fetchComments()
       } else {
         alert('Failed to send comment')
       }
@@ -58,12 +75,12 @@ const Comment = ({comments, news_id, reloadNews}) => {
           <p className="comment-warning">You must be logged in to comment</p>
         )}
       </form>
-      {comments && comments.length > 0 ? (
+      {comments ? (
         <ul className="comments-list">
-          {comments.map((comment, index) => (
-            <li key={index} className="comment-item">
+          {comments.map(comment => (
+            <li key={comment.comment_id} className="comment-item">
               <p>
-                <strong>{comment.user_username}</strong> {comment.user_comment}
+                <strong>{comment.username}</strong> {comment.content}
               </p>
             </li>
           ))}

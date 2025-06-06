@@ -36,31 +36,20 @@ const getAllNews = async ({type}) => {
 
 const getNewsById = async id => {
   try {
-    let queryStr = `
+    const queryStr = `
       SELECT 
         n.news_id,
         n.title,
         n.content,
         n.published_at AS publish_date,
         nt.type AS news_type,
-        c.name AS category_name,
-        ARRAY_AGG(
-          CASE
-            WHEN nc.content IS NOT NULL THEN
-              JSON_BUILD_OBJECT(
-                'user_id', nc.user_id, 
-                'user_username', u.username,
-                'user_comment', nc.content
-              )
-          END
-        ) FILTER (WHERE nc.content IS NOT NULL) AS comments
+        c.name AS category_name
       FROM news n
       LEFT JOIN news_types nt ON nt.news_type_id = n.news_type_id
       LEFT JOIN category c ON c.category_id = n.category_id
-      LEFT JOIN news_comment nc ON nc.news_id = n.news_id
-      LEFT JOIN "user" u ON u.user_id = nc.user_id
       WHERE n.news_id = $1
-      GROUP BY n.news_id, nt.type, c.name`
+      GROUP BY n.news_id, nt.type, c.name
+    `
 
     const result = await db.query(queryStr, [id])
     return result.rows[0]
@@ -138,20 +127,6 @@ const updateViewCount = async id => {
   }
 }
 
-const addNewsComment = async (user_id, news_id, content) => {
-  try {
-    const query = `
-      INSERT INTO news_comment (user_id, news_id, content)
-      VALUES ($1, $2, $3)
-      RETURNING *
-    `
-    const result = await db.query(query, [user_id, news_id, content])
-    return result.rows
-  } catch (error) {
-    console.error('Error adding news comment')
-  }
-}
-
 export {
   getAllNews,
   getNewsById,
@@ -159,5 +134,4 @@ export {
   getTrendingNews,
   getLatestComment,
   updateViewCount,
-  addNewsComment,
 }

@@ -1,14 +1,14 @@
 import express from 'express'
 import {
-  fetchAllGames,
-  fetchGameById,
-  fetchNewestReleaseGame,
+  fetchGetAllGames,
+  fetchGetGameById,
+  fetchGetNewestReleaseGame,
 } from '../controllers/gameController.js'
 
 const router = express.Router()
 
-router.get('/', fetchAllGames)
-router.get('/newest', fetchNewestReleaseGame)
-router.get('/:id', fetchGameById)
+router.get('/', fetchGetAllGames)
+router.get('/newest', fetchGetNewestReleaseGame)
+router.get('/:id', fetchGetGameById)
 
 export default router

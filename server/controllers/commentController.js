@@ -1,4 +1,8 @@
-import {getComments, addComment} from '../models/commentModel.js'
+import {
+  getComments,
+  addComment,
+  getLatestComment,
+} from '../models/commentModel.js'
 import {formatDate} from '../utils/dataFormat.js'
 
 const fetchGetComments = async (req, res) => {
@@ -34,4 +38,19 @@ const fetchAddComment = async (req, res) => {
   }
 }
 
-export {fetchGetComments, fetchAddComment}
+const fetchGetLatestComment = async (req, res) => {
+  try {
+    const queriedCmt = await getLatestComment()
+    const comment = queriedCmt.map(cmt => ({
+      ...cmt,
+      created_at: formatDate(cmt.created_at),
+    }))
+
+    res.status(200).json(comment)
+  } catch (error) {
+    console.error('Error fetching latest comment: ', error.message)
+    res.status(500).json({error: 'Failed to fetch latest comment'})
+  }
+}
+
+export {fetchGetComments, fetchAddComment, fetchGetLatestComment}

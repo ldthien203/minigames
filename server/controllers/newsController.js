@@ -4,7 +4,6 @@ import {
   getNewsById,
   getAllNewsType,
   getTrendingNews,
-  getLatestComment,
   updateViewCount,
 } from '../models/newsModel.js'
 
@@ -67,21 +66,6 @@ const fetchGetTrendingNews = async (req, res) => {
   }
 }
 
-const fetchGetLatestComment = async (req, res) => {
-  try {
-    const queriedCmt = await getLatestComment()
-    const comment = queriedCmt.map(cmt => ({
-      ...cmt,
-      created_at: formatDate(cmt.created_at),
-    }))
-
-    res.status(200).json(comment)
-  } catch (error) {
-    console.error('Error fetching latest comment: ', error.message)
-    res.status(500).json({error: 'Failed to fetch latest comment'})
-  }
-}
-
 const fetchUpdateViewCount = async (req, res) => {
   const id = req.params.id
   try {
@@ -98,6 +82,5 @@ export {
   fetchGetNewsById,
   fetchGetAllNewsType,
   fetchGetTrendingNews,
-  fetchGetLatestComment,
   fetchUpdateViewCount,
 }

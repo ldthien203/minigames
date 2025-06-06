@@ -44,4 +44,28 @@ const addComment = async (user_id, target_id, target_type, content) => {
   }
 }
 
-export {getComments, addComment}
+const getLatestComment = async () => {
+  try {
+    const query = `
+      SELECT 
+        c.comment_id AS cmt_id,
+        c.target_id,
+        n.title, 
+        u.username,
+        u.avatar,
+        c.created_at
+      FROM comment c
+      LEFT JOIN news n ON n.news_id = c.target_id
+      LEFT JOIN "user" u ON u.user_id = c.user_id
+      WHERE c.target_type = 'news'
+      ORDER BY c.created_at DESC
+      LIMIT 4
+    `
+    const result = await db.query(query)
+    return result.rows
+  } catch (error) {
+    console.error('Error getting latest comment')
+  }
+}
+
+export {getComments, addComment, getLatestComment}

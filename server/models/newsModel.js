@@ -91,29 +91,6 @@ const getTrendingNews = async ({limit = 4}) => {
   }
 }
 
-const getLatestComment = async () => {
-  try {
-    const query = `
-      SELECT 
-        nc.news_cmt_id AS cmt_id,
-        nc.news_id,
-        n.title, 
-        u.username,
-        u.avatar,
-        nc.created_at
-      FROM news_comment nc
-      LEFT JOIN news n ON n.news_id = nc.news_id
-      LEFT JOIN "user" u ON u.user_id = nc.news_id
-      ORDER BY nc.created_at DESC
-      LIMIT 4
-    `
-    const result = await db.query(query)
-    return result.rows
-  } catch (error) {
-    console.error('Error getting latest comment')
-  }
-}
-
 const updateViewCount = async id => {
   try {
     const query = `
@@ -132,6 +109,5 @@ export {
   getNewsById,
   getAllNewsType,
   getTrendingNews,
-  getLatestComment,
   updateViewCount,
 }

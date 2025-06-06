@@ -5,7 +5,7 @@ import './LatestComment.css'
 
 const LatestComment = () => {
   const {data, loading, error} = useFetchData(
-    `${process.env.REACT_APP_API_URL}/news/latest`,
+    `${process.env.REACT_APP_API_URL}/comment/latest`,
   )
 
   if (loading) return <Loading />
@@ -15,7 +15,7 @@ const LatestComment = () => {
     <div className="latest-comments">
       {data &&
         data.map(cmt => (
-          <div key={cmt.username} className="lc-item">
+          <div key={cmt.cmt_id} className="lc-item">
             <img
               src={cmt?.avatar || '/assets/img/avatar.png'}
               alt="lc-avatar"

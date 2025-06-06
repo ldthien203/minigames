@@ -5,6 +5,7 @@ import {
   fetchAllNewsType,
   fetchTrendingNews,
   fetchLatestComment,
+  fetchAddNewsComment,
   fetchUpdateViewCount,
 } from '../controllers/newsController.js'
 
@@ -16,5 +17,6 @@ router.get('/trending', fetchTrendingNews)
 router.get('/latest', fetchLatestComment)
 router.get('/:id', fetchNewsById)
 router.post('/:id/view', fetchUpdateViewCount)
+router.post('/:id/comment', fetchAddNewsComment)
 
 export default router

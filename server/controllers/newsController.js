@@ -6,6 +6,7 @@ import {
   getTrendingNews,
   getLatestComment,
   updateViewCount,
+  addNewsComment,
 } from '../models/newsModel.js'
 
 const fetchAllNews = async (req, res) => {
@@ -75,7 +76,7 @@ const fetchLatestComment = async (req, res) => {
       created_at: formatDate(cmt.created_at),
     }))
 
-    res.json(comment)
+    res.status(200).json(comment)
   } catch (error) {
     console.error('Error fetching latest comment: ', error.message)
     res.status(500).json({error: 'Failed to fetch latest comment'})
@@ -93,6 +94,22 @@ const fetchUpdateViewCount = async (req, res) => {
   }
 }
 
+const fetchAddNewsComment = async (req, res) => {
+  const {user_id, news_id, content} = req.body
+  try {
+    const queriedCmt = await addNewsComment(user_id, news_id, content)
+    const comment = queriedCmt.map(cmt => ({
+      ...cmt,
+      created_at: formatDate(cmt.created_at),
+    }))
+
+    res.status(200).json(comment)
+  } catch (error) {
+    console.error('Error fetching add news comment: ', error.message)
+    res.status(500).json({error: 'Failed to fetch add news comment'})
+  }
+}
+
 export {
   fetchAllNews,
   fetchNewsById,
@@ -100,4 +117,5 @@ export {
   fetchTrendingNews,
   fetchLatestComment,
   fetchUpdateViewCount,
+  fetchAddNewsComment,
 }

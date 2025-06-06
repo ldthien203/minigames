@@ -1,0 +1,76 @@
+.comments-section {
+  margin: 40px 20px 0 0;
+  padding: 20px;
+  background-color: #3a1d4f;
+  border-radius: 8px;
+}
+
+.comments-section h3 {
+  color: #b01ba5;
+  margin-bottom: 20px;
+}
+
+.comments-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.comments-section form textarea {
+  min-height: 60px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #6c3483;
+  background: #2d1854;
+  color: #fff;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.comments-section form textarea:focus {
+  outline: none;
+  border: 1.5px solid #b01ba5;
+  background: #311b4f;
+}
+
+.comments-section form button {
+  align-self: flex-end;
+  background: linear-gradient(90deg, #b01ba5, #6c3483);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.comments-section form button:hover {
+  background: linear-gradient(90deg, #6c3483, #b01ba5);
+}
+
+.comments-section .comments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comments-section .comment-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #6c3483;
+  background: #2d1854;
+}
+
+.comments-section .comment-item p {
+  margin: 0;
+  color: #d1c4e9;
+  line-height: 1.6;
+}
+
+.comments-section .comment-item strong {
+  color: #b01ba5;
+}

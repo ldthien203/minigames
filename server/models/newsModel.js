@@ -138,6 +138,20 @@ const updateViewCount = async id => {
   }
 }
 
+const addNewsComment = async (user_id, news_id, content) => {
+  try {
+    const query = `
+      INSERT INTO news_comment (user_id, news_id, content)
+      VALUES ($1, $2, $3)
+      RETURNING *
+    `
+    const result = await db.query(query, [user_id, news_id, content])
+    return result.rows
+  } catch (error) {
+    console.error('Error adding news comment')
+  }
+}
+
 export {
   getAllNews,
   getNewsById,
@@ -145,4 +159,5 @@ export {
   getTrendingNews,
   getLatestComment,
   updateViewCount,
+  addNewsComment,
 }

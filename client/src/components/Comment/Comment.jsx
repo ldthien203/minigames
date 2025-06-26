@@ -75,7 +75,7 @@ const Comment = ({type, id}) => {
           <p className="comment-warning">You must be logged in to comment</p>
         )}
       </form>
-      {comments ? (
+      {comments && comments.length > 0 ? (
         <ul className="comments-list">
           {comments.map(comment => (
             <li key={comment.comment_id} className="comment-item">

@@ -6,18 +6,27 @@ const FeaturedSection = () => {
   const [newGame, setNewGame] = useState({})
 
   useEffect(() => {
+    const controller = new AbortController()
+
     const fetchNewGame = async () => {
       try {
         const response = await fetch(
           `${process.env.REACT_APP_API_URL}/games/newest`,
+          {signal: controller.signal},
         )
         const data = await response.json()
         setNewGame(data)
       } catch (error) {
-        console.error('Error fetching new game', error.message)
+        if (error.name !== 'AbortError') {
+          console.error('Error fetching new game', error.message)
+        }
       }
     }
     fetchNewGame()
+
+    return () => {
+      controller.abort()
+    }
   }, [])
 
   return (

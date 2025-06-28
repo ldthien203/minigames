@@ -30,13 +30,23 @@ const NewsDetail = () => {
 
     const lastViewed = viewedNews[news_id]
     if (!lastViewed || now - lastViewed > VIEW_TIMEOUT) {
+      const controller = new AbortController()
+
       const timer = setTimeout(() => {
         fetch(`${process.env.REACT_APP_API_URL}/news/${news_id}/view`, {
           method: 'POST',
+          signal: controller.signal,
+        }).catch(err => {
+          if (err.name !== 'AbortError') {
+            console.error('Error counting view', err.message)
+          }
         })
       }, 5000)
 
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+        controller.abort()
+      }
     }
   }, [id])
 

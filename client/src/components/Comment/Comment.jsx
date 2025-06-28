@@ -7,18 +7,32 @@ const Comment = ({type, id}) => {
   const [comments, setComments] = useState([])
   const {user} = useAuth()
 
-  const fetchComments = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/comment/${type}/${id}`,
-    )
-    if (!response.ok) return
+  const controller = new AbortController()
 
-    const data = await response.json()
-    setComments(data)
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/comment/${type}/${id}`,
+        {signal: controller.signal},
+      )
+
+      if (!response.ok) return
+
+      const data = await response.json()
+      setComments(data)
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error('Error fetching comments', err.message)
+      }
+    }
   }
 
   useEffect(() => {
     fetchComments()
+
+    return () => {
+      controller.abort()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, id])
 

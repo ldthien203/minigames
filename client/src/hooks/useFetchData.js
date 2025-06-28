@@ -19,6 +19,8 @@ const useFetchData = (
   useEffect(() => {
     if (!url) return
 
+    const controller = new AbortController()
+
     const fetchData = async () => {
       setLoading(true)
       setError(null)
@@ -32,6 +34,7 @@ const useFetchData = (
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          signal: controller.signal,
         })
 
         if (!response.ok) {
@@ -42,14 +45,20 @@ const useFetchData = (
         const result = await response.json()
         setData(result)
       } catch (error) {
-        console.error(errorMsg, error)
-        setError(error.message)
+        if (error.name !== 'AbortError') {
+          console.error(errorMsg, error)
+          setError(error.message)
+        }
       } finally {
         setLoading(false)
       }
     }
 
     fetchData()
+
+    return () => {
+      controller.abort()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, errorMsg, JSON.stringify(stableQueryParams)])
 

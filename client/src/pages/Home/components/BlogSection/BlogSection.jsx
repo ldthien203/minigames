@@ -114,7 +114,7 @@ const BlogSection = () => {
               </WidgetItem>
               <WidgetItem>
                 <Link to="#" className="add">
-                  <img src="/assets/img/add.jpg" alt="add" />
+                  <img src="/assets/img/add.jpg" alt="add" loading="lazy" />
                 </Link>
               </WidgetItem>
             </StickSidebar>

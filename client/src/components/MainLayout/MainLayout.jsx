@@ -1,8 +1,11 @@
+import {lazy, Suspense} from 'react'
 import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
 import PageTop from '../PageTopSection/PageTopSection'
-import NewsLetter from '../NewsLetter/NewsLetter'
+import Loading from '../Loading/Loading'
 import './MainLayout.css'
+
+const NewsLetter = lazy(() => import('../NewsLetter/NewsLetter'))
+const Footer = lazy(() => import('../Footer/Footer'))
 
 const MainLayout = ({path, children}) => {
   return (
@@ -10,8 +13,12 @@ const MainLayout = ({path, children}) => {
       <Header />
       <PageTop path={path} />
       <main>{children}</main>
-      <NewsLetter />
-      <Footer />
+      <Suspense fallback={<Loading />}>
+        <NewsLetter />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Footer />
+      </Suspense>
     </div>
   )
 }

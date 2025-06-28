@@ -1,10 +1,16 @@
-import '../../App.css'
-import {Fragment} from 'react'
+import {Fragment, lazy, Suspense} from 'react'
 import HeroSection from './components/HeroSection/HeroSection'
 import IntroSection from './components/IntroSection/IntroSection'
 import BlogSection from './components/BlogSection/BlogSection'
-import IntroVideoSection from './components/IntroVideoSection/IntroVideoSection'
-import FeaturedSection from '../../components/FeaturedSection/FeaturedSection'
+import Loading from '../../components/Loading/Loading'
+import '../../App.css'
+
+const IntroVideoSection = lazy(() =>
+  import('./components/IntroVideoSection/IntroVideoSection'),
+)
+const FeaturedSection = lazy(() =>
+  import('../../components/FeaturedSection/FeaturedSection'),
+)
 
 const Home = () => {
   return (
@@ -12,8 +18,12 @@ const Home = () => {
       <HeroSection />
       <IntroSection />
       <BlogSection />
-      <IntroVideoSection />
-      <FeaturedSection />
+      <Suspense fallback={<Loading />}>
+        <IntroVideoSection />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <FeaturedSection />
+      </Suspense>
     </Fragment>
   )
 }

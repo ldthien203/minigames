@@ -8,13 +8,21 @@ const Footer = () => {
     <footer className="footer-section">
       <div className="container">
         <div className="footer-left-pic">
-          <img src="/assets/img/footer-left-pic.png" alt="footer left pic" />
+          <img
+            src="/assets/img/footer-left-pic.png"
+            alt="footer left pic"
+            loading="lazy"
+          />
         </div>
         <div className="footer-right-pic">
-          <img src="/assets/img/footer-right-pic.png" alt="footer right pic" />
+          <img
+            src="/assets/img/footer-right-pic.png"
+            alt="footer right pic"
+            loading="lazy"
+          />
         </div>
         <Link to="/" className="footer-logo">
-          <img src={'/assets/img/logo.png'} alt="logo" />
+          <img src={'/assets/img/logo.png'} alt="logo" loading="lazy" />
         </Link>
         <MainMenu showSubMenu={false} />
         <IconLink showText={false} align="center" />
